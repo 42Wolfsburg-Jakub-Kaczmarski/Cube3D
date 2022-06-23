@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/23 15:22:10 by jkaczmar         ###   ########.fr       */
+/*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
+/*   Updated: 2022/06/23 15:22:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "MLX42/include/MLX42/MLX42.h"
+#ifndef CUBE
+#define CUBE
 
-int main(void)
-{
-	mlx_init(300,300, "BOOM", 0);
-	printf("Hello world!\n");
-}
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+#define WIDTH 1280
+#define HEIGHT 768s
+#define PI 3.14159265359
+
+
+#endif
