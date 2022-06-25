@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 15:47:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:51:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct mlx_and_image
   mlx_t *mlx;
   //Index 0 reserved for the player
   mlx_image_t **img_arr;
-    
 } mai_t;
 int worldMap[9][9]=
 {
@@ -67,6 +66,18 @@ void load_textures(mai_t *mlx)
   }
   //Wall
   mlx->img_arr[2] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+  i = 0;
+  j = 0;
+   while(i < IMG_SIDE)
+  {
+    j = 0;
+    while(j < IMG_SIDE)
+    {
+      mlx_put_pixel(mlx->img_arr[2], i, j, 0xFFFFFF);
+      j++;
+    }
+    i++;
+  }
   //Load_colors for now
 }
 
@@ -87,10 +98,12 @@ void draw_grid(mai_t *mlx)
     {
         if(worldMap[i][j] == 1)
           mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
-        y += IMG_SIDE;
+        else if(worldMap[i][j] == 0)
+          mlx_image_to_window(mlx->mlx, mlx->img_arr[2], x, y);
+        y += IMG_SIDE + 1;
         j++;
     }
-    x += IMG_SIDE;
+    x += IMG_SIDE + 1;
     i++;
   }
 }
