@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 15:46:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:47:53 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void draw_grid(mai_t *mlx)
     y = 0;
     while(j < 9)
     {
-      perror("Zium");
         if(worldMap[i][j] == 1)
           mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
         y += IMG_SIDE;
@@ -125,11 +124,12 @@ int	main(void)
   //Before rendering get the map dimensions
   int x = 9;
   int y = 9;
+  int texture_ammout = 5;
   mai_t mlx_info;
 	mlx_info.mlx = mlx_init(x * IMG_SIDE, y * IMG_SIDE, "Kurwiszon", true);
   if (!mlx_info.mlx)
 		exit(-99);
-  mlx_info.img_arr = calloc(5 ,sizeof(mlx_image_t));
+  mlx_info.img_arr = calloc(texture_ammout ,sizeof(mlx_image_t));
   draw_grid(&mlx_info);
   draw_player(&mlx_info);
   mlx_loop_hook(mlx_info.mlx, &movement_hook, &mlx_info);
