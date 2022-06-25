@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 13:51:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/25 14:26:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct mlx_and_image
 {
   mlx_t *mlx;
   mlx_image_t *img;
+  mlx_image_t *wall;
     
 } mai_t;
 
@@ -79,9 +80,30 @@ void draw_grid(mai_t *mlx)
 {
   mlx->img = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
   memset(mlx->img->pixels, 255, IMG_SIDE * IMG_SIDE * sizeof(int));
+  mlx->wall = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+  int i = 0;
+  int j = 0;
+  while(i < IMG_SIDE)
+	{
+		j = 0;
+		while(j < IMG_SIDE)
+		{
+			mlx_put_pixel(mlx->wall, i, j, 0x000FFFF);
+			j++;
+		}
+
+		i++;
+	}
   for(int i = 0; i < mlx->mlx->height; i += IMG_SIDE + 1)
     for(int j = 0; j < mlx->mlx->width; j += IMG_SIDE + 1)
-      mlx_image_to_window(mlx->mlx, mlx->img, j, i);
+	{
+		if(j == 0 || j + IMG_SIDE + 1 > mlx->mlx->width || i == 0 || i + IMG_SIDE + 1 > mlx->mlx->height)
+		{
+			mlx_image_to_window(mlx->mlx, mlx->wall, j, i);
+		}else{
+			mlx_image_to_window(mlx->mlx, mlx->img, j, i);
+		}
+	}
 }
 
 void draw_player(mai_t *yes)
