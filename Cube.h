@@ -6,12 +6,12 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 16:05:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:35:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
-#define CUBE_H
+# define CUBE_H
 
 #include "MLX42/include/MLX42/MLX42.h"
 #include <stdio.h>
@@ -25,8 +25,15 @@
 #define WINDOW_WIDTH ((ROWS * IMG_SIDE) + ROWS - 1)
 #define WINDOW_HEIGHT ((COLS * IMG_SIDE) + COLS - 1)
 
+# include <unistd.h>
 #define PI 3.14159265359
-
+# if defined(__linux__)
+    #define AUDIO "/usr/bin/aplay"
+# elif defined(__APPLE__)
+    #define AUDIO "/usr/bin/afplay", "--volume", "1"
+# else 
+	#define AUDIO ""
+# endif
 typedef struct mlx_and_image
 {
   mlx_t *mlx;

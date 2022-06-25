@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 16:32:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:43:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,20 @@ void draw_player(mai_t *mlx_info, int x, int y)
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[0], ((float)x * IMG_SIDE) / 2, ((float)y * IMG_SIDE) / 2);
 
     mlx_info->img_arr[3] = mlx_new_image(mlx_info->mlx, mlx_info->px, mlx_info->py);
-    memset(mlx_info->img_arr[3]->pixels, 200, 200);
-    mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[3], (PLAYER_SIZE + ((float)x * IMG_SIDE) / 2), (PLAYER_SIZE + (float)y * IMG_SIDE) / 2);
+
+    mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[3], ((float)PLAYER_SIZE + ((float)x * IMG_SIDE) / 2), ((float)PLAYER_SIZE + (float)y * IMG_SIDE) / 2);
 }
 
 void rotating_player(mai_t  *mlx_info)
 {
 	if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_W))
 	{
+        int x = mlx_info->img_arr[3]->instances->x;
+        int y = mlx_info->img_arr[3]->instances->y;
         mlx_info->px+=mlx_info->pdx;
-        mlx_info->py+=mlx_info->pdy;
+        mlx_info->py+=mlx_info->pdy; 
+        mlx_info->img_arr[3]->instances->x = x * cos(PI / 180) - y * sin(PI/180);
+        mlx_info->img_arr[3]->instances->y = x * sin(PI / 180) - y * cos(PI/180);
 	}if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_S))
 	{
         mlx_info->px-=mlx_info->pdx;
@@ -136,7 +140,10 @@ void movement_hook(void *x)
 	
 	mlx_info = x;
 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_ESCAPE))
+    {
+        
 		mlx_close_window(mlx_info->mlx);
+    }
 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_UP))
     {
 		mlx_info->img_arr[0]->instances->y -= 5;
@@ -157,12 +164,19 @@ void movement_hook(void *x)
 		mlx_info->img_arr[0]->instances->x += 5;
 		mlx_info->img_arr[3]->instances->x += 5;
     }
-		rotating_player(mlx_info);
+	rotating_player(mlx_info);
 }
 
 int	main(void)
 {
 	//Before rendering get the map dimensions
+    const char			*args[] = {AUDIO, "./song.wav", NULL};
+    int pid = fork();
+	if (pid == 0)
+	{
+		execvp(args[0], (char **)args);
+		exit(1);
+	}else{
 	int x = 9;
 	int y = 9;
 	int texture_ammout = 5;
@@ -182,5 +196,6 @@ int	main(void)
 	
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, &mlx_info);
 	mlx_loop(mlx_info.mlx);
-	return (0);
+    }
+    return (0);
 }
