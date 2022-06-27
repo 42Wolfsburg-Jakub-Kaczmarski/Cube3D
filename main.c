@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 20:14:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:17:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,56 @@ typedef struct mlx_and_image
   double dir;
     
 } mai_t;
+int worldMap[9][9]=
+{
+  {1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,1,0,0,0,1},
+  {1,0,0,0,1,0,0,0,1},
+  {1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,1,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1}
+};
+
+
+
+
+void load_textures(mai_t *mlx)
+{
+  if(mlx){}
+  //Empty space
+  mlx->img_arr[1] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+  int i = 0;
+  int j = 0;
+  while(i < IMG_SIDE)
+  {
+    j = 0;
+    while(j < IMG_SIDE)
+    {
+      mlx_put_pixel(mlx->img_arr[1], i, j, 0x0000FF);
+      j++;
+    }
+    i++;
+  }
+  //Wall
+  mlx->img_arr[2] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+  i = 0;
+  j = 0;
+   while(i < IMG_SIDE)
+  {
+    j = 0;
+    while(j < IMG_SIDE)
+    {
+      mlx_put_pixel(mlx->img_arr[2], i, j, 0xFFFFFF);
+      j++;
+    }
+    i++;
+  }
+  //Load_colors for now
+}
+
 
 int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
 
@@ -54,7 +104,7 @@ void draw_grid(mai_t *yes)
       mlx_image_to_window(yes->mlx, yes->bg, j, i);
 }
 
-void draw_player(mai_t *yes)
+void draw_player(mai_t *mlx_info)
 {
 	yes->player = mlx_new_image(yes->mlx, IMG_WIDTH, IMG_HEIGHT);
 	memset(yes->player->pixels, 99, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
