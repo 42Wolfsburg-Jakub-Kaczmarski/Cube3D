@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 19:39:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:14:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 #define WINDOW_HEIGHT ((COLS * IMG_HEIGHT) + COLS - 1)
 #define ROTATION_SPEED (PI / 90)
 #define MOVEMENT_SPEED (2)
+#define NORTH 3.0/2 * PI
+#define SOUTH 1/2.0 * PI
+#define WEST PI
+#define EAST 0.0f
 
 int x = 100;
 int y = 100;
@@ -55,31 +59,23 @@ void draw_player(mai_t *yes)
 	yes->player = mlx_new_image(yes->mlx, IMG_WIDTH, IMG_HEIGHT);
 	memset(yes->player->pixels, 99, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
 	mlx_image_to_window(yes->mlx, yes->player, 0, 0);
-	// yes->player->instances->x = 0.0f;
-	yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	yes->player->instances->dir = EAST;
+	// yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void draw_dicky(mai_t *yes)
 {
 	mlx_delete_image(yes->mlx, yes->dicky);
 	yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	printf("DIR: %f\n", yes->player->instances->dir);
-	printf("COS: %f\n", cos(yes->player->instances->dir));
-	printf("SIN: %f\n", sin(yes->player->instances->dir));
 	draw_line(
 			yes->dicky,
 			IMG_WIDTH / 2 + yes->player->instances->x,
 			IMG_HEIGHT / 2 + yes->player->instances->y,
-			(IMG_WIDTH / 2 + yes->player->instances->x) + cos(yes->player->instances->dir) * 80, 
-			(IMG_HEIGHT / 2 + yes->player->instances->y) + sin(yes->player->instances->dir) * 80,
+			(IMG_WIDTH / 2 + yes->player->instances->x) + cos(yes->player->instances->dir) * IMG_WIDTH / 2 , 
+			(IMG_HEIGHT / 2 + yes->player->instances->y) + sin(yes->player->instances->dir) * IMG_WIDTH / 2 ,
 			0xFFFFFF
 			);
-	// memset(yes->dicky->pixels, 99, IMG_WIDTH * THICKNESS * sizeof(int));
-	mlx_image_to_window(yes->mlx,
-						yes->dicky,
-						0,
-						0
-						);
+	mlx_image_to_window(yes->mlx, yes->dicky, 0, 0);
 }
 
 void key_w(mai_t *data)
@@ -124,23 +120,17 @@ void key_d(mai_t *data)
 
 void key_left_arrow(mai_t *data)
 {
-	data->player->instances->dir -= ROTATION_SPEED;
-    if (data->player->instances->dir <= 0)
-        data->player->instances->dir += 2 * PI;
-	// data->dir -= ROTATION_SPEED;
-    // if (data->dir <= 0)
-    //     data->dir += 2 * PI;
+	data->player->instances->dir += ROTATION_SPEED;
+    if (data->player->instances->dir >= 2 * PI)
+      data->player->instances->dir -= 2 * PI;
 	draw_dicky(data);
 }
 
 void key_right_arrow(mai_t *data)
 {
-	data->player->instances->dir += ROTATION_SPEED;
-    if (data->player->instances->dir >= 2 * PI)
-      data->player->instances->dir -= 2 * PI;
-	// data->dir += ROTATION_SPEED;
-    // if (data->dir >= 2 * PI)
-    //   data->dir -= 2 * PI;
+	data->player->instances->dir -= ROTATION_SPEED;
+    if (data->player->instances->dir <= 0)
+        data->player->instances->dir += 2 * PI;
 	draw_dicky(data);
 }
 
@@ -162,10 +152,7 @@ void movement_hook(void *x)
   if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	key_right_arrow(data);
   if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	key_left_arrow(data);
-//   printf("Current position: x = %f, y = %f, dir = %f\n", data->bg->instances->x, data->bg->instances->dir, data->dicky->instances->dir);
-	// printf("%d\n", mlx_get_time());
-  
+	key_left_arrow(data);  
 }
 
 int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
@@ -176,7 +163,7 @@ int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int
 	double 	pixelX;
 	double 	pixelY;
 
-  	printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
+  	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
 	deltaX = endX - beginX;
 	deltaY = endY - beginY;
 	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
@@ -209,7 +196,3 @@ int main(void)
 	mlx_loop(yes.mlx);
 	return (0);
 }
-
-
-//"wtf why player = bg"
-//draw line whaaat?
