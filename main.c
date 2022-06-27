@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 15:12:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:35:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,22 +172,22 @@ void movement_hook(void *x)
 int	main(int argc, char **argv)
 {
 	//Before rendering get the map dimensions
-	if(argc != 2 || !check_map(argv))
+	mai_t mlx_info;
+	if(argc != 2 || !check_map(argv, &mlx_info))
 	{
 		printf("Error\n");
 		return 0;
 	}
-    // const char		 	*args[] = {AUDIO, "./song.wav", NULL};
+    const char		 	*args[] = {AUDIO, "./song.wav", NULL};
     int pid = fork();
 	if (pid == 0)
 	{
-		// execvp(args[0], (char **)args);
+		execvp(args[0], (char **)args);
 		exit(1);
 	}else{
 	int x = 9;
 	int y = 9;
 	int texture_ammout = 5;
-	mai_t mlx_info;
 	mlx_info.mlx = mlx_init(x * IMG_SIDE, y * IMG_SIDE, "Kurwiszon", true);
     mlx_info.px = (x * IMG_SIDE) / 2;
     printf("X : %f\n", mlx_info.px);
