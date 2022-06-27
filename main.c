@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:57:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 23:35:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void draw_grid(mai_t *mlx)
 		{
 				if(mlx->map[i][j] == '1')
 					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
-				else if(mlx->map[i][j] == '0')
+				else if(mlx->map[i][j] == '0' || mlx->map[i][j] == 'P')
 					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], x, y);
 				y += IMG_SIDE + 1;
 				j++;
@@ -85,16 +85,35 @@ void draw_grid(mai_t *mlx)
 		i++;
 	}
 }
+void	find_player(mai_t *mlx_info)
+{
+	int i = 0;
+	int j = 0;
+	while(mlx_info->map[i][j])
+	{
+		j = 0;
+		while(mlx_info->map[i][j])
+		{
+			if(mlx_info->map[i][j] == 'P')
+			{
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	mlx_info->img_arr[3] = mlx_new_image(mlx_info->mlx, mlx_info->px, mlx_info->py);
+    mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[3], i * IMG_SIDE, j * IMG_SIDE);
+	
+}
 
 void draw_player(mai_t *mlx_info, int x, int y)
 {
 	mlx_info->img_arr[0] = mlx_new_image(mlx_info->mlx, PLAYER_SIZE, PLAYER_SIZE);
 	memset(mlx_info->img_arr[0]->pixels, 255, PLAYER_SIZE * PLAYER_SIZE * sizeof(int));  
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[0], ((float)x * IMG_SIDE) / 2, ((float)y * IMG_SIDE) / 2);
-
-    mlx_info->img_arr[3] = mlx_new_image(mlx_info->mlx, mlx_info->px, mlx_info->py);
-
-    mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[3], ((float)PLAYER_SIZE + ((float)x * IMG_SIDE) / 2), ((float)PLAYER_SIZE + (float)y * IMG_SIDE) / 2);
+	find_player(mlx_info);
+    
 }
 
 void rotating_player(mai_t  *mlx_info)
@@ -191,7 +210,7 @@ int	main(int argc, char **argv)
 	int texture_ammout = 5;
 	printf("Height %d\n", mlx_info.map_height);
 	printf("Width %d\n", mlx_info.map_width);
-	mlx_info.mlx = mlx_init(mlx_info.map_height * IMG_SIDE, (mlx_info.map_width - 1) * IMG_SIDE, "Kurwiszon", true);
+	mlx_info.mlx = mlx_init((mlx_info.map_width - 1)* IMG_SIDE, (mlx_info.map_height - 1)* IMG_SIDE, "Kurwiszon", true);
     mlx_info.px = (mlx_info.map_height * IMG_SIDE) / 2;
     printf("X : %f\n", mlx_info.px);
     mlx_info.py = (mlx_info.map_width * IMG_SIDE) / 2;
