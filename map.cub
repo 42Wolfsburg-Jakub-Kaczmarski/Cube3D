@@ -1,0 +1,15 @@
+//Closed of by walls (1)
+//Each map consists of 
+//4 paths to textures
+//in a format
+//Identifier ./path_to_texture
+//NO ./path_to_north_texture
+//Color of Celing
+//Color of floor
+//In a format Identifier RGB color range
+//So C 225,30,0
+111111
+100101
+101001
+1100N1
+111111

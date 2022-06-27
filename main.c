@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 17:45:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:12:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,14 +167,21 @@ void movement_hook(void *x)
 	rotating_player(mlx_info);
 }
 
-int	main(void)
+
+
+int	main(int argc, char **argv)
 {
 	//Before rendering get the map dimensions
-    const char			*args[] = {AUDIO, "./song.wav", NULL};
+	if(argc != 2 || !check_map(argv))
+	{
+		printf("Error\n");
+		return 0;
+	}
+    // const char		 	*args[] = {AUDIO, "./song.wav", NULL};
     int pid = fork();
 	if (pid == 0)
 	{
-		execvp(args[0], (char **)args);
+		// execvp(args[0], (char **)args);
 		exit(1);
 	}else{
 	int x = 9;

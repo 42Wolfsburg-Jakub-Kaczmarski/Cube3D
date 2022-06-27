@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 17:47:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:16:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 int	check_map(char **argv)
 {
-	if(argv[0])
+	if(!argv)
+	{
+		
+	}
+	return 1;
+	// if(ft_strncmp())
+	// {	
+	// }
 }

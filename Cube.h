@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/25 17:35:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:11:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ typedef struct mlx_and_image
   float pdy;
   float pa;
 } mai_t;
+
+int	check_map(char **argv);
 
 #endif
