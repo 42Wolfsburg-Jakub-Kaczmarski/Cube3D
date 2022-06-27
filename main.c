@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 23:35:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 23:36:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void draw_grid(mai_t *mlx)
 	{
 		j = 0;
 		y = 0;
-		perror("ZIum");
 		while(j < mlx->map_width)
 		{
 				if(mlx->map[i][j] == '1')
