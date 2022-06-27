@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/26 01:38:15 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/27 19:39:16 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,122 +16,159 @@
 #include <stdlib.h>
 #include <math.h>
 #define PI 3.1415926535
-#define IMG_SIDE 80
+#define IMG_HEIGHT 80
+#define IMG_WIDTH 80
 #define ROWS 12
-#define THICKNESS 5
-#define LENGTH 70
+#define THICKNESS 15
+#define LENGTH 80
 #define COLS 6
-#define WINDOW_WIDTH ((ROWS * IMG_SIDE) + ROWS - 1)
-#define WINDOW_HEIGHT ((COLS * IMG_SIDE) + COLS - 1)
+#define WINDOW_WIDTH ((ROWS * IMG_WIDTH) + ROWS - 1)
+#define WINDOW_HEIGHT ((COLS * IMG_HEIGHT) + COLS - 1)
 #define ROTATION_SPEED (PI / 90)
 #define MOVEMENT_SPEED (2)
 
+int x = 100;
+int y = 100;
 typedef struct mlx_and_image
 {
   mlx_t *mlx;
   mlx_image_t *bg;
   mlx_image_t *player;
   mlx_image_t *dicky;
+  double dir;
     
 } mai_t;
-int draw_line(mai_t *yes, int beginX, int beginY, int endX, int endY, int color);
+
+int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
 
 void draw_grid(mai_t *yes)
 {
-  yes->bg = mlx_new_image(yes->mlx, IMG_SIDE, IMG_SIDE);
-  memset(yes->bg->pixels, 255, IMG_SIDE * IMG_SIDE * sizeof(int));
-  for(int i = 0; i < yes->mlx->height; i += IMG_SIDE + 1)
-    for(int j = 0; j < yes->mlx->width; j += IMG_SIDE + 1)
+  yes->bg = mlx_new_image(yes->mlx, IMG_WIDTH, IMG_HEIGHT);
+  memset(yes->bg->pixels, 255, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
+  for(int i = 0; i < yes->mlx->height; i += IMG_WIDTH + 1)
+    for(int j = 0; j < yes->mlx->width; j += IMG_HEIGHT + 1)
       mlx_image_to_window(yes->mlx, yes->bg, j, i);
 }
 
 void draw_player(mai_t *yes)
 {
-  //Player square
-  
-  memset(yes->bg->pixels, 99, IMG_SIDE * IMG_SIDE * sizeof(int));
-  mlx_image_to_window(yes->mlx, yes->bg, 0, 0);
-  yes->bg->instances->dir = 0.0f;
-  
-  
-  //Player dicky
-  
-  draw_line(
-	  		yes,
-  			yes->bg->instances->x + IMG_SIDE / 2,
-  			yes->bg->instances->y + IMG_SIDE / 2,
-			yes->bg->instances->x + IMG_SIDE / 2 + cos(yes->bg->instances->dir) * 75,
-			yes->bg->instances->y + IMG_SIDE / 2 + sin(yes->bg->instances->dir) * 75,
-			0xFFFFFF
-			);
+	yes->player = mlx_new_image(yes->mlx, IMG_WIDTH, IMG_HEIGHT);
+	memset(yes->player->pixels, 99, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
+	mlx_image_to_window(yes->mlx, yes->player, 0, 0);
+	// yes->player->instances->x = 0.0f;
+	yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
+void draw_dicky(mai_t *yes)
+{
+	mlx_delete_image(yes->mlx, yes->dicky);
+	yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	printf("DIR: %f\n", yes->player->instances->dir);
+	printf("COS: %f\n", cos(yes->player->instances->dir));
+	printf("SIN: %f\n", sin(yes->player->instances->dir));
+	draw_line(
+			yes->dicky,
+			IMG_WIDTH / 2 + yes->player->instances->x,
+			IMG_HEIGHT / 2 + yes->player->instances->y,
+			(IMG_WIDTH / 2 + yes->player->instances->x) + cos(yes->player->instances->dir) * 80, 
+			(IMG_HEIGHT / 2 + yes->player->instances->y) + sin(yes->player->instances->dir) * 80,
+			0xFFFFFF
+			);
+	// memset(yes->dicky->pixels, 99, IMG_WIDTH * THICKNESS * sizeof(int));
+	mlx_image_to_window(yes->mlx,
+						yes->dicky,
+						0,
+						0
+						);
+}
+
+void key_w(mai_t *data)
+{
+	data->player->instances->x += cos(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->player->instances->y += sin(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->dicky->instances->x += cos(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->dicky->instances->y += sin(data->player->instances->dir) * MOVEMENT_SPEED;
+}
+
+void key_s(mai_t *data)
+{
+	data->player->instances->x -= cos(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->player->instances->y -= sin(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->dicky->instances->x -= cos(data->player->instances->dir) * MOVEMENT_SPEED;
+	data->dicky->instances->y -= sin(data->player->instances->dir) * MOVEMENT_SPEED;
+}
+
+void key_a(mai_t *data)
+{
+	double temp_dir;
+	temp_dir = data->player->instances->dir - (PI / 2); 
+	if (temp_dir >= 2 * PI)
+		temp_dir -= 2 * PI;
+	data->player->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
+	data->player->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
+	data->dicky->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
+	data->dicky->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
+}
+
+void key_d(mai_t *data)
+{
+	double temp_dir;
+	temp_dir = PI / 2 + data->player->instances->dir; 
+	if (temp_dir <= 0)
+		temp_dir += 2 * PI;
+	data->player->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
+	data->player->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
+	data->dicky->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
+	data->dicky->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
+}
+
+void key_left_arrow(mai_t *data)
+{
+	data->player->instances->dir -= ROTATION_SPEED;
+    if (data->player->instances->dir <= 0)
+        data->player->instances->dir += 2 * PI;
+	// data->dir -= ROTATION_SPEED;
+    // if (data->dir <= 0)
+    //     data->dir += 2 * PI;
+	draw_dicky(data);
+}
+
+void key_right_arrow(mai_t *data)
+{
+	data->player->instances->dir += ROTATION_SPEED;
+    if (data->player->instances->dir >= 2 * PI)
+      data->player->instances->dir -= 2 * PI;
+	// data->dir += ROTATION_SPEED;
+    // if (data->dir >= 2 * PI)
+    //   data->dir -= 2 * PI;
+	draw_dicky(data);
+}
 
 void movement_hook(void *x)
 {
-  mai_t *yes;
+  mai_t *data;
   
-  yes = x;
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_ESCAPE))
-    mlx_close_window(yes->mlx);
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_W))
-  {
-	yes->bg->instances->x += cos(yes->bg->instances->dir) * MOVEMENT_SPEED;
-	yes->bg->instances->y += sin(yes->bg->instances->dir) * MOVEMENT_SPEED;
-  }
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_S))
-  {
-	yes->bg->instances->x -= cos(yes->bg->instances->dir) * MOVEMENT_SPEED;
-	yes->bg->instances->y -= sin(yes->bg->instances->dir) * MOVEMENT_SPEED;
-  }
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_A))
-  {
-	double temp_dir;
-	temp_dir = PI / 2 + yes->bg->instances->dir; 
-	if (temp_dir >= 2 * PI)
-		temp_dir -= 2 * PI;
-	yes->bg->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
-	yes->bg->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
-  }
-
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_D))
-  {
-	double temp_dir;
-	temp_dir = yes->bg->instances->dir - PI / 2; 
-	if (temp_dir <= 0)
-		temp_dir += 2 * PI;
-	yes->bg->instances->x += cos(temp_dir) * MOVEMENT_SPEED;
-	yes->bg->instances->y += sin(temp_dir) * MOVEMENT_SPEED;
-    
-  }
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_RIGHT))
-  {
-    yes->bg->instances->dir -= ROTATION_SPEED;
-    if (yes->bg->instances->dir <= 0)
-        yes->bg->instances->dir += 2 * PI;
-
-  }
-  if (mlx_is_key_down(yes->mlx, MLX_KEY_LEFT))
-  {
-    printf("Left key\n ");
-    yes->bg->instances->dir += ROTATION_SPEED;
-    if (yes->bg->instances->dir >= 2 * PI) ///do I need the =
-      yes->bg->instances->dir -= 2 * PI;
-  }
-//   draw_line(
-// 	  		yes,
-//   			yes->bg->instances->x + IMG_SIDE / 2,
-//   			yes->bg->instances->y + IMG_SIDE / 2,
-// 			yes->bg->instances->x + IMG_SIDE / 2 + cos(yes->bg->instances->dir) * 75,
-// 			yes->bg->instances->y + IMG_SIDE / 2 + sin(yes->bg->instances->dir) * 75,
-// 			0xFFFFFF
-// 			);
-
-  printf("Current position: x = %f, y = %f, dir = %f\n", yes->bg->instances->x, yes->bg->instances->y, yes->bg->instances->dir);
+  data = x;
+  if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	mlx_close_window(data->mlx);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+	key_w(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	key_s(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	key_a(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	key_d(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	key_right_arrow(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	key_left_arrow(data);
+//   printf("Current position: x = %f, y = %f, dir = %f\n", data->bg->instances->x, data->bg->instances->dir, data->dicky->instances->dir);
+	// printf("%d\n", mlx_get_time());
   
 }
 
-int draw_line(mai_t *yes, int beginX, int beginY, int endX, int endY, int colour)
+int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
 {
 	double	deltaX;
 	double	deltaY;
@@ -149,7 +186,7 @@ int draw_line(mai_t *yes, int beginX, int beginY, int endX, int endY, int colour
 	deltaY /= pixels;
 	while (pixels)
 	{
-		mlx_put_pixel(yes->bg, pixelX, pixelY, colour);
+		mlx_put_pixel(img, pixelX, pixelY, colour);
 		pixelX += deltaX;
 		pixelY += deltaY;
 		--pixels;
@@ -159,21 +196,16 @@ int draw_line(mai_t *yes, int beginX, int beginY, int endX, int endY, int colour
 
 int main(void)
 {
-  mai_t yes;
-  // yes.pa = 90;
-  // yes.pdx = cos(yes.pa)*5;
-  // yes.pdy = sin(yes.pa)*5;
-  
+	mai_t yes;
+	
 	yes.mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Kurwiszon", true);
-  if (!yes.mlx)
+	if (!yes.mlx)
 		exit(-99);
 
-  
-  draw_grid(&yes);
-  yes.bg = mlx_new_image(yes.mlx, IMG_SIDE, IMG_SIDE);
-  draw_player(&yes);
-  
-  mlx_loop_hook(yes.mlx, &movement_hook, &yes);
+	draw_grid(&yes);
+	draw_player(&yes);
+	draw_dicky(&yes);
+	mlx_loop_hook(yes.mlx, &movement_hook, &yes);
 	mlx_loop(yes.mlx);
 	return (0);
 }
