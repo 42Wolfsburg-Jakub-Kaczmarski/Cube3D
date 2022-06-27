@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:39:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:44:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct mlx_and_image
   float pdy;
   float pa;
   char **map;
+  int map_height;
+  int map_width;
 } mai_t;
 
 int	check_map(char **argv, mai_t *mlx_info);

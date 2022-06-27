@@ -6,24 +6,24 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:35:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:57:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
 
-int worldMap[9][9]=
-{
-	{1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,1,0,0,0,1},
-	{1,0,0,0,1,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1},
-	{1,0,0,1,1,0,1,0,1},
-	{1,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,1},
-	{1,0,0,0,1,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1}
-};
+// int worldMap[9][9]=
+// {
+// 	{1,1,1,1,1,1,1,1,1},
+// 	{1,0,0,0,1,0,0,0,1},
+// 	{1,0,0,0,1,0,0,0,1},
+// 	{1,0,0,0,0,0,0,0,1},
+// 	{1,0,0,1,1,0,1,0,1},
+// 	{1,0,0,0,0,0,0,0,1},
+// 	{1,0,0,0,0,0,0,0,1},
+// 	{1,0,0,0,1,0,0,0,1},
+// 	{1,1,1,1,1,1,1,1,1}
+// };
 
 void load_textures(mai_t *mlx)
 {
@@ -67,15 +67,16 @@ void draw_grid(mai_t *mlx)
 	int j = 0;
 	int y = 0;
 	int x = 0;;
-	while(i < 9)
+	while(i < mlx->map_height )
 	{
 		j = 0;
 		y = 0;
-		while(j < 9)
+		perror("ZIum");
+		while(j < mlx->map_width)
 		{
-				if(worldMap[i][j] == 1)
+				if(mlx->map[i][j] == '1')
 					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
-				else if(worldMap[i][j] == 0)
+				else if(mlx->map[i][j] == '0')
 					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], x, y);
 				y += IMG_SIDE + 1;
 				j++;
@@ -185,22 +186,23 @@ int	main(int argc, char **argv)
 		execvp(args[0], (char **)args);
 		exit(1);
 	}else{
-	int x = 9;
-	int y = 9;
+	// int x = 9;
+	// int y = 9;
 	int texture_ammout = 5;
-	mlx_info.mlx = mlx_init(x * IMG_SIDE, y * IMG_SIDE, "Kurwiszon", true);
-    mlx_info.px = (x * IMG_SIDE) / 2;
+	printf("Height %d\n", mlx_info.map_height);
+	printf("Width %d\n", mlx_info.map_width);
+	mlx_info.mlx = mlx_init(mlx_info.map_height * IMG_SIDE, (mlx_info.map_width - 1) * IMG_SIDE, "Kurwiszon", true);
+    mlx_info.px = (mlx_info.map_height * IMG_SIDE) / 2;
     printf("X : %f\n", mlx_info.px);
-    mlx_info.py = (y * IMG_SIDE) / 2;
-        printf("XY : %f\n", mlx_info.py);
+    mlx_info.py = (mlx_info.map_width * IMG_SIDE) / 2;
+	printf("XY : %f\n", mlx_info.py);
     mlx_info.pdx = cos(mlx_info.pa) * 5;
     mlx_info.pdy = sin(mlx_info.pa) * 5;
 	if (!mlx_info.mlx)
 		exit(-99);
 	mlx_info.img_arr = calloc(texture_ammout ,sizeof(mlx_image_t));
 	draw_grid(&mlx_info);
-	draw_player(&mlx_info, x ,y);
-	
+	draw_player(&mlx_info, mlx_info.map_height ,mlx_info.map_width);
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, &mlx_info);
 	mlx_loop(mlx_info.mlx);
     }

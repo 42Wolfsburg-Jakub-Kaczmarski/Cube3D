@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:43:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:46:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ int	check_map(char **argv,  mai_t *mlx_info)
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
+	mlx_info->map_width = ft_strlen(line);
 	mlx_info->map = ft_calloc(counter ,sizeof(char *));
+	mlx_info->map_height = counter;
 	counter = 0;
 	while(line)
 	{
 		mlx_info->map[counter++] = line;
 		line = get_next_line(fd);
 	}
+
 	// counter--;
 	// while(counter != 0)
 	// {
