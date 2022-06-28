@@ -12,4 +12,10 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test:
+	gcc -Wall -Wextra -Werror main.c libmlx42.a libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit -fsanitize=address -o test
+
+test1:
+	gcc -Wall -Wextra -Werror test.c libmlx42.a libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit -fsanitize=address -o test1
+
+.PHONY: all clean fclean re test
