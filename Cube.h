@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 22:05:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 22:46:10 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void draw_player(t_mlx *mlx_info);
 
 //main.c
 void load_textures(t_mlx *mlx);
+bool check_movement(t_mlx *data);
 #endif
