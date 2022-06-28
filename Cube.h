@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:44:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/28 20:11:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,17 @@
 #define ROWS 12
 #define COLS 6
 #define PLAYER_SIZE 20
+#define NORTH 3.0/2 * PI
+#define SOUTH 1/2.0 * PI
+#define WEST PI
+#define EAST 0.0f
 #define WINDOW_WIDTH ((ROWS * IMG_SIDE) + ROWS - 1)
 #define WINDOW_HEIGHT ((COLS * IMG_SIDE) + COLS - 1)
 #define BUFFER_SIZE 1000
 # include <unistd.h>
+#define ROTATION_SPEED 2
 #define PI 3.14159265359
+#define MOVEMENT_SPEED 2
 # if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
@@ -35,7 +41,16 @@
 # else 
 	#define AUDIO ""
 # endif
-typedef struct mlx_and_image
+
+enum IMG
+{
+  PLAYER,
+  BACKGROUND,
+  WALL,
+  WAND,
+};
+
+typedef struct s_mlx_img
 {
   mlx_t *mlx;
   //Index 0 reserved for the player
@@ -45,12 +60,15 @@ typedef struct mlx_and_image
   float pdx;
   float pdy;
   float pa;
+  float wx;
+  float wy;
   char **map;
   int map_height;
   int map_width;
-} mai_t;
+  double dir;
+} t_mlx;
 
-int	check_map(char **argv, mai_t *mlx_info);
+int	check_map(char **argv, t_mlx *mlx_info);
 
 //Get_next_line
 char	*get_next_line(int fd);

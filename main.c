@@ -5,27 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 23:36:54 by jkaczmar         ###   ########.fr       */
+/*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
+/*   Updated: 2022/06/28 20:22:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
 
-// int worldMap[9][9]=
-// {
-// 	{1,1,1,1,1,1,1,1,1},
-// 	{1,0,0,0,1,0,0,0,1},
-// 	{1,0,0,0,1,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,1},
-// 	{1,0,0,1,1,0,1,0,1},
-// 	{1,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,1,0,0,0,1},
-// 	{1,1,1,1,1,1,1,1,1}
-// };
+int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
+{
+	double	deltaX;
+	double	deltaY;
+	int 	pixels;
+	double 	pixelX;
+	double 	pixelY;
 
-void load_textures(mai_t *mlx)
+  	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
+	deltaX = endX - beginX;
+	deltaY = endY - beginY;
+	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	pixelX = beginX;
+	pixelY = beginY;
+	deltaX /= pixels;
+	deltaY /= pixels;
+	while (pixels)
+	{
+		mlx_put_pixel(img, pixelX, pixelY, colour);
+		pixelX += deltaX;
+		pixelY += deltaY;
+		--pixels;
+	}
+	return (0);
+}
+
+void load_textures(t_mlx *mlx)
 {
 	//Empty space
 	mlx->img_arr[1] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
@@ -57,9 +70,22 @@ void load_textures(mai_t *mlx)
 	}
 	//Load_colors for now
 }
+void draw_wand(t_mlx *mlx_info)
+{
+	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[WAND]);
+	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	draw_line(
+			mlx_info->img_arr[WAND],
+			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->x),
+			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->y),
+			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->x) + cos(mlx_info->dir) * IMG_SIDE / 2 , 
+			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->y) + sin(mlx_info->dir) * IMG_SIDE / 2 ,
+			0xFFFFFF
+			);
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
+}
 
-
-void draw_grid(mai_t *mlx)
+void draw_grid(t_mlx *mlx)
 {
 	load_textures(mlx);
 	//Loop through the map
@@ -84,145 +110,123 @@ void draw_grid(mai_t *mlx)
 		i++;
 	}
 }
-void	find_player(mai_t *mlx_info)
+
+void draw_player(t_mlx *mlx_info)
 {
-	int i = 0;
-	int j = 0;
-	while(mlx_info->map[i][j])
-	{
-		j = 0;
-		while(mlx_info->map[i][j])
-		{
-			if(mlx_info->map[i][j] == 'P')
-			{
-				break;
-			}
-			j++;
-		}
-		i++;
-	}
-	mlx_info->img_arr[3] = mlx_new_image(mlx_info->mlx, mlx_info->px, mlx_info->py);
-    mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[3], i * IMG_SIDE, j * IMG_SIDE);
-	
+	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, IMG_SIDE, IMG_SIDE);
+	memset(mlx_info->img_arr[PLAYER]->pixels, 99, IMG_SIDE * IMG_SIDE * sizeof(int));
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[PLAYER], mlx_info->px, mlx_info->py);
+	mlx_info->dir = EAST;
+	draw_wand(mlx_info);
+}
+void    init_mlx_thingy(t_mlx *mlx_info)
+{
+    mlx_info->mlx = mlx_init((mlx_info->map_width - 1)* 80, (mlx_info->map_height - 1) * 80, "Cat shooter", 1);
+    mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
+    draw_grid(mlx_info);
+	draw_player(mlx_info);
+}
+void key_w(t_mlx *data)
+{
+	printf("X : %d", data->img_arr[PLAYER]->instances->x  );
+	printf("Y : %d", data->img_arr[PLAYER]->instances->y  );
+	data->px += (double)cos(data->dir) * MOVEMENT_SPEED;
+	data->py += (double)sin(data->dir) * MOVEMENT_SPEED;
+	data->wx += (double)cos(data->dir) * MOVEMENT_SPEED;
+	data->wy += (double)sin(data->dir) * MOVEMENT_SPEED;
+	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	draw_player(data);
 }
 
-void draw_player(mai_t *mlx_info, int x, int y)
+void key_s(t_mlx *data)
 {
-	mlx_info->img_arr[0] = mlx_new_image(mlx_info->mlx, PLAYER_SIZE, PLAYER_SIZE);
-	memset(mlx_info->img_arr[0]->pixels, 255, PLAYER_SIZE * PLAYER_SIZE * sizeof(int));  
-	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[0], ((float)x * IMG_SIDE) / 2, ((float)y * IMG_SIDE) / 2);
-	find_player(mlx_info);
-    
+	data->px -= (double)cos(data->dir) * MOVEMENT_SPEED;
+	data->py -= (double)sin(data->dir) * MOVEMENT_SPEED;
+	data->wx -= (double)cos(data->dir) * MOVEMENT_SPEED;
+	data->wy -= (double)sin(data->dir) * MOVEMENT_SPEED;
+	printf("X : %f", 	data->px  );
+	printf("Y : %f", 	data->py  );
+		// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	// data->img_arr[PLAYER] = calloc(sizeof(mlx_image_t), 1);
+	// draw_player(data);
 }
 
-void rotating_player(mai_t  *mlx_info)
+void key_a(t_mlx *data)
 {
-	if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_W))
-	{
-        int x = mlx_info->img_arr[3]->instances->x;
-        int y = mlx_info->img_arr[3]->instances->y;
-        mlx_info->px+=mlx_info->pdx;
-        mlx_info->py+=mlx_info->pdy; 
-        mlx_info->img_arr[3]->instances->x = x * cos(PI / 180) - y * sin(PI/180);
-        mlx_info->img_arr[3]->instances->y = x * sin(PI / 180) - y * cos(PI/180);
-	}if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_S))
-	{
-        mlx_info->px-=mlx_info->pdx;
-        mlx_info->py-=mlx_info->pdy;
-		//Looking down
-	}if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_A))
-	{
-        mlx_info->pa -= 0.1;
-        if(mlx_info->pa < 0)
-        {
-            mlx_info->pa += 2 * PI;
-        }
-        mlx_info->pdx = cos(mlx_info->pa) * 5;
-        mlx_info->pdy = sin(mlx_info->pa) * 5;
-		//rotating left
-	}
-	if(mlx_is_key_down(mlx_info->mlx, MLX_KEY_D))
-	{
-        mlx_info->pa += 0.1;
-        if(mlx_info->pa < 0)
-        {
-            mlx_info->pa -= 2 * PI;
-        }
-        mlx_info->pdx = cos(mlx_info->pa) * 5;
-        mlx_info->pdy = sin(mlx_info->pa) * 5;
-		//Rotating right
-	}
-}
-void movement_hook(void *x)
-{
-	mai_t *mlx_info;
-	
-	mlx_info = x;
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_ESCAPE))
-    {
-        
-		mlx_close_window(mlx_info->mlx);
-    }
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_UP))
-    {
-		mlx_info->img_arr[0]->instances->y -= 5;
-        mlx_info->img_arr[3]->instances->y -= 5;
-    }
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_DOWN))
-    {
-		mlx_info->img_arr[0]->instances->y += 5;
-		mlx_info->img_arr[3]->instances->y += 5;
-    }
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_LEFT))
-    {
-		mlx_info->img_arr[0]->instances->x -= 5;
-		mlx_info->img_arr[3]->instances->x -= 5;
-    }
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_RIGHT))
-    {
-		mlx_info->img_arr[0]->instances->x += 5;
-		mlx_info->img_arr[3]->instances->x += 5;
-    }
-	rotating_player(mlx_info);
+	double temp_dir;
+	temp_dir = data->dir - (PI / 2); 
+	if (temp_dir >= 2 * PI)
+		temp_dir -= 2 * PI;
+	data->px += cos(temp_dir) * MOVEMENT_SPEED;
+	data->py += sin(temp_dir) * MOVEMENT_SPEED;
+	data->px += cos(temp_dir) * MOVEMENT_SPEED;
+	data->py += sin(temp_dir) * MOVEMENT_SPEED;
 }
 
-
-
-int	main(int argc, char **argv)
+void key_d(t_mlx *data)
 {
-	//Before rendering get the map dimensions
-	mai_t mlx_info;
-	if(argc != 2 || !check_map(argv, &mlx_info))
-	{
-		printf("Error\n");
-		return 0;
-	}
-    const char		 	*args[] = {AUDIO, "./song.wav", NULL};
-    int pid = fork();
-	if (pid == 0)
-	{
-		execvp(args[0], (char **)args);
-		exit(1);
-	}else{
-	// int x = 9;
-	// int y = 9;
-	int texture_ammout = 5;
-	printf("Height %d\n", mlx_info.map_height);
-	printf("Width %d\n", mlx_info.map_width);
-	mlx_info.mlx = mlx_init((mlx_info.map_width - 1)* IMG_SIDE, (mlx_info.map_height - 1)* IMG_SIDE, "Kurwiszon", true);
-    mlx_info.px = (mlx_info.map_height * IMG_SIDE) / 2;
-    printf("X : %f\n", mlx_info.px);
-    mlx_info.py = (mlx_info.map_width * IMG_SIDE) / 2;
-	printf("XY : %f\n", mlx_info.py);
-    mlx_info.pdx = cos(mlx_info.pa) * 5;
-    mlx_info.pdy = sin(mlx_info.pa) * 5;
-	if (!mlx_info.mlx)
-		exit(-99);
-	mlx_info.img_arr = calloc(texture_ammout ,sizeof(mlx_image_t));
-	draw_grid(&mlx_info);
-	draw_player(&mlx_info, mlx_info.map_height ,mlx_info.map_width);
-	mlx_loop_hook(mlx_info.mlx, &movement_hook, &mlx_info);
+	double temp_dir;
+	temp_dir = PI / 2 + data->dir; 
+	if (temp_dir <= 0)
+		temp_dir += 2 * PI;
+	data->px += cos(temp_dir) * MOVEMENT_SPEED;
+	data->py += sin(temp_dir) * MOVEMENT_SPEED;
+	data->px += cos(temp_dir) * MOVEMENT_SPEED;
+	data->py += sin(temp_dir) * MOVEMENT_SPEED;
+}
+
+void key_left_arrow(t_mlx *data)
+{
+	data->dir += ROTATION_SPEED;
+    if (data->dir >= 2 * PI)
+      data->dir -= 2 * PI;
+	draw_wand(data);
+}
+
+void key_right_arrow(t_mlx *data)
+{
+	data->dir -= ROTATION_SPEED;
+    if (data->dir <= 0)
+        data->dir += 2 * PI;
+	draw_wand(data);
+}
+
+void  movement_hook(void *x)
+{
+  t_mlx *data;
+  
+  data = x;
+
+  if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	mlx_close_window(data->mlx);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+  {
+	key_w(data);
+  }
+  if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	key_s(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	key_a(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	key_d(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	key_right_arrow(data);
+  if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	key_left_arrow(data);  
+}
+int main(int argc, char **argv)
+{
+    t_mlx   mlx_info;
+
+    if(argc != 2 || !check_map(argv, &mlx_info))
+    {
+        printf("Error\n");
+        return (0);
+    }
+    mlx_info.px = 0;
+    mlx_info.py = 0;
+    init_mlx_thingy(&mlx_info);
+	mlx_info.dir = PI;
+	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
-    }
-    return (0);
 }

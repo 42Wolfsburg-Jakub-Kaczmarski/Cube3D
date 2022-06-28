@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 13:54:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:10:28 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_if_right_characs(char **arr)
 	return (1);
 }
 
-int	check_map(char **argv,  mai_t *mlx_info)
+int	check_map(char **argv,  t_mlx *mlx_info)
 {
 	int fd = open(argv[1], O_RDONLY);
 	if(fd < 0 )
