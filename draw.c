@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
+/*   Updated: 2022/06/28 21:18:01 by kmilchev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Cube.h"
+
+int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
+{
+	double	deltaX;
+	double	deltaY;
+	int 	pixels;
+	double 	pixelX;
+	double 	pixelY;
+
+  	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
+	deltaX = endX - beginX;
+	deltaY = endY - beginY;
+	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	pixelX = beginX;
+	pixelY = beginY;
+	deltaX /= pixels;
+	deltaY /= pixels;
+	while (pixels)
+	{
+		mlx_put_pixel(img, pixelX, pixelY, colour);
+		pixelX += deltaX;
+		pixelY += deltaY;
+		--pixels;
+	}
+	return (0);
+}
+
+void draw_wand(t_mlx *mlx_info)
+{
+	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[WAND]);
+	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	draw_line(
+			mlx_info->img_arr[WAND],
+			(IMG_SIDE / 2 + mlx_info->px),
+			(IMG_SIDE / 2 + mlx_info->py),
+			(IMG_SIDE / 2 + mlx_info->px) + cos(mlx_info->dir) * IMG_SIDE / 2 , 
+			(IMG_SIDE / 2 + mlx_info->py) + sin(mlx_info->dir) * IMG_SIDE / 2 ,
+			0xFFFFFF
+			);
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
+	// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 20, 20);
+}
+
+void draw_grid(t_mlx *mlx)
+{
+	load_textures(mlx);
+	//Loop through the map
+	int i = 0;
+	int j = 0;
+	int y = 0;
+	int x = 0;;
+	while(i < mlx->map_height )
+	{
+		j = 0;
+		y = 0;
+		while(j < mlx->map_width)
+		{
+				if(mlx->map[i][j] == '1')
+					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
+				else if(mlx->map[i][j] == '0' || mlx->map[i][j] == 'P')
+					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], x, y);
+				y += IMG_SIDE + 1;
+				j++;
+		}
+		x += IMG_SIDE + 1;
+		i++;
+	}
+}
+
+void draw_player(t_mlx *mlx_info)
+{
+	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, IMG_SIDE, IMG_SIDE);
+	memset(mlx_info->img_arr[PLAYER]->pixels, 99, IMG_SIDE * IMG_SIDE * sizeof(int));
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[PLAYER], mlx_info->px, mlx_info->py);
+	draw_wand(mlx_info);
+}

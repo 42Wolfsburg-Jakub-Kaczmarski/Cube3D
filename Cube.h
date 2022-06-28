@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 21:09:41 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:18:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,20 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*ft_strrchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 
+///keys.c
+void key_w(t_mlx *data);
+void key_s(t_mlx *data);
+void key_a(t_mlx *data);
+void key_d(t_mlx *data);
+void key_left_arrow(t_mlx *data);
+void key_right_arrow(t_mlx *data);
+
+//draw.c
+int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
+void draw_wand(t_mlx *mlx_info);
+void draw_grid(t_mlx *mlx);
+void draw_player(t_mlx *mlx_info);
+
+//main.c
+void load_textures(t_mlx *mlx);
 #endif
