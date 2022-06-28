@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 20:22:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/28 20:53:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ void draw_wand(t_mlx *mlx_info)
 	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	draw_line(
 			mlx_info->img_arr[WAND],
-			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->x),
-			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->y),
-			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->x) + cos(mlx_info->dir) * IMG_SIDE / 2 , 
-			(double)(IMG_SIDE / 2 + mlx_info->img_arr[PLAYER]->instances->y) + sin(mlx_info->dir) * IMG_SIDE / 2 ,
+			(IMG_SIDE / 2 + mlx_info->px),
+			(IMG_SIDE / 2 + mlx_info->py),
+			(IMG_SIDE / 2 + mlx_info->px) + cos(mlx_info->dir) * IMG_SIDE / 2 , 
+			(IMG_SIDE / 2 + mlx_info->py) + sin(mlx_info->dir) * IMG_SIDE / 2 ,
 			0xFFFFFF
 			);
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
+	// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 20, 20);
 }
 
 void draw_grid(t_mlx *mlx)
@@ -146,9 +147,9 @@ void key_s(t_mlx *data)
 	data->wy -= (double)sin(data->dir) * MOVEMENT_SPEED;
 	printf("X : %f", 	data->px  );
 	printf("Y : %f", 	data->py  );
-		// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
 	// data->img_arr[PLAYER] = calloc(sizeof(mlx_image_t), 1);
-	// draw_player(data);
+	draw_player(data);
 }
 
 void key_a(t_mlx *data)
@@ -159,8 +160,10 @@ void key_a(t_mlx *data)
 		temp_dir -= 2 * PI;
 	data->px += cos(temp_dir) * MOVEMENT_SPEED;
 	data->py += sin(temp_dir) * MOVEMENT_SPEED;
-	data->px += cos(temp_dir) * MOVEMENT_SPEED;
-	data->py += sin(temp_dir) * MOVEMENT_SPEED;
+	data->wx += cos(temp_dir) * MOVEMENT_SPEED;
+	data->wy += sin(temp_dir) * MOVEMENT_SPEED;
+	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	draw_player(data);
 }
 
 void key_d(t_mlx *data)
@@ -171,8 +174,10 @@ void key_d(t_mlx *data)
 		temp_dir += 2 * PI;
 	data->px += cos(temp_dir) * MOVEMENT_SPEED;
 	data->py += sin(temp_dir) * MOVEMENT_SPEED;
-	data->px += cos(temp_dir) * MOVEMENT_SPEED;
-	data->py += sin(temp_dir) * MOVEMENT_SPEED;
+	data->wx += cos(temp_dir) * MOVEMENT_SPEED;
+	data->wy += sin(temp_dir) * MOVEMENT_SPEED;
+	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	draw_player(data);
 }
 
 void key_left_arrow(t_mlx *data)
@@ -211,8 +216,8 @@ void  movement_hook(void *x)
 	key_d(data);
   if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	key_right_arrow(data);
-  if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-	key_left_arrow(data);  
+//   if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+// 	key_left_arrow(data);  
 }
 int main(int argc, char **argv)
 {
@@ -225,6 +230,8 @@ int main(int argc, char **argv)
     }
     mlx_info.px = 0;
     mlx_info.py = 0;
+	mlx_info.wx = 0;
+	mlx_info.wy = 0;
     init_mlx_thingy(&mlx_info);
 	mlx_info.dir = PI;
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
