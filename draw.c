@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/28 21:18:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 22:24:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void draw_wand(t_mlx *mlx_info)
 	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	draw_line(
 			mlx_info->img_arr[WAND],
-			(IMG_SIDE / 2 + mlx_info->px),
-			(IMG_SIDE / 2 + mlx_info->py),
-			(IMG_SIDE / 2 + mlx_info->px) + cos(mlx_info->dir) * IMG_SIDE / 2 , 
-			(IMG_SIDE / 2 + mlx_info->py) + sin(mlx_info->dir) * IMG_SIDE / 2 ,
+			(PLAYER_SIZE / 2 + mlx_info->px),
+			(PLAYER_SIZE / 2 + mlx_info->py),
+			(PLAYER_SIZE / 2 + mlx_info->px) + cos(mlx_info->dir) * WAND_LEN, 
+			(PLAYER_SIZE / 2 + mlx_info->py) + sin(mlx_info->dir) * WAND_LEN,
 			0xFFFFFF
 			);
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
-	// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 20, 20);
+	// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], mlx_info->wx, mlx_info->wy);
 }
 
 void draw_grid(t_mlx *mlx)
@@ -82,8 +82,9 @@ void draw_grid(t_mlx *mlx)
 
 void draw_player(t_mlx *mlx_info)
 {
-	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, IMG_SIDE, IMG_SIDE);
-	memset(mlx_info->img_arr[PLAYER]->pixels, 99, IMG_SIDE * IMG_SIDE * sizeof(int));
+	// mlx_info->dir = SOUTH;
+	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, PLAYER_SIZE, PLAYER_SIZE);
+	memset(mlx_info->img_arr[PLAYER]->pixels, 99, PLAYER_SIZE * PLAYER_SIZE * sizeof(int));
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[PLAYER], mlx_info->px, mlx_info->py);
 	draw_wand(mlx_info);
 }

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 21:18:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 22:05:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,21 @@
 #include <stdlib.h>
 #include <string.h>
 #define IMG_SIDE 80
-#define ROWS 12
-#define COLS 6
+#define COLS 12
+#define ROWS 6
 #define PLAYER_SIZE 20
+#define WAND_LEN 30
 #define NORTH 3.0/2 * PI
 #define SOUTH 1/2.0 * PI
 #define WEST PI
 #define EAST 0.0f
-#define WINDOW_WIDTH ((ROWS * IMG_SIDE) + ROWS - 1)
-#define WINDOW_HEIGHT ((COLS * IMG_SIDE) + COLS - 1)
+#define WINDOW_WIDTH ((COLS * IMG_SIDE) + COLS - 1)
+#define WINDOW_HEIGHT ((ROWS * IMG_SIDE) + ROWS - 1)
 #define BUFFER_SIZE 1000
 # include <unistd.h>
 #define ROTATION_SPEED PI / 20
 #define PI 3.14159265359
-#define MOVEMENT_SPEED 2
+#define MOVEMENT_SPEED 4
 # if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)

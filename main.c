@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 21:18:53 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 22:28:10 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ void load_textures(t_mlx *mlx)
 
 void    init_mlx_thingy(t_mlx *mlx_info)
 {
-	mlx_info->dir = EAST;
+	mlx_info->px = 100;
+    mlx_info->py = 100;
+	mlx_info->wx = 0;
+	mlx_info->wy = 0;
+	mlx_info->dir = SOUTH;
     mlx_info->mlx = mlx_init((mlx_info->map_width - 1)* 80, (mlx_info->map_height - 1) * 80, "Cat shooter", 1);
     mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
-    draw_grid(mlx_info);
+	draw_grid(mlx_info);
 	draw_player(mlx_info);
 }
 
@@ -68,9 +72,7 @@ void  movement_hook(void *x)
   if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	mlx_close_window(data->mlx);
   if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-  {
 	key_w(data);
-  }
   if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 	key_s(data);
   if (mlx_is_key_down(data->mlx, MLX_KEY_A))
@@ -92,12 +94,9 @@ int main(int argc, char **argv)
         printf("Error\n");
         return (0);
     }
-    mlx_info.px = 0;
-    mlx_info.py = 0;
-	mlx_info.wx = 0;
-	mlx_info.wy = 0;
+    
     init_mlx_thingy(&mlx_info);
-	mlx_info.dir = PI;
+	// mlx_info.dir = PI;
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
