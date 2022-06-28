@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:14:43 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 20:17:37 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:40:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 #define WEST PI
 #define EAST 0.0f
 
-int x = 100;
-int y = 100;
 typedef struct mlx_and_image
 {
   mlx_t *mlx;
@@ -42,6 +40,7 @@ typedef struct mlx_and_image
   double dir;
     
 } mai_t;
+
 int worldMap[9][9]=
 {
   {1,1,1,1,1,1,1,1,1},
@@ -58,39 +57,39 @@ int worldMap[9][9]=
 
 
 
-void load_textures(mai_t *mlx)
-{
-  if(mlx){}
-  //Empty space
-  mlx->img_arr[1] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
-  int i = 0;
-  int j = 0;
-  while(i < IMG_SIDE)
-  {
-    j = 0;
-    while(j < IMG_SIDE)
-    {
-      mlx_put_pixel(mlx->img_arr[1], i, j, 0x0000FF);
-      j++;
-    }
-    i++;
-  }
-  //Wall
-  mlx->img_arr[2] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
-  i = 0;
-  j = 0;
-   while(i < IMG_SIDE)
-  {
-    j = 0;
-    while(j < IMG_SIDE)
-    {
-      mlx_put_pixel(mlx->img_arr[2], i, j, 0xFFFFFF);
-      j++;
-    }
-    i++;
-  }
-  //Load_colors for now
-}
+// void load_textures(mai_t *mlx)
+// {
+//   if(mlx){}
+//   //Empty space
+//   mlx->img_arr[1] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+//   int i = 0;
+//   int j = 0;
+//   while(i < IMG_SIDE)
+//   {
+//     j = 0;
+//     while(j < IMG_SIDE)
+//     {
+//       mlx_put_pixel(mlx->img_arr[1], i, j, 0x0000FF);
+//       j++;
+//     }
+//     i++;
+//   }
+//   //Wall
+//   mlx->img_arr[2] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
+//   i = 0;
+//   j = 0;
+//    while(i < IMG_SIDE)
+//   {
+//     j = 0;
+//     while(j < IMG_SIDE)
+//     {
+//       mlx_put_pixel(mlx->img_arr[2], i, j, 0xFFFFFF);
+//       j++;
+//     }
+//     i++;
+//   }
+//   //Load_colors for now
+// }
 
 
 int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
@@ -106,11 +105,11 @@ void draw_grid(mai_t *yes)
 
 void draw_player(mai_t *mlx_info)
 {
-	yes->player = mlx_new_image(yes->mlx, IMG_WIDTH, IMG_HEIGHT);
-	memset(yes->player->pixels, 99, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
-	mlx_image_to_window(yes->mlx, yes->player, 0, 0);
-	yes->player->instances->dir = EAST;
-	// yes->dicky = mlx_new_image(yes->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_info->player = mlx_new_image(mlx_info->mlx, IMG_WIDTH, IMG_HEIGHT);
+	memset(mlx_info->player->pixels, 99, IMG_WIDTH * IMG_HEIGHT * sizeof(int));
+	mlx_image_to_window(mlx_info->mlx, mlx_info->player, 0, 0);
+	mlx_info->player->instances->dir = EAST;
+	mlx_info->dicky = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void draw_dicky(mai_t *yes)
@@ -130,10 +129,19 @@ void draw_dicky(mai_t *yes)
 
 void key_w(mai_t *data)
 {
-	data->player->instances->x += cos(data->player->instances->dir) * MOVEMENT_SPEED;
-	data->player->instances->y += sin(data->player->instances->dir) * MOVEMENT_SPEED;
-	data->dicky->instances->x += cos(data->player->instances->dir) * MOVEMENT_SPEED;
-	data->dicky->instances->y += sin(data->player->instances->dir) * MOVEMENT_SPEED;
+	double x_dest;
+	double y_dest;
+
+	x_dest = cos(data->player->instances->dir) * MOVEMENT_SPEED;
+	y_dest = sin(data->player->instances->dir) * MOVEMENT_SPEED;
+
+	// // if (x_dest < IMG || x_dest > WINDOW_WIDTH)
+	// printf("Coordintaes: %f %f\n", x_dest, y_dest);
+
+	data->player->instances->x += x_dest;
+	data->player->instances->y += y_dest;
+	data->dicky->instances->x += x_dest;
+	data->dicky->instances->y += y_dest;
 }
 
 void key_s(mai_t *data)
