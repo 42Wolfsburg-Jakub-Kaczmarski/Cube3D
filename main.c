@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 21:05:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:12:27 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ void draw_player(t_mlx *mlx_info)
 	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, IMG_SIDE, IMG_SIDE);
 	memset(mlx_info->img_arr[PLAYER]->pixels, 99, IMG_SIDE * IMG_SIDE * sizeof(int));
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[PLAYER], mlx_info->px, mlx_info->py);
-	mlx_info->dir = EAST;
 	draw_wand(mlx_info);
 }
 void    init_mlx_thingy(t_mlx *mlx_info)
 {
+	mlx_info->dir = EAST;
     mlx_info->mlx = mlx_init((mlx_info->map_width - 1)* 80, (mlx_info->map_height - 1) * 80, "Cat shooter", 1);
     mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
     draw_grid(mlx_info);
@@ -129,8 +129,6 @@ void    init_mlx_thingy(t_mlx *mlx_info)
 }
 void key_w(t_mlx *data)
 {
-	printf("X : %d", data->img_arr[PLAYER]->instances->x  );
-	printf("Y : %d", data->img_arr[PLAYER]->instances->y  );
 	data->px += (double)cos(data->dir) * MOVEMENT_SPEED;
 	data->py += (double)sin(data->dir) * MOVEMENT_SPEED;
 	data->wx += (double)cos(data->dir) * MOVEMENT_SPEED;
@@ -145,8 +143,6 @@ void key_s(t_mlx *data)
 	data->py -= (double)sin(data->dir) * MOVEMENT_SPEED;
 	data->wx -= (double)cos(data->dir) * MOVEMENT_SPEED;
 	data->wy -= (double)sin(data->dir) * MOVEMENT_SPEED;
-	printf("X : %f", 	data->px  );
-	printf("Y : %f", 	data->py  );
 	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
 	// data->img_arr[PLAYER] = calloc(sizeof(mlx_image_t), 1);
 	draw_player(data);
@@ -185,7 +181,6 @@ void key_left_arrow(t_mlx *data)
 	data->dir += ROTATION_SPEED;
     if (data->dir >= 2 * PI)
       data->dir -= 2 * PI;
-	// ft_putnbr_fd(data->dir, 2);
 	draw_wand(data);
 }
 
@@ -217,8 +212,8 @@ void  movement_hook(void *x)
 	key_d(data);
   if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	key_right_arrow(data);
-//   if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-// 	key_left_arrow(data);  
+  if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	key_left_arrow(data);  
 }
 int main(int argc, char **argv)
 {

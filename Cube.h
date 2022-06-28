@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 21:03:59 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:09:41 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #define WINDOW_HEIGHT ((COLS * IMG_SIDE) + COLS - 1)
 #define BUFFER_SIZE 1000
 # include <unistd.h>
-#define ROTATION_SPEED 2
+#define ROTATION_SPEED PI / 20
 #define PI 3.14159265359
 #define MOVEMENT_SPEED 2
 # if defined(__linux__)
