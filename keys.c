@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:14:56 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/28 22:08:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 22:48:15 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 void key_w(t_mlx *data)
 {
+	data->pdx = cos(data->dir) * MOVEMENT_SPEED;
+	data->pdy = sin(data->dir) * MOVEMENT_SPEED;
+	
+	if (check_movement(data))
+		return ;
 	data->px += cos(data->dir) * MOVEMENT_SPEED;
 	data->py += sin(data->dir) * MOVEMENT_SPEED;
-	data->wx += cos(data->dir) * MOVEMENT_SPEED;
-	data->wy += sin(data->dir) * MOVEMENT_SPEED;
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
+	// data->wx += cos(data->dir) * MOVEMENT_SPEED;
+	// data->wy += sin(data->dir) * MOVEMENT_SPEED;
+	// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	// draw_player(data);
 }
 
 void key_s(t_mlx *data)
 {
 	data->px -= cos(data->dir) * MOVEMENT_SPEED;
 	data->py -= sin(data->dir) * MOVEMENT_SPEED;
-	data->wx -= cos(data->dir) * MOVEMENT_SPEED;
-	data->wy -= sin(data->dir) * MOVEMENT_SPEED;
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
+	// data->wx -= cos(data->dir) * MOVEMENT_SPEED;
+	// data->wy -= sin(data->dir) * MOVEMENT_SPEED;
+	// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	// draw_player(data);
 }
 
 void key_a(t_mlx *data)
@@ -40,10 +45,10 @@ void key_a(t_mlx *data)
 		temp_dir -= 2 * PI;
 	data->px += cos(temp_dir) * MOVEMENT_SPEED;
 	data->py += sin(temp_dir) * MOVEMENT_SPEED;
-	data->wx += cos(temp_dir) * MOVEMENT_SPEED;
-	data->wy += sin(temp_dir) * MOVEMENT_SPEED;
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
+	// data->wx += cos(temp_dir) * MOVEMENT_SPEED;
+	// data->wy += sin(temp_dir) * MOVEMENT_SPEED;
+	// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	// draw_player(data);
 }
 
 void key_d(t_mlx *data)
@@ -54,10 +59,10 @@ void key_d(t_mlx *data)
 		temp_dir += 2 * PI;
 	data->px += cos(temp_dir) * MOVEMENT_SPEED;
 	data->py += sin(temp_dir) * MOVEMENT_SPEED;
-	data->wx += cos(temp_dir) * MOVEMENT_SPEED;
-	data->wy += sin(temp_dir) * MOVEMENT_SPEED;
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
+	// data->wx += cos(temp_dir) * MOVEMENT_SPEED;
+	// data->wy += sin(temp_dir) * MOVEMENT_SPEED;
+	// mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	// draw_player(data);
 }
 
 void key_left_arrow(t_mlx *data)
