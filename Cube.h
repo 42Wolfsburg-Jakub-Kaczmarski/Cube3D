@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 20:11:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:03:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <fcntl.h>
 #include "MLX42/include/MLX42/MLX42.h"
+#include "42_libft/libft.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>

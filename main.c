@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 20:53:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:05:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void key_left_arrow(t_mlx *data)
 	data->dir += ROTATION_SPEED;
     if (data->dir >= 2 * PI)
       data->dir -= 2 * PI;
+	// ft_putnbr_fd(data->dir, 2);
 	draw_wand(data);
 }
 
