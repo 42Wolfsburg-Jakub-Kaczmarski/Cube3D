@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 22:46:10 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 01:00:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#define DR 0.0174533 //one degree in radian
 #define IMG_SIDE 80
 #define COLS 12
 #define ROWS 6
@@ -50,6 +51,7 @@ enum IMG
   BACKGROUND,
   WALL,
   WAND,
+  
 };
 
 typedef struct s_mlx_img
