@@ -6,12 +6,30 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 20:33:20 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 22:00:19 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
 
+bool	epsilon_function(double target, double patient, double offset)
+{
+	if (patient < target + offset && patient > target - offset)
+		return (true);
+	return (false);
+}
+
+void fix_rounding_errors(double *ra)
+{
+	if (epsilon_function(0, *ra, rotationfix) || epsilon_function(2 * PI, *ra, rotationfix))
+		*ra = 0;
+	else if (epsilon_function(PI, *ra, rotationfix))
+		*ra = PI;
+	if (epsilon_function(SOUTH, *ra, rotationfix))
+		*ra = SOUTH;
+	else if (epsilon_function(NORTH, *ra, rotationfix))
+		*ra = NORTH;
+}
 
 int draw_rays(t_mlx *mlx_info)
 {
@@ -19,11 +37,11 @@ int draw_rays(t_mlx *mlx_info)
 	int dof;
 	int mx;
 	int my;
-	float ra;
-	float rx;
-	float ry;
-	float yo;
-	float xo;
+	double ra;
+	double rx;
+	double ry;
+	double yo;
+	double xo;
 	// ra = mlx_info->dir;
 	ra = mlx_info->dir - DR * 30;
 	if (ra < 0)
@@ -34,53 +52,62 @@ int draw_rays(t_mlx *mlx_info)
 	{
 		ra -= 2 * PI;
 	}
+	// printf("%f\n", ra);
+	fix_rounding_errors(&ra);
+	printf("%f\n", ra);
 	for (r = 0;r < 1; r++)
 	{
-	// 	dof = 0;
-	// 	float aTan = -1/tan(ra);
-	// 	if (ra > PI)
-	// 	{
-	// 		ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
-	// 		rx = (mlx_info->py - ry) * aTan + mlx_info->px;
-	// 		yo = -IMG_SIDE;
-	// 		xo = -yo * aTan;
-	// 	}
-	// 	if (ra < PI)
-	// 	{
-	// 		ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
-	// 		rx = (mlx_info->py - ry) * aTan + mlx_info->px;
-	// 		yo = IMG_SIDE;
-	// 		xo = -yo * aTan;
-	// 	}
-	// 	if (ra == 0 || ra == PI)
-	// 	{
-	// 		rx = mlx_info->px;
-	// 		ry = mlx_info->py;
-	// 		dof = 8;
-	// 	}
-	// 	while(dof < 8)
-	// 	{
-	// 		mx = (int)(rx / IMG_SIDE);
-	// 		my = (int)(ry / IMG_SIDE);
+		dof = 0;
+		double aTan = -1/tan(ra);
+		if (ra > PI)
+		{
+			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
+			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+			yo = -IMG_SIDE;
+			xo = -yo * aTan;
+		}
+		if (ra < PI)
+		{
+			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
+			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+			yo = IMG_SIDE;
+			xo = -yo * aTan;
+		}
+		
+		// if (ra == 0 || ra == PI)
+		if (ra == 0 || ra == PI)
+		{
+			rx = mlx_info->px;
+			ry = mlx_info->py;
+			dof = 8;
+		}
+		while(dof < 8)
+		{
+			mx = (int)(rx / IMG_SIDE);
+			my = (int)(ry / IMG_SIDE);
 			
-	// 		if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
-	// 			dof = 8;
-	// 		else
-	// 		{
-	// 			rx += xo;
-	// 			ry += yo;
-	// 			dof += 1;
-	// 		}
-	// 	}
-	// 	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
-	// 	mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
-	// 	draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
-	// 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
+				dof = 8;
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof += 1;
+			}
+		}
+		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+		// if (rx > mlx_info->map_width * IMG_SIDE)
+		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
+		// if (ry > mlx_info->map_height * IMG_SIDE)
+		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
+		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
 
 
 		////////////////VERTICAL
 		dof = 0;
-		float nTan = -tan(ra);
+		double nTan = -tan(ra);
 		if (ra > SOUTH && ra < NORTH)
 		{
 			rx = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
@@ -105,7 +132,6 @@ int draw_rays(t_mlx *mlx_info)
 		{
 			mx = (int)(rx / IMG_SIDE);
 			my = (int)(ry / IMG_SIDE);
-			printf("rx: %f ry %f\n", rx, ry);
 			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
 				dof = 8;
 			else
@@ -117,6 +143,10 @@ int draw_rays(t_mlx *mlx_info)
 		}
 		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
 		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+		// if (rx > mlx_info->map_width * IMG_SIDE)
+		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
+		// if (ry > mlx_info->map_height * IMG_SIDE)
+		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
 		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
 		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
 	}

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 19:36:01 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 22:00:50 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #define PI 3.14159265359
 #define DR 0.0174533
 #define MOVEMENT_SPEED 4
+#define rotationfix (PI / 241)
 # if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
