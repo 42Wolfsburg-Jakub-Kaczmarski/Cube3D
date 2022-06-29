@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 23:10:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 13:50:41 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,5 @@ int	check_map(char **argv,  t_mlx *mlx_info)
 	}
  	if(check_if_right_characs(mlx_info->map) == -1)
 	 	return 0;
-	// counter--;
-	// while(counter != 0)
-	// {
-	// 	printf("%s\n", mlx_info->map[counter]);
-	// 	counter--;
-	// }
 	return 1;
-	// if(ft_strncmp())
-	// {	
-	// }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/28 23:15:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 13:50:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void draw_grid(t_mlx *mlx)
 	int i = 0;
 	int j = 0;
 	int y = 0;
-	int x = 0;;
+	int x = 0;
 	while(i < mlx->map_height )
 	{
 		j = 0;
@@ -69,9 +69,11 @@ void draw_grid(t_mlx *mlx)
 		while(j < mlx->map_width)
 		{
 				if(mlx->map[i][j] == '1')
-					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],x, y);
+					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],y, x);
 				else if(mlx->map[i][j] == '0' || mlx->map[i][j] == 'P')
-					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], x, y);
+				{
+					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], y, x);
+				}
 				y += IMG_SIDE + 1;
 				j++;
 		}
