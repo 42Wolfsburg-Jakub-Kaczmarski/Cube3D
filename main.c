@@ -6,11 +6,86 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 14:13:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:01:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
+
+
+int draw_rays(t_mlx *mlx_info)
+{
+	int i = 0;
+	int dof = 0;
+	int mx;
+	int my;
+	int mp;
+	float ra;
+	float rx;
+	float ry;
+	float yo;
+	float xo;
+	ra = mlx_info->pa;
+	while(i < 1)
+	{
+		dof = 0;
+		float a_tan = -1/tan(ra);
+		if(ra>PI)
+		{
+			ry = (((int)mlx_info->py >> 6) << 6) - 0.0001;
+			rx = (mlx_info->py - ry) * a_tan + mlx_info->px;
+			yo = -64;
+			xo = -yo * a_tan;
+		}
+		if(ra<PI)
+		{
+			ry = (((int)mlx_info->py >> 6) << 6) + 64;
+			rx = (mlx_info->py - ry) * a_tan + mlx_info->px;
+			yo = 64;
+			xo = -yo * a_tan;
+		}
+		if(ra == 0 || ra == PI)
+		{
+			rx = mlx_info->px;
+			ry = mlx_info->py;
+			dof = 8;
+		}
+		while(dof < 8)
+		{
+			mx = (int) (rx) >> 6;
+			my = (int) (ry) >> 6;
+			mp = my * mlx_info->map_height + mx;
+			if( mlx_info->map[mlx_info->map_height][mlx_info->map_width] == '1')
+			{
+				dof = 8;
+			}else{
+				rx += xo;
+				ry += yo;
+				dof += 1;
+			}
+		}
+		printf("RX value %f\n", rx);
+		draw_line(mlx_info->img_arr[WAND],mlx_info->px, mlx_info->py, rx, ry, 255);
+		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 50, 50);
+		i++;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void load_textures(t_mlx *mlx)
 {
@@ -60,6 +135,7 @@ void    init_mlx_thingy(t_mlx *mlx_info)
     mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
 	draw_grid(mlx_info);
 	draw_player(mlx_info);
+	draw_rays(mlx_info);
 }
 
 bool check_movement(t_mlx *data)
