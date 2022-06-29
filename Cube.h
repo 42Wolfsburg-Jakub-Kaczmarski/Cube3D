@@ -15,7 +15,7 @@
 
 #include <fcntl.h>
 #include "MLX42/include/MLX42/MLX42.h"
-#include "42_libft/libft.h"
+#include "libft.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>

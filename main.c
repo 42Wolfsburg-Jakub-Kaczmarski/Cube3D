@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 01:03:34 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:16:23 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    init_mlx_thingy(t_mlx *mlx_info)
 	mlx_info->wx = 0;
 	mlx_info->wy = 0;
 	mlx_info->dir = SOUTH;
-    mlx_info->mlx = mlx_init((mlx_info->map_width - 1)* 80, (mlx_info->map_height) * 80, "Cat shooter", 1);
+    mlx_info->mlx = mlx_init((mlx_info->map_width - 1 )* IMG_SIDE, (mlx_info->map_height) * IMG_SIDE, "Cat shooter", 1);
     mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
 	draw_grid(mlx_info);
 	draw_player(mlx_info);
@@ -65,7 +65,6 @@ bool check_movement(t_mlx *data)
 {
 	int x_pos = (data->pdx + data->px) / IMG_SIDE;
 	int y_pos = (data->pdy + data->py) / IMG_SIDE;
-	// printf("x = %d y = %d\n", x_pos, y_pos);
 	if (data->map[y_pos][x_pos] == '1')
 		return (true);
 	return (false);
@@ -181,7 +180,7 @@ int main(int argc, char **argv)
 {
     t_mlx   mlx_info;
 
-    if(argc != 2 || !check_map(argv, &mlx_info))
+    if(argc != 2 || check_map(argv, &mlx_info) == 0)
     {
         printf("Error\n");
         return (0);
