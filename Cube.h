@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/28 22:46:10 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:36:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include <unistd.h>
 #define ROTATION_SPEED PI / 20
 #define PI 3.14159265359
+#define DR 0.0174533
 #define MOVEMENT_SPEED 4
 # if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
@@ -97,4 +98,5 @@ void draw_player(t_mlx *mlx_info);
 //main.c
 void load_textures(t_mlx *mlx);
 bool check_movement(t_mlx *data);
+int draw_rays(t_mlx *mlx_info);
 #endif

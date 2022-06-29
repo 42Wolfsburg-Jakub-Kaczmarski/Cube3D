@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 15:01:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:17:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,76 +15,98 @@
 
 int draw_rays(t_mlx *mlx_info)
 {
-	int i = 0;
-	int dof = 0;
+	int r;
+	int dof;
 	int mx;
 	int my;
-	int mp;
+	// int mp;
 	float ra;
 	float rx;
 	float ry;
 	float yo;
 	float xo;
-	ra = mlx_info->pa;
-	while(i < 1)
+	
+	perror("DRAW RAYS BEFORE FOR");
+	ra = mlx_info->dir;
+	ra = mlx_info->dir - DR * 30;
+	if (ra < 0)
+	{
+		ra += 2 * PI;
+	}
+	if (ra > 2 * PI)
+	{
+		ra -= 2 * PI;
+	}
+	for (r = 0;r < 1; r++)
 	{
 		dof = 0;
-		float a_tan = -1/tan(ra);
-		if(ra>PI)
+		float aTan = -1/tan(ra);
+		printf("aTan: %f\n", aTan);
+		if (ra > PI)
 		{
-			ry = (((int)mlx_info->py >> 6) << 6) - 0.0001;
-			rx = (mlx_info->py - ry) * a_tan + mlx_info->px;
-			yo = -64;
-			xo = -yo * a_tan;
+			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
+			printf("ra > PI rx: %f ry %f\n", rx, ry);
+			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+			yo = -IMG_SIDE;
+			xo = -yo * aTan;
 		}
-		if(ra<PI)
+		// perror("AFTER FIRST IF");
+		if (ra < PI)
 		{
-			ry = (((int)mlx_info->py >> 6) << 6) + 64;
-			rx = (mlx_info->py - ry) * a_tan + mlx_info->px;
-			yo = 64;
-			xo = -yo * a_tan;
+			printf("ra < PI rx: %f ry %f\n", rx, ry);
+			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
+			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+			yo = IMG_SIDE;
+			xo = -yo * aTan;
 		}
-		if(ra == 0 || ra == PI)
+		// perror("AFTER SECOND IF");
+		printf("ra: %f\n", ra);
+		if (ra == 0 || ra == PI)
 		{
 			rx = mlx_info->px;
 			ry = mlx_info->py;
 			dof = 8;
 		}
+		// perror("BEFORE WHILE");
+		printf("dof*************************: %d\n", dof);
 		while(dof < 8)
 		{
-			mx = (int) (rx) >> 6;
-			my = (int) (ry) >> 6;
-			mp = my * mlx_info->map_height + mx;
-			if( mlx_info->map[mlx_info->map_height][mlx_info->map_width] == '1')
+			mx = (int)(rx / IMG_SIDE);
+			my = (int)(ry / IMG_SIDE);
+			
+			// printf("posX: %f posY %f\n", mlx_info->px, mlx_info->py);
+			printf("rx: %f ry %f\n", rx, ry);
+			// printf("xo: %f yo %f\n", xo, yo);
+			// printf("idxX: %d idxY %d\n", mx, my);
+			// printf("___________________\n");
+			// perror("BEFORE IF CHECK");
+			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
 			{
+				//// a few more checks
+				printf("In here?????\n");
 				dof = 8;
-			}else{
+				// break ;
+			}
+			else
+			{
 				rx += xo;
 				ry += yo;
+				printf("xo: %f yo %f\n", xo, yo);
 				dof += 1;
 			}
 		}
-		printf("RX value %f\n", rx);
-		draw_line(mlx_info->img_arr[WAND],mlx_info->px, mlx_info->py, rx, ry, 255);
-		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 50, 50);
-		i++;
+		perror("HERE");
+		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+		printf("BEFORE DRAW LINE rx: %f ry %f\n", rx, ry);
+		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+		perror("AND HERE?");
 	}
+	
+	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void load_textures(t_mlx *mlx)
@@ -98,7 +120,7 @@ void load_textures(t_mlx *mlx)
 		j = 0;
 		while(j < IMG_SIDE)
 		{
-			mlx_put_pixel(mlx->img_arr[1], i, j, 0x0000FF);
+			mlx_put_pixel(mlx->img_arr[1], i, j, 0xFFFFFF);
 			j++;
 		}
 		i++;
@@ -112,7 +134,7 @@ void load_textures(t_mlx *mlx)
 		j = 0;
 		while(j < IMG_SIDE)
 		{
-			mlx_put_pixel(mlx->img_arr[2], i, j, 0xFFFFFF);
+			mlx_put_pixel(mlx->img_arr[2], i, j, 0x0000FF);
 			j++;
 		}
 		i++;
@@ -135,6 +157,7 @@ void    init_mlx_thingy(t_mlx *mlx_info)
     mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
 	draw_grid(mlx_info);
 	draw_player(mlx_info);
+	perror("INIT MLX THINGY");
 	draw_rays(mlx_info);
 }
 
@@ -163,8 +186,11 @@ void  movement_hook(void *x)
 		key_a(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		key_d(data);
+
 	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
+	draw_player(data);	
+	draw_rays(data);
+	
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_right_arrow(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
@@ -185,3 +211,5 @@ int main(int argc, char **argv)
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
+
+/////SET Z later = ask Djaisin how

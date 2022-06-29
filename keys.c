@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:14:56 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/28 23:24:46 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:23:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void key_left_arrow(t_mlx *data)
     if (data->dir <= 0)
         data->dir += 2 * PI;
 	draw_wand(data);
+	draw_rays(data);
 }
 
 void key_right_arrow(t_mlx *data)
@@ -76,4 +77,5 @@ void key_right_arrow(t_mlx *data)
     if (data->dir >= 2 * PI)
       data->dir -= 2 * PI;
 	draw_wand(data);
+	draw_rays(data);
 }
