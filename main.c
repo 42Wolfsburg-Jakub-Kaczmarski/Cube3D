@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 20:17:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 20:33:20 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@ int draw_rays(t_mlx *mlx_info)
 	int dof;
 	int mx;
 	int my;
-	// int mp;
 	float ra;
 	float rx;
 	float ry;
 	float yo;
 	float xo;
-	
-	perror("DRAW RAYS BEFORE FOR");
-	ra = mlx_info->dir;
+	// ra = mlx_info->dir;
 	ra = mlx_info->dir - DR * 30;
 	if (ra < 0)
 	{
@@ -39,69 +36,89 @@ int draw_rays(t_mlx *mlx_info)
 	}
 	for (r = 0;r < 1; r++)
 	{
+	// 	dof = 0;
+	// 	float aTan = -1/tan(ra);
+	// 	if (ra > PI)
+	// 	{
+	// 		ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
+	// 		rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+	// 		yo = -IMG_SIDE;
+	// 		xo = -yo * aTan;
+	// 	}
+	// 	if (ra < PI)
+	// 	{
+	// 		ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
+	// 		rx = (mlx_info->py - ry) * aTan + mlx_info->px;
+	// 		yo = IMG_SIDE;
+	// 		xo = -yo * aTan;
+	// 	}
+	// 	if (ra == 0 || ra == PI)
+	// 	{
+	// 		rx = mlx_info->px;
+	// 		ry = mlx_info->py;
+	// 		dof = 8;
+	// 	}
+	// 	while(dof < 8)
+	// 	{
+	// 		mx = (int)(rx / IMG_SIDE);
+	// 		my = (int)(ry / IMG_SIDE);
+			
+	// 		if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
+	// 			dof = 8;
+	// 		else
+	// 		{
+	// 			rx += xo;
+	// 			ry += yo;
+	// 			dof += 1;
+	// 		}
+	// 	}
+	// 	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+	// 	mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+	// 	draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+	// 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+
+
+		////////////////VERTICAL
 		dof = 0;
-		float aTan = -1/tan(ra);
-		printf("aTan: %f\n", aTan);
-		if (ra > PI)
+		float nTan = -tan(ra);
+		if (ra > SOUTH && ra < NORTH)
 		{
-			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
-			printf("ra > PI rx: %f ry %f\n", rx, ry);
-			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
-			yo = -IMG_SIDE;
-			xo = -yo * aTan;
+			rx = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE - 0.0001;
+			ry = (mlx_info->px - rx) * nTan + mlx_info->py;
+			xo = -IMG_SIDE;
+			yo = -xo * nTan;
 		}
-		// perror("AFTER FIRST IF");
-		if (ra < PI)
+		if (ra < SOUTH || ra > NORTH)
 		{
-			printf("ra < PI rx: %f ry %f\n", rx, ry);
-			ry = (int)(mlx_info->py/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
-			rx = (mlx_info->py - ry) * aTan + mlx_info->px;
-			yo = IMG_SIDE;
-			xo = -yo * aTan;
+			rx = (int)(mlx_info->px/IMG_SIDE) * IMG_SIDE + IMG_SIDE;
+			ry = (mlx_info->px - rx) * nTan + mlx_info->py;
+			xo = IMG_SIDE;
+			yo = -xo * nTan;
 		}
-		// perror("AFTER SECOND IF");
-		printf("ra: %f\n", ra);
 		if (ra == 0 || ra == PI)
 		{
 			rx = mlx_info->px;
 			ry = mlx_info->py;
 			dof = 8;
 		}
-		// perror("BEFORE WHILE");
-		printf("dof*************************: %d\n", dof);
 		while(dof < 8)
 		{
 			mx = (int)(rx / IMG_SIDE);
 			my = (int)(ry / IMG_SIDE);
-			
-			// printf("posX: %f posY %f\n", mlx_info->px, mlx_info->py);
 			printf("rx: %f ry %f\n", rx, ry);
-			// printf("xo: %f yo %f\n", xo, yo);
-			// printf("idxX: %d idxY %d\n", mx, my);
-			// printf("___________________\n");
-			// perror("BEFORE IF CHECK");
 			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
-			{
-				//// a few more checks
-				printf("In here?????\n");
 				dof = 8;
-				// break ;
-			}
 			else
 			{
 				rx += xo;
 				ry += yo;
-				printf("xo: %f yo %f\n", xo, yo);
 				dof += 1;
 			}
 		}
-		perror("HERE");
 		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
 		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
-		printf("BEFORE DRAW LINE rx: %f ry %f\n", rx, ry);
 		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
 		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
-		perror("AND HERE?");
 	}
 	
 	
