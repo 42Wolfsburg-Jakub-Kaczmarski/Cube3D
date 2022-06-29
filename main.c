@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 13:50:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:13:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 {
     t_mlx   mlx_info;
 
-    if(argc != 2 || !check_map(argv, &mlx_info))
+    if(argc != 2 || check_map(argv, &mlx_info) == 0)
     {
         printf("Error\n");
         return (0);

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 13:50:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/06/29 14:22:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ int	check_if_right_characs(char **arr)
 	return (1);
 }
 
+int	check_if_only_walls(char **arr)
+{
+	int i = 0;
+	int j = 0;
+	while(arr[i][j])
+	{
+		j = 0;
+		while(arr[i][j])
+		{
+			if((arr[i][j] && arr[i][j] != '1') || (arr[i][j] && arr[i][j] != 10))
+			{
+				return 0;
+			}
+			j++;
+		}
+	 	i++;
+	}
+	return -1;
+}
+
 int	check_map(char **argv,  t_mlx *mlx_info)
 {
 	int fd = open(argv[1], O_RDONLY);
@@ -43,7 +63,6 @@ int	check_map(char **argv,  t_mlx *mlx_info)
 		printf("File doesn't exists or we don't have right to open it\n");
 		return 0;
 	}
-	if(!mlx_info){}
 	char *line = get_next_line(fd);
 	int counter = 0;
 	while(line)
@@ -55,7 +74,7 @@ int	check_map(char **argv,  t_mlx *mlx_info)
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	mlx_info->map_width = ft_strlen(line);
-	mlx_info->map = ft_calloc(counter ,sizeof(char *));
+	mlx_info->map = ft_calloc(counter + 1,sizeof(char **));
 	mlx_info->map_height = counter;
 	counter = 0;
 	while(line)
@@ -63,7 +82,8 @@ int	check_map(char **argv,  t_mlx *mlx_info)
 		mlx_info->map[counter++] = line;
 		line = get_next_line(fd);
 	}
- 	if(check_if_right_characs(mlx_info->map) == -1)
+ 	if(check_if_only_walls(mlx_info->map) == -1 || check_if_right_characs(mlx_info->map) == -1)
 	 	return 0;
 	return 1;
+	//|| 
 }
