@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 22:00:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/29 22:07:49 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,17 @@ int draw_rays(t_mlx *mlx_info)
 				dof += 1;
 			}
 		}
-		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
-		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[6]);
+		mlx_info->img_arr[6] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
 		// if (rx > mlx_info->map_width * IMG_SIDE)
 		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
 		// if (ry > mlx_info->map_height * IMG_SIDE)
 		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
-		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
-		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+		draw_line(mlx_info->img_arr[6], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0x00FF00FF);
+		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[6], 0, 0);
 
 
-		////////////////VERTICAL
+		// ////////////////VERTICAL
 		dof = 0;
 		double nTan = -tan(ra);
 		if (ra > SOUTH && ra < NORTH)
