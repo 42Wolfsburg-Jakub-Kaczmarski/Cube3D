@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/30 14:54:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:22:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void fix_rounding_errors(double *ra)
 		*ra = NORTH;
 }
 
+double ray_len(t_mlx *mlx_info, double *rx, double *ry)
+{
+	double result;
+	result = sqrt((mlx_info->px - *rx) * (mlx_info->px - *rx) + ((mlx_info->py - *ry)) * (mlx_info->py - *ry));
+	return (result);
+}
+
 int draw_rays(t_mlx *mlx_info)
 {
 	int r;
@@ -42,6 +49,14 @@ int draw_rays(t_mlx *mlx_info)
 	double ry;
 	double yo;
 	double xo;
+	double horizontal_ray;
+	double vertical_ray;
+	double rx_temp_h;
+	double ry_temp_h;
+	double rx_temp_v;
+	double ry_temp_v;
+
+	horizontal_ray = vertical_ray = 100000000000;
 	// ra = mlx_info->dir;
 	ra = mlx_info->dir - DR * 30;
 	if (ra < 0)
@@ -54,9 +69,12 @@ int draw_rays(t_mlx *mlx_info)
 	}
 	// printf("%f\n", ra);
 	fix_rounding_errors(&ra);
-	printf("%f\n", ra);
-	for (r = 0;r < 1; r++)
+	// printf("%f\n", ra);
+	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+	mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+	for (r = 0;r < 60; r++)
 	{
+		printf("Index: %d\n", r);
 		dof = 0;
 		double aTan = -1/tan(ra);
 		if (ra > PI)
@@ -73,8 +91,6 @@ int draw_rays(t_mlx *mlx_info)
 			yo = IMG_SIDE;
 			xo = -yo * aTan;
 		}
-		
-		// if (ra == 0 || ra == PI)
 		if (ra == 0 || ra == PI)
 		{
 			rx = mlx_info->px;
@@ -95,17 +111,9 @@ int draw_rays(t_mlx *mlx_info)
 				dof += 1;
 			}
 		}
-		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[6]);
-		mlx_info->img_arr[6] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
-		// if (rx > mlx_info->map_width * IMG_SIDE)
-		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
-		// if (ry > mlx_info->map_height * IMG_SIDE)
-		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
-		// if (!(rx > mlx_info->map_width * IMG_SIDE || ry > mlx_info->map_height * IMG_SIDE || rx < 0 || ry < 0))
-		// {
-		// 	draw_line(mlx_info->img_arr[6], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0x00FF00FF);
-		// 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[6], 0, 0);
-		// }
+		rx_temp_h = rx;
+		ry_temp_h = ry;
+		horizontal_ray = ray_len(mlx_info, &rx, &ry);
 
 
 		// ////////////////VERTICAL
@@ -144,14 +152,29 @@ int draw_rays(t_mlx *mlx_info)
 				dof += 1;
 			}
 		}
-		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
-		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
-		if (!(rx > mlx_info->map_width * IMG_SIDE || ry > mlx_info->map_height * IMG_SIDE || rx < 0 || ry < 0))
+		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+		// mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+		rx_temp_v = rx;
+		ry_temp_v = ry;	
+		vertical_ray = ray_len(mlx_info, &rx, &ry);
+		if (horizontal_ray >= vertical_ray)
 		{
-			draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
-			mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+			rx = rx_temp_v;
+			ry = ry_temp_v;
 		}
+		if (vertical_ray > horizontal_ray)
+		{
+			rx = rx_temp_h;
+			ry = ry_temp_h;
+		}
+		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+
+		ra += DR;
+		printf("RA: %f\n", ra);
+		
 	}
+		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+		mlx_set_instance_depth(mlx_info->img_arr[5]->instances, 999);
 	
 	
 	return 0;
@@ -197,13 +220,13 @@ void load_textures(t_mlx *mlx)
 
 void    init_mlx_thingy(t_mlx *mlx_info)
 {
-	mlx_info->px = 100;
-    mlx_info->py = 100;
+	mlx_info->px = 200;
+    mlx_info->py = 200;
 	mlx_info->wx = 0;
 	mlx_info->wy = 0;
 	mlx_info->dir = SOUTH;
     mlx_info->mlx = mlx_init((mlx_info->map_width - 1 )* IMG_SIDE, (mlx_info->map_height) * IMG_SIDE, "Cat shooter", 1);
-    mlx_info->img_arr = ft_calloc(100,sizeof(mlx_image_t));
+    mlx_info->img_arr = ft_calloc(1000,sizeof(mlx_image_t));
 	draw_grid(mlx_info);
 	draw_player(mlx_info);
 	draw_rays(mlx_info);
@@ -255,20 +278,19 @@ void  movement_hook(void *x)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		key_d(data);
 
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);	
-	draw_rays(data);
 	
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_right_arrow(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		key_left_arrow(data);  
+	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
+	draw_player(data);	
+	draw_rays(data);
 }
 
 int main(int argc, char **argv)
 {
     t_mlx   mlx_info;
-
     if(argc != 2 || check_map(argv, &mlx_info) == 0)
     {
         printf("Error\n");

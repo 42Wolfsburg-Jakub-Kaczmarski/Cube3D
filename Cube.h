@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/30 14:44:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:03:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 #define EAST 0.0f
 #define BUFFER_SIZE 1000
 # include <unistd.h>
-#define ROTATION_SPEED PI / 200
+#define ROTATION_SPEED PI / 100
 #define PI 3.14159265359
 #define DR 0.0174533
-#define MOVEMENT_SPEED 15
+#define MOVEMENT_SPEED 5
 #define rotationfix (PI / 241)
 # if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
