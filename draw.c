@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/29 19:23:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:34:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int
 void draw_wand(t_mlx *mlx_info)
 {
 	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[WAND]);
-	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
+	mlx_info->wx = (PLAYER_SIZE / 2 + mlx_info->px) + cos(mlx_info->dir) * WAND_LEN;
+	mlx_info->wy = (PLAYER_SIZE / 2 + mlx_info->py) + sin(mlx_info->dir) * WAND_LEN;
 	draw_line(
 			mlx_info->img_arr[WAND],
 			(PLAYER_SIZE / 2 + mlx_info->px),
 			(PLAYER_SIZE / 2 + mlx_info->py),
-			(PLAYER_SIZE / 2 + mlx_info->px) + cos(mlx_info->dir) * WAND_LEN, 
-			(PLAYER_SIZE / 2 + mlx_info->py) + sin(mlx_info->dir) * WAND_LEN,
+			mlx_info->wx, 
+			mlx_info->wy,
 			0xFFFFFF
 			);
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
@@ -84,7 +86,6 @@ void draw_grid(t_mlx *mlx)
 
 void draw_player(t_mlx *mlx_info)
 {
-	// mlx_info->dir = SOUTH;
 	mlx_info->img_arr[PLAYER] = mlx_new_image(mlx_info->mlx, PLAYER_SIZE, PLAYER_SIZE);
 	memset(mlx_info->img_arr[PLAYER]->pixels, 99, PLAYER_SIZE * PLAYER_SIZE * sizeof(int));
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[PLAYER], mlx_info->px, mlx_info->py);

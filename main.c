@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 22:07:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:54:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,11 @@ int draw_rays(t_mlx *mlx_info)
 		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
 		// if (ry > mlx_info->map_height * IMG_SIDE)
 		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
-		draw_line(mlx_info->img_arr[6], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0x00FF00FF);
-		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[6], 0, 0);
+		// if (!(rx > mlx_info->map_width * IMG_SIDE || ry > mlx_info->map_height * IMG_SIDE || rx < 0 || ry < 0))
+		// {
+		// 	draw_line(mlx_info->img_arr[6], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0x00FF00FF);
+		// 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[6], 0, 0);
+		// }
 
 
 		// ////////////////VERTICAL
@@ -143,12 +146,11 @@ int draw_rays(t_mlx *mlx_info)
 		}
 		mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
 		mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
-		// if (rx > mlx_info->map_width * IMG_SIDE)
-		// 	rx = mlx_info->map_width * IMG_SIDE - 1;
-		// if (ry > mlx_info->map_height * IMG_SIDE)
-		// 	ry = mlx_info->map_height * IMG_SIDE - 1;
-		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
-		mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+		if (!(rx > mlx_info->map_width * IMG_SIDE || ry > mlx_info->map_height * IMG_SIDE || rx < 0 || ry < 0))
+		{
+			draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+			mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+		}
 	}
 	
 	
@@ -201,27 +203,46 @@ void    init_mlx_thingy(t_mlx *mlx_info)
 	mlx_info->wy = 0;
 	mlx_info->dir = SOUTH;
     mlx_info->mlx = mlx_init((mlx_info->map_width - 1 )* IMG_SIDE, (mlx_info->map_height) * IMG_SIDE, "Cat shooter", 1);
-    mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
+    mlx_info->img_arr = ft_calloc(100,sizeof(mlx_image_t));
 	draw_grid(mlx_info);
 	draw_player(mlx_info);
-	perror("INIT MLX THINGY");
 	draw_rays(mlx_info);
 }
 
 bool check_movement(t_mlx *data)
 {
-	int x_pos = (data->pdx + data->px) / IMG_SIDE;
-	int y_pos = (data->pdy + data->py) / IMG_SIDE;
-	if (data->map[y_pos][x_pos] == '1')
+
+	int y_pos0 = (data->pdy + data->py - (data->py / IMG_SIDE)) / IMG_SIDE;
+	int x_pos0 = (data->pdx + data->px - (data->px / IMG_SIDE)) / IMG_SIDE;
+	int x_pos1 = (data->pdx + data->px + PLAYER_SIZE - (data->px / IMG_SIDE)) / IMG_SIDE;
+	int y_pos1 = (data->pdy + data->py - (data->py / IMG_SIDE)) / IMG_SIDE;
+	int x_pos2 = (data->pdx + data->px + PLAYER_SIZE - (data->px / IMG_SIDE)) / IMG_SIDE;
+	int y_pos2 = (data->pdy + data->py + PLAYER_SIZE - (data->py / IMG_SIDE)) / IMG_SIDE;
+	int x_pos3 = (data->pdx + data->px - (data->px / IMG_SIDE)) / IMG_SIDE;
+	int y_pos3 = (data->pdy + data->py + PLAYER_SIZE - (data->py / IMG_SIDE)) / IMG_SIDE;
+	
+	// ft_putstr_fd("X Y Map[i]\n", 2);
+	// ft_putnbr_fd(x_pos, 2);
+	// ft_putchar_fd(' ',2);
+	// ft_putnbr_fd(y_pos, 2);
+	// ft_putchar_fd(' ',2);
+	// ft_putchar_fd(data->map[y_pos][x_pos], 2);
+	// ft_putchar_fd('\n',2);
+	// printf("X: %d Y: %d Map[i] = ", x_pos, y_pos, data->map[y_pos][x_pos]);
+	if (data->map[y_pos0][x_pos0] == '1'
+		|| data->map[y_pos1][x_pos1] == '1'
+		|| data->map[y_pos2][x_pos2] == '1'
+		|| data->map[y_pos3][x_pos3] == '1'
+		)
 		return (true);
 	return (false);
 }
 
 void  movement_hook(void *x)
 {
-  t_mlx *data;
+	t_mlx *data;
   
-  data = x;
+	data = x;
 
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
