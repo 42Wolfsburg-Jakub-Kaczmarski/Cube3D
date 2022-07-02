@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/30 20:03:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/02 17:47:27 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void key_left_arrow(t_mlx *data);
 void key_right_arrow(t_mlx *data);
 
 //draw.c
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
+int draw_line(mlx_image_t *img,int x, int beginY, int endY, int colour);
 void draw_wand(t_mlx *mlx_info);
 void draw_grid(t_mlx *mlx);
 void draw_player(t_mlx *mlx_info);

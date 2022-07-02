@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/30 20:22:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/02 18:13:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int draw_rays(t_mlx *mlx_info)
 			rx = rx_temp_h;
 			ry = ry_temp_h;
 		}
-		draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
+		// draw_line(mlx_info->img_arr[5], mlx_info->px + PLAYER_SIZE / 2, mlx_info->py + PLAYER_SIZE / 2, rx, ry, 0xFF0000FF);
 
 		ra += DR;
 		printf("RA: %f\n", ra);
@@ -288,17 +288,239 @@ void  movement_hook(void *x)
 	draw_rays(data);
 }
 
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 800
+#define screenHeight 1200
+
+int worldMap[mapWidth][mapHeight]=
+{
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,2,2,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,3,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,3,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,2,2,2,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,1,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
+double posX = 6; //Player starting position
+double posY = 15; 
+	double move_speed = 0.09;
+	double rotSpeed = 0.01;
+
+	double dirX = -1;
+	double dirY = 0; // Initial direction vector
+			double planeX = 0;
+	double planeY = 0.66; //The 2d raycaster version of camera plane
+void draw(t_mlx *mlx_info);
+void	handly_hand(void *tmp)
+{
+	t_mlx *mlx_info = (t_mlx*)tmp;
+	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_W))
+	{
+		if(worldMap[(int)posX + (int)dirX * (int)move_speed][(int)posY] == 0)
+		{
+			posX += dirX * move_speed;
+		}
+		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 0)
+		{
+			posY += dirY * move_speed;
+		}
+		draw(mlx_info);
+	}
+	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_S))
+	{
+		if(worldMap[(int)posX - (int)dirX * (int)move_speed][(int)posY] != 1)
+		{
+			posX -= dirX * move_speed;
+		}
+		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] != 1)
+		{
+			posY -= dirY * move_speed;
+		}
+		draw(mlx_info);
+	}
+		if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_D))
+	{
+		double oldDirX = dirX;
+		dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+		dirY = oldDirX * sin(-rotSpeed)  + dirY * cos(-rotSpeed);
+		double oldplaneX = planeX;
+		planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+		planeY = oldplaneX * sin(-rotSpeed) + planeX * cos(-rotSpeed);
+		draw(mlx_info);
+	}
+	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_A))
+	{
+		double oldDirX = dirX;
+		dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+		dirY = oldDirX * sin(rotSpeed)  + dirY * cos(rotSpeed);
+		double oldplaneX = planeX;
+		planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+		planeY = oldplaneX * sin(rotSpeed) + planeX * cos(rotSpeed);
+		draw(mlx_info);
+	}
+
+	// if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_D))
+	// {
+		
+	// }
+	
+}
+
+void draw(t_mlx *mlx_info)
+{
+
+	int x = 0;
+	int w = screenWidth;
+	mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+	mlx_info->img_arr[5] = mlx_new_image(mlx_info->mlx, screenWidth, screenHeight);
+	while(x < w)
+	{
+		double cameraX =  3 * x / (double) w - 1; // X coordinate in camera space
+		double rayDirX = dirX + planeX * cameraX;
+		double rayDirY = dirY + planeY * cameraX;
+		int mapX = (int)posX;
+		int mapY = (int)posY;
+
+		double sideDistX;
+		double sideDistY;
+		
+		double deltaDistX;
+		double deltaDistY;
+		if(rayDirX == 0)
+		{
+			deltaDistX = 1e30;
+		}else{
+			deltaDistX = fabs(1/ rayDirX);
+		}
+		if(rayDirY == 0)
+		{
+			deltaDistY = 1e30;
+		}else{
+			deltaDistY = fabs(1 / rayDirY);
+		}
+		double perpWallDist;
+		
+		int stepX;
+		int stepY;
+		
+		int hit = 0; // Check if wall was hit
+		int side;
+		
+		if(rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = (posX - mapX) * deltaDistX;
+		}else{
+			stepX = 1;
+			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+		}
+		if(rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = (posY - mapY) * deltaDistY;
+		}else{
+			stepY = 1;
+			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+		}
+		
+		while(hit == 0)
+		{
+			if(sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}else{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			if(worldMap[mapX][mapY] > 0) hit = 1;
+		}
+		if(side == 0)
+		{
+			perpWallDist = sideDistX - deltaDistX;
+		}else{
+			perpWallDist = (sideDistY - deltaDistY);
+		}
+
+
+
+		int lineHeight = (int)(2.5 * screenHeight / perpWallDist);
+		int drawStart = -lineHeight / 2 + screenHeight / 2;
+		if(drawStart < 0)
+		{
+			drawStart = 0;
+		}
+		int drawEnd = lineHeight / 2 + screenHeight / 2;
+		
+		if(drawEnd >= lineHeight)
+		{
+			drawEnd = lineHeight - 1;
+		}
+
+		int color;
+
+		if(worldMap[mapX][mapY] == 1)
+		{
+			color = 0xFF0000FF;	
+		}else if(worldMap[mapX][mapY] == 2)
+		{
+			color = 0xFFFFFFFF;
+		}else if(worldMap[mapX][mapY] == 0)
+		{
+			color = 0x0000FFFF;
+		}else if(worldMap[mapX][mapY] == 3)
+		{
+			color = 0x00FFFFFF;
+		}
+		if(side == 1)
+		{
+			color = color / 2;
+		}
+		draw_line(mlx_info->img_arr[5],  x, drawStart, drawEnd, color);
+		x++;
+	}
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[5], 0, 0);
+}
 int main(int argc, char **argv)
 {
     t_mlx   mlx_info;
-    if(argc != 2 || check_map(argv, &mlx_info) == 0)
-    {
-        printf("Error\n");
-        return (0);
-    }
-    
-    init_mlx_thingy(&mlx_info);
-	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
+	if(argc && argv)
+	{}
+    // if(argc != 2 || check_map(argv, &mlx_info) == 0)
+    // {
+    //     printf("Error\n");
+    //     return (0);
+    // 
+    // init_mlx_thingy(&mlx_info);
+	mlx_info.mlx = mlx_init(screenWidth, screenHeight, "Render thing", 1) ;
+	
+	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
+	// mlx_info
+		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+	mlx_info.img_arr = ft_calloc(sizeof(mlx_image_t), 10);
+	draw(&mlx_info);
+	mlx_loop_hook(mlx_info.mlx, handly_hand, (void *)&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
 

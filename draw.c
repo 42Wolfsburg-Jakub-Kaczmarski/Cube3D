@@ -3,37 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/30 20:28:32 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/02 17:48:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
 
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
+int draw_line(mlx_image_t *img,int x, int beginY, int endY, int colour)
 {
-	double	deltaX;
-	double	deltaY;
-	int 	pixels;
-	double 	pixelX;
-	double 	pixelY;
-
+	int beg_y = beginY;
   	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
-	deltaX = endX - beginX;
-	deltaY = endY - beginY;
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	pixelX = beginX;
-	pixelY = beginY;
-	deltaX /= pixels;
-	deltaY /= pixels;
-	while (pixels)
+	while (beg_y < endY)
 	{
-		mlx_put_pixel(img, pixelX, pixelY, colour);
-		pixelX += deltaX;
-		pixelY += deltaY;
-		--pixels;
+		mlx_put_pixel(img, x, beg_y, colour);
+		beg_y++;
 	}
 	return (0);
 }
@@ -44,14 +30,14 @@ void draw_wand(t_mlx *mlx_info)
 	mlx_info->img_arr[WAND] = mlx_new_image(mlx_info->mlx, mlx_info->map_width * IMG_SIDE, mlx_info->map_height * IMG_SIDE);
 	mlx_info->wx = (PLAYER_SIZE / 2 + mlx_info->px) + cos(mlx_info->dir) * WAND_LEN;
 	mlx_info->wy = (PLAYER_SIZE / 2 + mlx_info->py) + sin(mlx_info->dir) * WAND_LEN;
-	draw_line(
-			mlx_info->img_arr[WAND],
-			(PLAYER_SIZE / 2 + mlx_info->px),
-			(PLAYER_SIZE / 2 + mlx_info->py),
-			mlx_info->wx, 
-			mlx_info->wy,
-			0xFFFFFF
-			);
+	// draw_line(
+	// 		mlx_info->img_arr[WAND],
+	// 		(PLAYER_SIZE / 2 + mlx_info->px),
+	// 		(PLAYER_SIZE / 2 + mlx_info->py),
+	// 		mlx_info->wx, 
+	// 		mlx_info->wy,
+	// 		0xFFFFFF
+	// 		);
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], 0, 0);
 	mlx_set_instance_depth(mlx_info->img_arr[WAND]->instances, 200);
 	// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[WAND], mlx_info->wx, mlx_info->wy);
