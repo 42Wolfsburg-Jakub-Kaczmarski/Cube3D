@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 21:25:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:29:38 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,7 +372,7 @@ void	handly_hand(void *tmp)
 
 	
 	}
-		if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_D))
+		if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_RIGHT))
 	{
 		double oldDirX = dirX;
 		dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
@@ -382,7 +382,7 @@ void	handly_hand(void *tmp)
 		planeY = oldplaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
 		draw(mlx_info);
 	}
-	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_LEFT))
 	{
 		double oldDirX = dirX;
 		dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
