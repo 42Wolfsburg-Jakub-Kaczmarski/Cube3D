@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 18:27:23 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:26:09 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,10 +307,10 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -338,29 +338,34 @@ void	handly_hand(void *tmp)
 		if(worldMap[(int)posX + (int)dirX * (int)move_speed][(int)posY] != 1)
 		{
 			posX += dirX * move_speed;
-			draw(mlx_info);
 		}
 		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] != 1)
 		{
 			posY += dirY * move_speed;
-			draw(mlx_info);
-		}else{
-			perror("Cannot move forward bro");			
+
 		}
+		if(worldMap[(int)posX + (int)dirX * (int)move_speed][(int)posY] == 1 && worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 1)
+		{
+					perror("Cannot move Backwards");
+		}else
+			draw(mlx_info);
 	}
 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_S))
 	{
 		if(worldMap[(int)posX - (int)dirX * (int)move_speed][(int)posY] != 1)
 		{
 			posX -= dirX * move_speed;
-				draw(mlx_info);
 		}
 		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] != 1)
 		{
 			posY -= dirY * move_speed;
-				draw(mlx_info);
-		}else{
+
+		}
+		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 1 && worldMap[(int)posX - (int)dirX * (int)move_speed][(int)posY] == 1)
+		{
 					perror("Cannot move Backwards");
+		}else{
+							draw(mlx_info);
 		}
 
 	
@@ -493,15 +498,16 @@ void draw(t_mlx *mlx_info)
 			color = 0xFF0000FF;	
 		}else if(worldMap[mapX][mapY] == 2)
 		{
-			color = 0xFFFFFFFF;
+			color = 0xFF0000FF;
 		}else if(worldMap[mapX][mapY] == 0)
 		{
-			color = 0x0000FFFF;
+			color = 0;
 		}else if(worldMap[mapX][mapY] == 3)
 		{
-			color = 0x00FFFFFF;
+			color = 0xFF0000FF;
 		}else if(worldMap[mapX][mapY] == 4)
 		{
+			perror("4 found\n");
 			color = 0xFF0000FF;
 		}
 		if(side == 1)
