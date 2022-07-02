@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 19:33:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:47:50 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -533,11 +533,14 @@ int main(int argc, char **argv)
     // 
     // init_mlx_thingy(&mlx_info);
 	mlx_info.mlx = mlx_init(screenWidth, screenHeight, "Render thing", 1) ;
-	
+		mlx_info.img_arr = ft_calloc(sizeof(mlx_image_t), 10);
+	mlx_info.img_arr[0] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
+	memset(mlx_info.img_arr[0]->pixels, 255, screenWidth* screenHeight* sizeof(int));
+	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[0], 0, 0);
 	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	// mlx_info
 		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
-	mlx_info.img_arr = ft_calloc(sizeof(mlx_image_t), 10);
+
 	draw(&mlx_info);
 	mlx_loop_hook(mlx_info.mlx, handly_hand, (void *)&mlx_info);
 	mlx_loop(mlx_info.mlx);
