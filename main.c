@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 19:29:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:33:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ void	handly_hand(void *tmp)
 		if(worldMap[(int)posX + (int)dirX * (int)move_speed][(int)posY] == 1 && worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 1)
 		{
 					perror("Cannot move Backwards");
-		}else
+		}
 			draw(mlx_info);
 	}
 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_S))
@@ -364,9 +364,8 @@ void	handly_hand(void *tmp)
 		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 1 && worldMap[(int)posX - (int)dirX * (int)move_speed][(int)posY] == 1)
 		{
 					perror("Cannot move Backwards");
-		}else{
-							draw(mlx_info);
 		}
+		draw(mlx_info);
 
 	
 	}
@@ -509,11 +508,14 @@ void draw(t_mlx *mlx_info)
 		{
 			perror("4 found\n");
 			color = 0xFF0000FF;
+		}else{
+			color = 0;
 		}
-		if(side == 1)
-		{
-			color = color / 2;
-		}
+		// if(side == 1)
+		// {
+			if(!color){}
+		// 	color = color / 2;
+		// }
 		draw_line(mlx_info->img_arr[5],  x, drawStart, drawEnd, color);
 		x++;
 	}
