@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/30 20:22:07 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/02 17:40:22 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int draw_rays(t_mlx *mlx_info)
 			mx = (int)(rx / IMG_SIDE);
 			my = (int)(ry / IMG_SIDE);
 			
-			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
+			if ((mx >= 0 && mx <= (mlx_info->map_width - 1)) && (my >= 0 &&  my <= (mlx_info->map_height - 1)) && mlx_info->map[my][mx] == '1')
 				dof = 8;
 			else
 			{
@@ -143,7 +143,7 @@ int draw_rays(t_mlx *mlx_info)
 		{
 			mx = (int)(rx / IMG_SIDE);
 			my = (int)(ry / IMG_SIDE);
-			if (mx > 0 && my > 0 && mx < mlx_info->map_width && my < mlx_info->map_height && mlx_info->map[my][mx] == '1')
+			if ((mx >= 0 && mx <= (mlx_info->map_width - 1)) && (my >= 0 &&  my <= (mlx_info->map_height - 1)) && mlx_info->map[my][mx] == '1')
 				dof = 8;
 			else
 			{
