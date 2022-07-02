@@ -6,11 +6,12 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 20:52:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/02 21:25:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
+
 
 bool	epsilon_function(double target, double patient, double offset)
 {
@@ -292,6 +293,8 @@ void  movement_hook(void *x)
 #define mapHeight 24
 #define screenWidth 800
 #define screenHeight 1200
+#define texWidth 80
+#define texHeight 80
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -313,7 +316,7 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -475,9 +478,8 @@ void draw(t_mlx *mlx_info)
 			perpWallDist = (sideDistY - deltaDistY);
 		}
 
-
-
-		int lineHeight = (int)(2.5 * screenHeight / perpWallDist);
+		printf("VAl %f\n\n", perpWallDist);
+		int lineHeight = (int)(screenHeight / perpWallDist);
 		int drawStart = -lineHeight / 2 + screenHeight / 2;
 		if(drawStart < 0)
 		{
@@ -485,9 +487,9 @@ void draw(t_mlx *mlx_info)
 		}
 		int drawEnd = lineHeight / 2 + screenHeight / 2;
 		
-		if(drawEnd >= lineHeight)
+		if(drawEnd >= screenHeight)
 		{
-			drawEnd = lineHeight - 1;
+			drawEnd = screenHeight - 1;
 		}
 
 		int color;
@@ -537,6 +539,21 @@ int main(int argc, char **argv)
 	mlx_info.img_arr[0] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
 	memset(mlx_info.img_arr[0]->pixels, 255, screenWidth* screenHeight* sizeof(int));
 	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[0], 0, 0);
+	// int buffer[screenHeight][screenWidth];
+	// int texture[8][texWidth * texHeight];
+	// // int x = 0;
+	// int y = 0;
+	// while(x < texWidth)
+	// {
+	// 	j = 0;
+	// 	while(j < texHeight)
+	// 	{
+	// 		int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+	// 		int xycolor = (x * 2562) 
+	// 		j++;
+	// 	}
+	// 	x++;
+	// }
 	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	// mlx_info
 		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
