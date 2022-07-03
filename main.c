@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/03 15:56:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:20:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,6 +372,40 @@ void	handly_hand(void *tmp)
 
 	
 	}
+	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_D))
+	{
+		if(worldMap[(int)posX + (int)planeX * (int)move_speed][(int)posY] != 1)
+		{
+			posX += planeX * move_speed;
+		}
+		if(worldMap[(int)posX][(int)posY - (int)planeY * (int)move_speed ] != 1)
+		{
+			posY += planeY * move_speed;
+
+		}
+		if(worldMap[(int)posX + (int)planeX * (int)move_speed][(int)posY] == 1 && worldMap[(int)posX][(int)posY - (int)planeY * (int)move_speed ] == 1)
+		{
+					perror("Cannot move Backwards");
+		}
+			draw(mlx_info);
+	}
+		if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_A))
+	{
+		if(worldMap[(int)posX - (int)planeX * (int)move_speed][(int)posY] != 1)
+		{
+			posX -= planeX * move_speed;
+		}
+		if(worldMap[(int)posX][(int)posY - (int)planeY * (int)move_speed ] != 1)
+		{
+			posY -= planeY * move_speed;
+
+		}
+		if(worldMap[(int)posX][(int)posY - (int)dirY * (int)move_speed ] == 1 && worldMap[(int)posX - (int)dirX * (int)move_speed][(int)posY] == 1)
+		{
+					perror("Cannot move Backwards");
+		}
+		draw(mlx_info);
+	}
 		if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_RIGHT))
 	{
 		double oldDirX = dirX;
@@ -513,9 +547,47 @@ void draw(t_mlx *mlx_info)
 		}
 		// if(side == 1)
 		// {
-			if(!color){}
+			// if(!color){}
 		// 	color = color / 2;
 		// }
+		// int texNum = worldMap[mapX][mapY] - 1;
+
+		// double wallX;
+		// if(side == 0)
+		// {
+		// 	wallX = posY + perpWallDist * rayDirX;
+		// }else{
+		// 	wallX = posX + perpWallDist * rayDirX;
+		// }
+		// wallX -= floor((wallX));
+
+		// int texX = (int)(wallX * (double)texWidth);
+		// if(side == 0 && rayDirX > 0)
+		// {
+		// 	texX = texWidth - texX - 1;
+		// }
+		// if(side == 1 && rayDirY < 0)
+		// {
+		// 	texX = texWidth - texX - 1;
+		// }
+		// double step = 1.0 * texHeight / lineHeight;
+		// double texPos = (drawStart - mapHeight / 2 + lineHeight / 2) * step;
+		
+		// int i = drawStart;
+
+		// while(i < drawEnd)
+		// {
+		// 	int texY = (int)texPos & (texHeight - 1);
+		// 	texPos += step;
+		// 	unsigned int color = texture[texNUm][texHeight * texY + texX];
+
+		// 	i(side == 1)
+		// 	{
+		// 		color = (color >> 1) & 8355711;
+		// 	}
+		// 	i++;
+		// }
+
 		draw_line(mlx_info->img_arr[5],  x, drawStart, drawEnd, color);
 		x++;
 	}
@@ -537,13 +609,15 @@ int main(int argc, char **argv)
 	mlx_info.img_arr[0] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
 	memset(mlx_info.img_arr[0]->pixels, 255, screenWidth* screenHeight* sizeof(int));
 	mlx_texture_t *tex = mlx_load_png("catto_Tex.png");
+
 	mlx_draw_texture(mlx_info.img_arr[0], tex, 0, 0);
 	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[0], 0, 0);
 	// int buffer[screenHeight][screenWidth];
 
+
 	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	// mlx_info
-		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
+	// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
 
 	draw(&mlx_info);
 	mlx_loop_hook(mlx_info.mlx, handly_hand, (void *)&mlx_info);
