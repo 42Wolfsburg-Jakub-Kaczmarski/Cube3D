@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 21:13:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:21:11 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	main(int argc, char *argv[])
 	mlx_info.map_height = 0;
 	if (argc != 2 || map_checks(argv, &mlx_info) == 0)
 	{
-		printf("Error\n");
+		printf("Error___________________XXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 		return (0);
 	}
 	// print_2d_array(mlx_info.textures);

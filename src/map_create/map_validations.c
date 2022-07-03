@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 21:19:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:46:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,10 @@ int check_boarders(t_mlx *mlx_info)
 	while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
 	{
 		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+		{
+			printf("Error 0\n");
 			return (0);
+		}
 		j++;
 	}
 	j = 0;
@@ -144,7 +147,15 @@ int check_boarders(t_mlx *mlx_info)
 	while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
 	{
 		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+		{
+			printf("Error 1\n");
 			return (0);
+		}
+		// if (mlx_info->map[i][j] == ' ' && mlx_info->map[i - 1][j] != '1')
+		// {
+		// 	printf("Error 2\n");
+		// 	return (0);
+		// }
 		j++;
 	}
 	j = 0;
@@ -152,7 +163,11 @@ int check_boarders(t_mlx *mlx_info)
 	while (i < mlx_info->map_height && mlx_info->map[i][j])
 	{
 		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+		{
+			printf("Error 3\n");
 			return (0);
+		}
+
 		i++;
 	}
 
