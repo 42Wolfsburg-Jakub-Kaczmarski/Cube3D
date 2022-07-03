@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/02 21:29:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:56:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ int worldMap[mapWidth][mapHeight]=
 double posX = 22; //Player starting position
 double posY = 12; 
 	double move_speed = 0.1;
-	double rotSpeed = 0.01;
+	double rotSpeed = 0.03;
 
 	double dirX = -1;
 	double dirY = 0; // Initial direction vector
@@ -477,8 +477,6 @@ void draw(t_mlx *mlx_info)
 		}else{
 			perpWallDist = (sideDistY - deltaDistY);
 		}
-
-		printf("VAl %f\n\n", perpWallDist);
 		int lineHeight = (int)(screenHeight / perpWallDist);
 		int drawStart = -lineHeight / 2 + screenHeight / 2;
 		if(drawStart < 0)
@@ -508,7 +506,7 @@ void draw(t_mlx *mlx_info)
 			color = 0x0000FFFF;
 		}else if(worldMap[mapX][mapY] == 4)
 		{
-			perror("4 found\n");
+			// perror("4 found\n");
 			color = 0x00FFF0FF;
 		}else{
 			color = 0;
@@ -535,25 +533,14 @@ int main(int argc, char **argv)
     // 
     // init_mlx_thingy(&mlx_info);
 	mlx_info.mlx = mlx_init(screenWidth, screenHeight, "Render thing", 1) ;
-		mlx_info.img_arr = ft_calloc(sizeof(mlx_image_t), 10);
+	mlx_info.img_arr = ft_calloc(sizeof(mlx_image_t), 10);
 	mlx_info.img_arr[0] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
 	memset(mlx_info.img_arr[0]->pixels, 255, screenWidth* screenHeight* sizeof(int));
+	mlx_texture_t *tex = mlx_load_png("catto_Tex.png");
+	mlx_draw_texture(mlx_info.img_arr[0], tex, 0, 0);
 	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[0], 0, 0);
 	// int buffer[screenHeight][screenWidth];
-	// int texture[8][texWidth * texHeight];
-	// // int x = 0;
-	// int y = 0;
-	// while(x < texWidth)
-	// {
-	// 	j = 0;
-	// 	while(j < texHeight)
-	// 	{
-	// 		int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
-	// 		int xycolor = (x * 2562) 
-	// 		j++;
-	// 	}
-	// 	x++;
-	// }
+
 	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	// mlx_info
 		// mlx_delete_image(mlx_info->mlx, mlx_info->img_arr[5]);
