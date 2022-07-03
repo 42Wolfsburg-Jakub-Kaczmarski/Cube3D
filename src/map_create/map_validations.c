@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 21:14:06 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:19:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
 			{
 				// printf("%d\n", j - 1);
 				if (   (j - 1 > 0 && mlx_info->map[i][j - 1] && ft_strchr("1 \n", mlx_info->map[i][j - 1]) == NULL)
-					|| (mlx_info->map[i][j + 1] && ft_strchr("1 \n", mlx_info->map[i][j + 1]) == NULL)
+					|| (j + 1 < ft_strlen(mlx_info->map[i]) && mlx_info->map[i][j + 1] && ft_strchr("1 \n", mlx_info->map[i][j + 1]) == NULL)
 					|| (i - 1 > 0 && mlx_info->map[i - 1][j] && ft_strchr("1 \n", mlx_info->map[i][j]) == NULL)
-					|| (mlx_info->map[i + 1][j] && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
+					|| (i + 1 < mlx_info->map_height - 1 &&  mlx_info->map[i + 1][j] && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
 					)
 				{
 					printf("SPACE: wrong char\n");
