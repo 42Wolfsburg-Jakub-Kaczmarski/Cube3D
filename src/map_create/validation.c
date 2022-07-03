@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 17:23:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 18:44:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void get_number_of_lines(t_mlx *mlx_info)
 		line = get_next_line(mlx_info->fd);
 		if (line == NULL)
 		{
-			mlx_info->map_height = i;
+			mlx_info->file_height = i;
+			printf("GOT NUMBER OF LINES: %d\n", i);
 			return ;
 		}
 		i++;
@@ -54,7 +55,7 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		return (0);
 	}
 	get_number_of_lines(mlx_info);
-	if (mlx_info->map_height == 0)
+	if (mlx_info->file_height == 0)
 	{
 		printf("Empty file\n");
 		return (0);
@@ -65,15 +66,19 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		printf("textures_to_arr\n");
 		return (0);
 	}
+	if (check_textures_amount(mlx_info) == 0)
+	{	
+		printf("check_textures_amount\n");
+		return (0);
+	}
 	if (map_to_arr(mlx_info) == 0)
 	{
 		printf("map_to_arr\n");
 		return (0);
 	}
-	
-	if (check_textures_amount(mlx_info) == 0)
-	{	
-		printf("check_textures_amount\n");
+	if(check_if_right_characs(mlx_info->map) == 0)
+	{
+		printf("check_if_right_characs\n");
 		return (0);
 	}
 	return (1);
@@ -95,14 +100,19 @@ int	main(int argc, char *argv[])
 	t_mlx	mlx_info;
 
 	init_element_booleans(&mlx_info);
+	mlx_info.file_height = 0;
+	mlx_info.map_height = 0;
 	if (argc != 2 || map_checks(argv, &mlx_info) == 0)
 	{
 		printf("Error\n");
 		return (0);
 	}
-	print_2d_array(mlx_info.textures);
-	print_2d_array(mlx_info.map);
+	// print_2d_array(mlx_info.textures);
+	// print_2d_array(mlx_info.map);
 	free_2d_array(mlx_info.textures);
 	free_2d_array(mlx_info.map);
+	// char *string = ft_strchr("hello", 'k');
+	// if (string == NULL)
+	// 	printf("%s\n", string);
 	return (0);
 }

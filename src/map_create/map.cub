@@ -1,38 +1,9 @@
-
-
-
-
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+F 220,100,0
 C 225,30,0
 
-NO  ./path_to_the_north_texture
-
-
-SO  ./path_to_the_south_texture
-EA  ./path_to_the_east_texture
-WE  ./path_to_the_west_texture
-
-
-
-F 220,120,02      
-
-
-
-
-       line1
-line2
-sdfg
-adfg        g
-dfg
-asdf
-asdf
-\0
-
-
-
-
-
-
-
-
-
-
+1111     111
+0000000
