@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 18:45:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:14:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	map_to_arr(t_mlx *mlx_info)
 			triggered = true;
 		else if (triggered)
 		{
-			free_2d_array(mlx_info->map);
+			// free_2d_array(mlx_info->map); some double free?? but I shouldn't free here anyway?
 			return (perror("No new line within map"), 0);
 		}
 		else
@@ -50,27 +50,113 @@ int	map_to_arr(t_mlx *mlx_info)
 	return (1);
 }
 
-int	check_if_right_characs(char **arr)
+int	check_if_right_characs(t_mlx *mlx_info)
 {
 	int	i;
 	int	j;
+	int	counter;
 
+	counter = 0;
 	i = 0;
 	j = 0;
-	while (arr[i] != NULL) //rows
+	while (mlx_info->map[i] != NULL) //rows
 	{
 		j = 0;
-		while (arr[i][j] && arr[i][j] != '\n')
+		while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
 		{
-			if (ft_strchr(ALLOWED_SYMBOLS, arr[i][j]) == NULL)
-			{
+			if (ft_strchr(ALLOWED_SYMBOLS, mlx_info->map[i][j]) == NULL)
 				return (0);
-			}
-			// printf("i = %d, j = %d\n", i, j);
+			if (ft_strchr("WESN", mlx_info->map[i][j]) != NULL && mlx_info->map[i][j] != '\0')
+				counter++;
 			j++;
 		}
 		i++;
 	}
+	if (counter != 1)
+	{
+		printf("Counter %d\n", counter);
+		return (0);
+	}
 	printf("CHECKED ALL THE CHARACTERS IN THE MAP\n");
 	return (1);
 }
+
+int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
+{
+	int	i;
+	int	j;
+	int	counter;
+	char c;
+	
+	counter = 0;
+	i = 0;
+	j = 0;
+
+	while (mlx_info->map[i] != NULL) //rows
+	{
+		j = 0;
+		while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
+		{
+			// printf("SPACE: wrong char   %c\n", mlx_info->map[i][j]);
+			if (mlx_info->map[i][j] == ' ')
+			{
+				// printf("%d\n", j - 1);
+				if (   (j - 1 > 0 && mlx_info->map[i][j - 1] && ft_strchr("1 \n", mlx_info->map[i][j - 1]) == NULL)
+					|| (mlx_info->map[i][j + 1] && ft_strchr("1 \n", mlx_info->map[i][j + 1]) == NULL)
+					|| (i - 1 > 0 && mlx_info->map[i - 1][j] && ft_strchr("1 \n", mlx_info->map[i][j]) == NULL)
+					|| (mlx_info->map[i + 1][j] && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
+					)
+				{
+					printf("SPACE: wrong char\n");
+					return (0);
+				}
+			}
+			j++;
+		}
+		if (mlx_info->map[i][j - 1] && ft_strchr("1 ", mlx_info->map[i][j - 1]) == NULL)
+		{
+			printf("NEW_LINE: wrong char %c\n", mlx_info->map[i][j - 1]);
+			return (0);
+		}
+		i++;
+	}
+	
+	return (1);
+}
+
+int check_boarders(t_mlx *mlx_info)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	///top
+	while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
+	{
+		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+			return (0);
+		j++;
+	}
+	j = 0;
+	i = mlx_info->map_height - 1;
+	///bottom
+	while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
+	{
+		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+			return (0);
+		j++;
+	}
+	j = 0;
+	i = 0;
+	while (i < mlx_info->map_height && mlx_info->map[i][j])
+	{
+		if (mlx_info->map[i][j] != ' ' && mlx_info->map[i][j] != '1')
+			return (0);
+		i++;
+	}
+
+	
+	return (1);
+}
+

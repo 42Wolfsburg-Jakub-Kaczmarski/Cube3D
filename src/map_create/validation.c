@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 18:44:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:13:49 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,19 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		printf("map_to_arr\n");
 		return (0);
 	}
-	if(check_if_right_characs(mlx_info->map) == 0)
+	if(check_if_right_characs(mlx_info) == 0)
 	{
 		printf("check_if_right_characs\n");
+		return (0);
+	}
+	if(check_if_spaces_are_placed_correctly(mlx_info) == 0)
+	{
+		printf("check_if_spaces_are_placed_correctly\n");
+		return (0);
+	}
+	if(check_boarders(mlx_info) == 0)
+	{
+		printf("check_boarders\n");
 		return (0);
 	}
 	return (1);
@@ -109,8 +119,8 @@ int	main(int argc, char *argv[])
 	}
 	// print_2d_array(mlx_info.textures);
 	// print_2d_array(mlx_info.map);
-	free_2d_array(mlx_info.textures);
-	free_2d_array(mlx_info.map);
+	// free_2d_array(mlx_info.textures);
+	// free_2d_array(mlx_info.map);
 	// char *string = ft_strchr("hello", 'k');
 	// if (string == NULL)
 	// 	printf("%s\n", string);

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 18:09:05 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:59:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ int		all_textures_are_present(t_mlx *mlx_info);
 
 //map_validations.c
 int	map_to_arr(t_mlx *mlx_info);
-int	check_if_right_characs(char **arr);
+int	check_if_right_characs(t_mlx *mlx_info);
+int check_if_spaces_are_placed_correctly(t_mlx *mlx_info);
+int check_boarders(t_mlx *mlx_info);
+
+//validation.c
+void	init_element_booleans(t_mlx *mlx_info);
 #endif
