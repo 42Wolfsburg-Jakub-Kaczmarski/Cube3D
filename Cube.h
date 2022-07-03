@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 01:00:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:16:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define DR 0.0174533 //one degree in radian
+#define TEXTURES 6
 #define IMG_SIDE 80
 #define COLS 12
 #define ROWS 6
@@ -54,22 +55,35 @@ enum IMG
   
 };
 
+typedef struct s_elements
+{
+  bool c;
+  bool f;
+  bool no;
+  bool so;
+  bool ea;
+  bool we;
+} t_elements;
+
 typedef struct s_mlx_img
 {
-  mlx_t *mlx;
+  mlx_t			*mlx;
   //Index 0 reserved for the player
-  mlx_image_t **img_arr;
-  float px;
-  float py;
-  float pdx;
-  float pdy;
-  float pa;
-  float wx;
-  float wy;
-  char **map;
-  int map_height;
-  int map_width;
-  double dir;
+  mlx_image_t	**img_arr;
+  t_elements	elements;
+  float			px;
+  float			py;
+  float			pdx;
+  float			pdy;
+  float			pa;
+  float			wx;
+  float			wy;
+  int			fd;
+  char			**map;
+  char			**textures;
+  int			map_height;
+  int			map_width;
+  double		dir;
 } t_mlx;
 
 int	check_map(char **argv, t_mlx *mlx_info);
