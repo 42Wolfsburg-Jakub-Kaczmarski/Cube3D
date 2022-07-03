@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 15:39:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:30:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,31 @@ int	map_to_arr(t_mlx *mlx_info)
 {
 	int		i;
 	char	*line;
+	bool	triggered;
 
-	mlx_info->map = malloc((mlx_info->map_height - TEXTURES + 1) * sizeof(char *));
-	i = 0;
-	while (i < TEXTURES)
+	mlx_info->map = malloc((mlx_info->map_height - TEXTURES - mlx_info->new_lines + 1) * sizeof(char *));
+	triggered = false;
+	line = get_next_line(mlx_info->fd);
+	while (ft_strncmp(line, "\n", 1) == 0)
 	{
+		free(line);
 		line = get_next_line(mlx_info->fd);
-		if (line == NULL)
+	}
+	i = 0;
+	while (line != NULL)
+	{
+		if (ft_strncmp(line, "\n", 1) == 0)
+			triggered = true;
+		else if (triggered)
 		{
-			printf("Not enough textures\n");
-			return (0);
+			free_2d_array(mlx_info->map);
+			return (perror("No new line within map"), 0);
 		}
-		if (ft_strncmp(line, "\n", 2) == 0)
-		{
-			free(line);
-			continue ;
-		}
-		mlx_info->textures[i] = line;
+		else
+			mlx_info->map[i] = line;
+		line = get_next_line(mlx_info->fd);
 		i++;
 	}
-	mlx_info->textures[i] = NULL;
-	printf("GOT FIRST 6 LINES\n");
+	mlx_info->map[i] = NULL;
 	return (1);
 }

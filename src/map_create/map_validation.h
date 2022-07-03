@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/01 21:32:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:01:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	free_2d_array(char **arr);
 int		arr_len(char **arr);
 
 //textures.c
-
 int		textures_to_arr(t_mlx *mlx_info);
 int		check_textures_amount(t_mlx *mlx_info);
 void	check_textures_names(char *texture_name, t_mlx *mlx_info);
 int		all_textures_are_present(t_mlx *mlx_info);
+
+//map_validations.c
+int	map_to_arr(t_mlx *mlx_info);
 #endif

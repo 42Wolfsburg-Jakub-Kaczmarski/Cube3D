@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 16:15:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:44:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	textures_to_arr(t_mlx *mlx_info)
 			printf("Not enough textures\n");
 			return (0);
 		}
-		if (ft_strncmp(line, "\n", 2) == 0)
+		if (ft_strncmp(line, "\n", 1) == 0)
 		{
 			free(line);
 			continue ;

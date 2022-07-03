@@ -4,20 +4,35 @@
 
 C 225,30,0
 
-NO ./path_to_the_north_texture
+NO  ./path_to_the_north_texture
 
 
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
-WE ./path_to_the_west_texture
-
-
-
-F 220,120,02
+SO  ./path_to_the_south_texture
+EA  ./path_to_the_east_texture
+WE  ./path_to_the_west_texture
 
 
 
+F 220,120,02      
 
-if ((ft_strncmp(elements[1], "F", 1) || (ft_strncmp(elements[1], "C", 1)))
-			&& check_texture_colours(elements[1], mlx_info) == 0)
-			return (0);
+
+
+
+       line1
+line2
+sdfg
+adfg        g
+dfg
+asdf
+asdf
+\0
+
+
+
+
+
+
+
+
+
+

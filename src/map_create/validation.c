@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 16:18:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:23:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		printf("textures_to_arr\n");
 		return (0);
 	}
+	if (map_to_arr(mlx_info) == 0)
+	{
+		printf("map_to_arr\n");
+		return (0);
+	}
+	
 	if (check_textures_amount(mlx_info) == 0)
 	{	
 		printf("check_textures_amount\n");
@@ -95,6 +101,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	print_2d_array(mlx_info.textures);
+	print_2d_array(mlx_info.map);
 	free_2d_array(mlx_info.textures);
+	free_2d_array(mlx_info.map);
 	return (0);
 }
