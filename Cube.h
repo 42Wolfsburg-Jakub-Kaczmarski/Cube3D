@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/03 15:16:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:20:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#define ALLOWED_SYMBOLS "10WESN \n"
+#define PLAYER_POS "WESN"
 #define DR 0.0174533 //one degree in radian
 #define TEXTURES 6
 #define IMG_SIDE 80
@@ -70,7 +72,6 @@ typedef struct s_mlx_img
   mlx_t			*mlx;
   //Index 0 reserved for the player
   mlx_image_t	**img_arr;
-  t_elements	elements;
   float			px;
   float			py;
   float			pdx;
@@ -78,11 +79,16 @@ typedef struct s_mlx_img
   float			pa;
   float			wx;
   float			wy;
-  int			fd;
   char			**map;
-  char			**textures;
-  int			map_height;
   int			map_width;
+  
+  
+  int			map_height;
+  int			file_height;
+  int			new_lines;
+  int			fd;
+  char			**textures;
+  t_elements	elements;
   double		dir;
 } t_mlx;
 
