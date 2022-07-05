@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 18:20:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:25:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,11 @@ int	key_hook(int keycode,void *mlx)
 	if(keycode == 123)
 	{
 		key_left_arr(mlx_info);
+	}
+	if(keycode == 53)
+	{
+		mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
+		exit(1);
 	}
 	return 0;
 }
