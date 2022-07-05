@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 21:46:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:42:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	map_to_arr(t_mlx *mlx_info)
 	char	*line;
 	bool	triggered;
 
-	mlx_info->map = malloc((mlx_info->file_height - TEXTURES - mlx_info->new_lines + 1) * sizeof(char *));
+	printf("File heihgt: %d\n", mlx_info->file_height);
+	mlx_info->map = malloc((mlx_info->file_height - TEXTURES + 10) * sizeof(char *));
 	triggered = false;
 	line = get_next_line(mlx_info->fd);
 	while (ft_strncmp(line, "\n", 1) == 0)
