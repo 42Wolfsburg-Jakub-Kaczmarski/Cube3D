@@ -6,13 +6,12 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 18:30:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:31:39 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "Cube.h"
-void cast_rays(t_mlx *data);
 
 #define mapWidth 24
 #define mapHeight 24
