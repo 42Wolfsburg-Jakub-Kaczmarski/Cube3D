@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/05 20:42:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:05:20 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
 					|| (i + 1 < mlx_info->map_height - 1 &&  mlx_info->map[i + 1][j] && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
 					)
 				{
+					printf("Current position: %d %d\n", i, j);
 					printf("SPACE: wrong char\n");
 					return (0);
 				}

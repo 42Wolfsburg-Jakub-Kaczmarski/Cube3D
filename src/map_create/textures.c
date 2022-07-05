@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 16:44:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:02:12 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	check_texture_colours(char *colours, t_mlx *mlx_info)
 
 	three_colours = ft_split(colours, ',');
 	len_arr = arr_len(three_colours);
-	if (len_arr != 3)
+	printf("Len_arr: %d\n", len_arr);
+	if (len_arr != 3 || count_chars(colours, ',') != 2)
 		return (free_2d_array(three_colours), 0);
 	if (ft_strlen(three_colours[0]) > 3 || ft_strlen(three_colours[1]) > 3
 		|| ft_strlen(three_colours[2]) > 3)
@@ -109,17 +110,17 @@ int	check_textures_amount(t_mlx *mlx_info)
 //and sets it's flag to true
 void	check_textures_names(char *texture_name, t_mlx *mlx_info)
 {
-	if (ft_strncmp(texture_name, "NO", 2) == 0)
+	if (ft_strncmp(texture_name, "NO", 3) == 0)
 		mlx_info->elements.no = true;
-	else if (ft_strncmp(texture_name, "SO", 2) == 0)
+	else if (ft_strncmp(texture_name, "SO", 3) == 0)
 		mlx_info->elements.so = true;
-	else if (ft_strncmp(texture_name, "EA", 2) == 0)
+	else if (ft_strncmp(texture_name, "EA", 3) == 0)
 		mlx_info->elements.ea = true;
-	else if (ft_strncmp(texture_name, "WE", 2) == 0)
+	else if (ft_strncmp(texture_name, "WE", 3) == 0)
 		mlx_info->elements.we = true;
-	else if (ft_strncmp(texture_name, "F", 1) == 0)
+	else if (ft_strncmp(texture_name, "F", 2) == 0)
 		mlx_info->elements.f = true;
-	else if (ft_strncmp(texture_name, "C", 1) == 0)
+	else if (ft_strncmp(texture_name, "C", 2) == 0)
 		mlx_info->elements.c = true;
 }
 

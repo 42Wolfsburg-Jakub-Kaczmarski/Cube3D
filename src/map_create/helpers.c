@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:21 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 17:26:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:01:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,22 @@ int	arr_len(char **arr)
 		i++;
 	}
 	return (i);
+}
+
+int	count_chars(char *str, char c)
+{
+	int	idx;
+	int	count;
+
+	if (!str || !c)
+		return (-1);
+	idx = 0;
+	count = 0;
+	while (str[idx])
+	{
+		if (str[idx] == c)
+			count++;
+		idx++;
+	}
+	return (count);
 }
