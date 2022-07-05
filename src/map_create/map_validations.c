@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/05 21:05:20 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:41:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,46 @@ int	check_if_right_characs(t_mlx *mlx_info)
 	return (1);
 }
 
+bool square_exists(t_mlx *mlx_info, int i, int j) //universal but with the others it is easier to read
+{
+	if ((i > 0 && i < mlx_info->map_height - 1) 
+		&& (j > 0 && j < ft_strlen(mlx_info->map[i])))
+		return (true);
+	return (false);
+}
+
+bool square_below_exists(t_mlx *mlx_info, int i, int j)
+{
+	if ((i + 1 > 0 && i + 1 < mlx_info->map_height - 1) 
+		&& (j > 0 && j < ft_strlen(mlx_info->map[i + 1])))
+		return (true);
+	return (false);
+}
+
+bool square_above_exists(t_mlx *mlx_info, int i, int j)
+{
+	if ((i - 1 > 0 && i - 1 < mlx_info->map_height - 1) 
+		&& (j < ft_strlen(mlx_info->map[i - 1])))
+		return (true);
+	return (false);
+}
+
+bool square_left_exists(t_mlx *mlx_info, int i, int j)
+{
+	if ((i > 0 && i < mlx_info->map_height - 1)
+		&& (j - 1 > 0 && j - 1 < ft_strlen(mlx_info->map[i - 1])))
+		return (true);
+	return (false);
+}
+
+bool square_right_exists(t_mlx *mlx_info, int i, int j)
+{
+	if ((i > 0 && i < mlx_info->map_height - 1)
+		&& (j + 1 > 0 && j + 1 < ft_strlen(mlx_info->map[i - 1])))
+		return (true);
+	return (false);
+}
+
 int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
 {
 	int	i;
@@ -98,17 +138,15 @@ int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
 		j = 0;
 		while (mlx_info->map[i][j] && mlx_info->map[i][j] != '\n')
 		{
-			// printf("SPACE: wrong char   %c\n", mlx_info->map[i][j]);
 			if (mlx_info->map[i][j] == ' ')
 			{
 				// printf("%d\n", j - 1);
-				if (   (j - 1 > 0 && mlx_info->map[i][j - 1] && ft_strchr("1 \n", mlx_info->map[i][j - 1]) == NULL)
-					|| (j + 1 < ft_strlen(mlx_info->map[i]) && mlx_info->map[i][j + 1] && ft_strchr("1 \n", mlx_info->map[i][j + 1]) == NULL)
-					|| (i - 1 > 0 && mlx_info->map[i - 1][j] && ft_strchr("1 \n", mlx_info->map[i][j]) == NULL)
-					|| (i + 1 < mlx_info->map_height - 1 &&  mlx_info->map[i + 1][j] && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
+				if (   (square_left_exists(mlx_info, i, j) && ft_strchr("1 \n", mlx_info->map[i][j - 1]) == NULL)
+					|| (square_right_exists(mlx_info, i, j) && ft_strchr("1 \n", mlx_info->map[i][j + 1]) == NULL)
+					|| (square_above_exists(mlx_info, i, j) && ft_strchr("1 \n", mlx_info->map[i - 1][j]) == NULL)
+					|| (square_below_exists(mlx_info, i, j) && ft_strchr("1 \n", mlx_info->map[i + 1][j]) == NULL)
 					)
 				{
-					printf("Current position: %d %d\n", i, j);
 					printf("SPACE: wrong char\n");
 					return (0);
 				}
@@ -126,7 +164,7 @@ int check_if_spaces_are_placed_correctly(t_mlx *mlx_info)
 	return (1);
 }
 
-int check_boarders(t_mlx *mlx_info)
+int check_borders(t_mlx *mlx_info)
 {
 	int	i;
 	int	j;

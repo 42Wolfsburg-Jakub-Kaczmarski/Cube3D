@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/03 21:21:11 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:41:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		printf("check_if_spaces_are_placed_correctly\n");
 		return (0);
 	}
-	if(check_boarders(mlx_info) == 0)
+	if(check_borders(mlx_info) == 0)
 	{
-		printf("check_boarders\n");
+		printf("check_borders\n");
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/05 21:02:12 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:42:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_texture_colours(char *colours, t_mlx *mlx_info)
 	if (len_arr != 3 || count_chars(colours, ',') != 2)
 		return (free_2d_array(three_colours), 0);
 	if (ft_strlen(three_colours[0]) > 3 || ft_strlen(three_colours[1]) > 3
-		|| ft_strlen(three_colours[2]) > 3)
+		|| ft_strlen(three_colours[2]) > 3 && three_colours[2][3] != '\n')
 		return (free_2d_array(three_colours), 0);
 	i = 0;
 	while (i < len_arr)
