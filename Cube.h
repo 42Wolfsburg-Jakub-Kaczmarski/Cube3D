@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 01:00:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:30:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUBE_H
 
 #include <fcntl.h>
-#include "MLX42/include/MLX42/MLX42.h"
+#include "minilbx/mlx.h"
 #include "libft.h"
 #include <stdio.h>
 #include <math.h>
@@ -22,81 +22,154 @@
 #include <string.h>
 #define DR 0.0174533 //one degree in radian
 #define IMG_SIDE 80
-#define COLS 12
-#define ROWS 6
 #define PLAYER_SIZE 20
-#define WAND_LEN 30
+#define WAND_LEN (PLAYER_SIZE)
 #define NORTH 3.0/2 * PI
 #define SOUTH 1/2.0 * PI
 #define WEST PI
 #define EAST 0.0f
-#define WINDOW_WIDTH ((COLS * IMG_SIDE) + COLS - 1)
-#define WINDOW_HEIGHT ((ROWS * IMG_SIDE) + ROWS - 1)
 #define BUFFER_SIZE 1000
 # include <unistd.h>
-#define ROTATION_SPEED PI / 20
+#define ROTATION_SPEED PI / 100
 #define PI 3.14159265359
-#define MOVEMENT_SPEED 4
+#define DR 0.0174533
+#define MOVEMENT_SPEED 5
+#define rotationfix (PI / 241)
 # if defined(__linux__)
-    #define AUDIO "/usr/bin/aplay"
+		#define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
-    #define AUDIO "/usr/bin/afplay", "--volume", "1"
+		#define AUDIO "/usr/bin/afplay", "--volume", "1"
 # else 
 	#define AUDIO ""
 # endif
 
 enum IMG
 {
-  PLAYER,
-  BACKGROUND,
-  WALL,
-  WAND,
-  
+	PLAYER,
+	BACKGROUND,
+	WALL,
+	WAND,
 };
 
-typedef struct s_mlx_img
+typedef struct s_image_s
 {
-  mlx_t *mlx;
-  //Index 0 reserved for the player
-  mlx_image_t **img_arr;
-  float px;
-  float py;
-  float pdx;
-  float pdy;
-  float pa;
-  float wx;
-  float wy;
-  char **map;
-  int map_height;
-  int map_width;
-  double dir;
-} t_mlx;
+	void *img;
+	char *addr;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+}	t_image;
 
-int	check_map(char **argv, t_mlx *mlx_info);
+typedef struct s_draw_prop
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int mapX;
+	int	mapY;
+	int	lineHeight;
+	int	drawStart;
+	int	drawEnd;
+	double	sideDistX;
+	double	sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	int	stepX;
+	int	stepY;
+	double	perpWallDist;
+	int	hit;
+	int	side;
+}	t_draw_prop;
 
-//Get_next_line
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *ch);
-void	*ft_memset(void *ptr, int value, size_t num);
-void	*ft_memmove(void *dest, const void *src, size_t n);
-char	*ft_strrchr(const char *s, int c);
-void	*ft_calloc(size_t nmemb, size_t size);
+typedef struct s_uniq_prop
+{
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double rotSpeed;
+	double move_speed;	
+	double	posX;
+	double	posY;
+} t_uniq_prop;
 
-///keys.c
-void key_w(t_mlx *data);
-void key_s(t_mlx *data);
-void key_a(t_mlx *data);
-void key_d(t_mlx *data);
-void key_left_arrow(t_mlx *data);
-void key_right_arrow(t_mlx *data);
+typedef struct s_info_mlx{
+	void	*mlx;
+	t_image	main_img;
+	int		window_width;
+	int		window_height;
+	void	**mlx_imgs;
+	void	*main_win;
+	t_uniq_prop	unique_prop;
+	t_draw_prop	draw_prop;
+}	t_mlx_info;
 
-//draw.c
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
-void draw_wand(t_mlx *mlx_info);
-void draw_grid(t_mlx *mlx);
-void draw_player(t_mlx *mlx_info);
 
-//main.c
-void load_textures(t_mlx *mlx);
-bool check_movement(t_mlx *data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// typedef struct s_mlx_img
+// {
+//   mlx_t *mlx;
+//   //Index 0 reserved for the player
+//   mlx_image_t **img_arr;
+//   float px;
+//   float py;
+//   float pdx;
+//   float pdy;
+//   float pa;
+//   float wx;
+//   float wy;
+//   char **map;
+//   int map_height;
+//   int map_width;
+//   double dir;
+// } t_mlx;
+
+// int	check_map(char **argv, t_mlx *mlx_info);
+
+// //Get_next_line
+// char	*get_next_line(int fd);
+// size_t	ft_strlen(const char *ch);
+// void	*ft_memset(void *ptr, int value, size_t num);
+// void	*ft_memmove(void *dest, const void *src, size_t n);
+// char	*ft_strrchr(const char *s, int c);
+// void	*ft_calloc(size_t nmemb, size_t size);
+
+// ///keys.c
+// void key_w(t_mlx *data);
+// void key_s(t_mlx *data);
+// void key_a(t_mlx *data);
+// void key_d(t_mlx *data);
+// void key_left_arrow(t_mlx *data);
+// void key_right_arrow(t_mlx *data);
+
+// //draw.c
+// int draw_line(mlx_image_t *img,int x, int beginY, int endY, int colour);
+// void draw_wand(t_mlx *mlx_info);
+// void draw_grid(t_mlx *mlx);
+// void draw_player(t_mlx *mlx_info);
+
+// //main.c
+// void load_textures(t_mlx *mlx);
+// bool check_movement(t_mlx *data);
+// int draw_rays(t_mlx *mlx_info);
 #endif
