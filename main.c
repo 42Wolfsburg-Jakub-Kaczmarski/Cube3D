@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 18:31:39 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:32:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,48 @@ int	key_hook(int keycode,void *mlx)
 	}
 	return 0;
 }
+t_color *set_color_fstr(t_temp_img *img, int x, int y)
+{
+	int *pix_pos;
 
+	pix_pos = (int *)(img->img_data + (y * img->img_sl + x * (img->img_bp / 8)));
+
+	return (t_color *)pix_pos;
+}
+t_color ***create_color_arr(t_temp_img *img, int height, int width)
+{
+	t_color ***color_arr;
+	int i;
+	int j;
+	
+	color_arr = calloc(sizeof(t_color ***), height + 1);
+	j = 0;
+	while(j < height)
+	{
+		color_arr[j] = calloc(sizeof(t_color *), width + 1);
+		i = 0;
+		while(i < width)
+		{
+			color_arr[j][i] = set_color_fstr(img, j, i);
+			i++;
+		}
+		j++;
+	}
+	return color_arr;
+}
+
+void	load_images(t_mlx_info *mlx_info)
+{
+	t_temp_img img;
+	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, "north_wall.xpm", &mlx_info->window_width, &mlx_info->window_height);
+	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, "south_wall.xpm", &mlx_info->window_width, &mlx_info->window_height);
+	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, "west_wall.xpm", &mlx_info->window_width, &mlx_info->window_height);
+	mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, "east_texture.xpm", &mlx_info->window_width, &mlx_info->window_height);
+	mlx_info->texture_data = calloc(4,sizeof(mlx_info->texture_data ));
+	img.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
+	mlx_info->texture_data[0].arr_color = create_color_arr(&img,mlx_info->texture_data[0].height, mlx_info->texture_data[0].width);
+	mlx_info->texture_data[0].img_h = mlx_info->mlx_imgs[0];
+}
 
 int main(void)
 {

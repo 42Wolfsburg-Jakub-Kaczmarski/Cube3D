@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 18:30:55 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 21:22:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,39 @@ typedef struct s_uniq_prop
 	double	posY;
 } t_uniq_prop;
 
+typedef struct s_color
+{
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	unsigned char a;
+}	t_color;
+
+typedef struct s_temp_img
+{
+	char	*img_data;
+	int	img_bp;
+	int	img_sl;
+	int	img_e;
+}	t_temp_img;
+
+typedef struct s_texture
+{
+	void *img_h;
+	t_color	***arr_color;
+	int	height;
+	int	width;
+	void *img_data;
+}	t_texture;
+
+
 typedef struct s_info_mlx{
 	void	*mlx;
 	t_image	main_img;
 	int		window_width;
 	int		window_height;
 	void	**mlx_imgs;
+	t_texture	*texture_data;
 	void	*main_win;
 	t_uniq_prop	unique_prop;
 	t_draw_prop	draw_prop;
