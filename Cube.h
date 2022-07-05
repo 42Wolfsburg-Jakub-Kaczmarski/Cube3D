@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 15:31:50 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 17:24:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ enum IMG
 	WAND,
 };
 
+typedef struct s_image_s
+{
+	void *img;
+	char *addr;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
+}	t_image;
+
 typedef struct s_draw_prop
 {
 	double	cameraX;
@@ -85,6 +94,7 @@ typedef struct s_uniq_prop
 
 typedef struct s_info_mlx{
 	void	*mlx;
+	t_image	main_img;
 	int		window_width;
 	int		window_height;
 	void	**mlx_imgs;
