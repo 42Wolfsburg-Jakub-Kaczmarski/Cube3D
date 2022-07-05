@@ -5,7 +5,7 @@ SRCs = main.c map_check.c get_next_line.c get_next_line_utils.c keys.c draw.c
 all: $(NAME)
 
 Cube3d:
-	gcc -Wall -Wextra -Werror $(SRCs) libmlx42.a libglfw3.a libft.a -framework Cocoa -framework OpenGL -framework IOKit -o Cube3d
+	gcc -Wall -Wextra -Werror $(SRCs) libmlx.dylib -framework Cocoa -framework OpenGL -framework IOKit -o Cube3d
 
 clean:
 	@rm -f $(NAME)
