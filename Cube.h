@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/05 21:22:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:23:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ typedef struct s_draw_prop
 	double	perpWallDist;
 	int	hit;
 	int	side;
+	int	texture_num;
+	double	wall_X;
+	int	texX;
 }	t_draw_prop;
 
 typedef struct s_uniq_prop
@@ -91,13 +94,15 @@ typedef struct s_uniq_prop
 	double move_speed;	
 	double	posX;
 	double	posY;
+	int		texWidth;
+	int		texHeight;
 } t_uniq_prop;
 
 typedef struct s_color
 {
-	unsigned char r;
-	unsigned char g;
 	unsigned char b;
+	unsigned char g;
+	unsigned char r;
 	unsigned char a;
 }	t_color;
 
