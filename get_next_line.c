@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:31:41 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:32:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:08:16 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube.h"
+#include "includes/Cube.h"
 
 static void	ft_buffjoin(char **line, char *buff)
 {

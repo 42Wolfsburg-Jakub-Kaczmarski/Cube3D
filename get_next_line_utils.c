@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:32:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/27 21:34:03 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:08:12 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube.h"
+#include "includes/Cube.h"
 
 size_t	ft_strlen(const char *ch)
 {

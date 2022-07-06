@@ -5,69 +5,149 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 17:16:23 by kmilchev         ###   ########.fr       */
+/*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
+/*   Updated: 2022/07/06 22:29:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube.h"
-void cast_rays(t_mlx *data);
+#include "includes/Cube.h"
 
-void load_textures(t_mlx *mlx)
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 640
+#define screenHeight 480
+
+
+void cast_rays(t_ray_casting* data, t_mlx* mlx_info);
+void draw_line(mlx_image_t *img, int x, int beginY, int endY, int colour)
 {
-	//Empty space
-	mlx->img_arr[1] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
-	int i = 0;
-	int j = 0;
-	while(i < IMG_SIDE)
+	while(beginY < endY)
 	{
-		j = 0;
-		while(j < IMG_SIDE)
-		{
-			mlx_put_pixel(mlx->img_arr[1], i, j, 0xFFFFFF);
-			j++;
-		}
-		i++;
-	}
-	//Wall
-	mlx->img_arr[2] = mlx_new_image(mlx->mlx, IMG_SIDE, IMG_SIDE);
-	i = 0;
-	j = 0;
-	 while(i < IMG_SIDE)
-	{
-		j = 0;
-		while(j < IMG_SIDE)
-		{
-			mlx_put_pixel(mlx->img_arr[2], i, j, 0x0000FF);
-			j++;
-		}
-		i++;
-	}
-	//Load_colors for now
+		mlx_put_pixel(img, x, beginY, colour);
+		beginY++;
+	}	
 }
 
-void    init_mlx_thingy(t_mlx *mlx_info)
+
+int worldMap[mapWidth][mapHeight]=
 {
-	mlx_info->px = 100;
-    mlx_info->py = 100;
-	mlx_info->wx = 0;
-	mlx_info->wy = 0;
-	mlx_info->dir = SOUTH;
-    mlx_info->mlx = mlx_init((mlx_info->map_width - 1 )* IMG_SIDE, (mlx_info->map_height) * IMG_SIDE, "Cat shooter", 1);
-    mlx_info->img_arr = ft_calloc(6,sizeof(mlx_image_t));
-	draw_grid(mlx_info);
-	draw_player(mlx_info);
-	cast_rays(mlx_info);
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+};
+
+void key_w(t_mlx *big_struct)
+{
+	t_ray_casting *data;
+
+	data = &big_struct->data;
+	if (worldMap[(int)(data->posX + data->dirX * MOVEMENT_SPEED)][(int)(data->posY )] == false)
+	{
+		data->posX += data->dirX * MOVEMENT_SPEED;
+	}
+	if (worldMap[(int)(data->posX)][(int)(data->posY + data->dirY * MOVEMENT_SPEED)] == false)
+	{	
+		data->posY += data->dirY * MOVEMENT_SPEED;
+	}
+}
+
+void key_s(t_mlx *big_struct)
+{
+	t_ray_casting *data;
+
+	data = &big_struct->data;
+	if (worldMap[(int)(data->posX - data->dirX * MOVEMENT_SPEED)][(int)(data->posY)] == false)
+	{
+		data->posX -= data->dirX * MOVEMENT_SPEED;
+	}
+	if (worldMap[(int)(data->posX)][(int)(data->posY - data->dirY * MOVEMENT_SPEED)] == false)
+	{	
+		data->posY -= data->dirY * MOVEMENT_SPEED;
+	}
+}
+
+void key_d(t_mlx *big_struct)
+{
+	t_ray_casting *data;
+
+	data = &big_struct->data;
+	if (worldMap[(int)(data->posX + data->plane_X * MOVEMENT_SPEED)][(int)(data->posY )] == false)
+	{
+		data->posX += data->plane_X * MOVEMENT_SPEED;
+	}
+	if (worldMap[(int)(data->posX)][(int)(data->posY + data->plane_Y * MOVEMENT_SPEED)] == false)
+	{	
+		data->posY += data->plane_Y * MOVEMENT_SPEED;
+	}
+}
+
+void key_a(t_mlx *big_struct)
+{
+	t_ray_casting *data;
+
+	data = &big_struct->data;
+	if (worldMap[(int)(data->posX - data->plane_X * MOVEMENT_SPEED)][(int)(data->posY)] == false)
+	{
+		data->posX -= data->plane_X * MOVEMENT_SPEED;
+	}
+	if (worldMap[(int)(data->posX)][(int)(data->posY - data->plane_Y * MOVEMENT_SPEED)] == false)
+	{	
+		data->posY -= data->plane_Y * MOVEMENT_SPEED;
+	}
+}
+
+void key_left_arrow(t_mlx *big_struct)
+{
+	t_ray_casting *data;
+	double	old_dir_X;
+	double old_plane_X;
+	
+	printf("Position X: %f\n", data->posX);
+	printf("Position Y: %f\n", data->posY);
+	data = &big_struct->data;
+	old_dir_X = data->dirX;
+	old_plane_X = data->plane_X;
+	data->dirX = data->dirX * cos(ROTATION_SPEED) - data->dirY * sin(ROTATION_SPEED);
+	data->dirY = old_dir_X * sin(ROTATION_SPEED) + data->dirY * cos(ROTATION_SPEED);
+	data->plane_X = data->plane_X * cos(ROTATION_SPEED) - data->plane_Y * sin(ROTATION_SPEED);
+	data->plane_Y = old_plane_X * sin(ROTATION_SPEED) + data->plane_Y * cos(ROTATION_SPEED);
 	
 }
 
-bool check_movement(t_mlx *data)
+void key_right_arrow(t_mlx *big_struct)
 {
-	int x_pos = (data->pdx + data->px) / IMG_SIDE;
-	int y_pos = (data->pdy + data->py) / IMG_SIDE;
-	if (data->map[y_pos][x_pos] == '1')
-		return (true);
-	return (false);
+	t_ray_casting *data;
+	double	old_dir_X;
+	double old_plane_X;
+	
+	data = &big_struct->data;
+	old_dir_X = data->dirX;
+	old_plane_X = data->plane_X;
+	data->dirX = data->dirX * cos(-ROTATION_SPEED) - data->dirY * sin(-ROTATION_SPEED);
+	data->dirY = old_dir_X * sin(-ROTATION_SPEED) + data->dirY * cos(-ROTATION_SPEED);
+	data->plane_X = data->plane_X * cos(-ROTATION_SPEED) - data->plane_Y * sin(-ROTATION_SPEED);
+	data->plane_Y = old_plane_X * sin(-ROTATION_SPEED) + data->plane_Y * cos(-ROTATION_SPEED);
 }
 
 void  movement_hook(void *x)
@@ -75,118 +155,68 @@ void  movement_hook(void *x)
   t_mlx *data;
   
   data = x;
-
+	mlx_delete_image(data->mlx, data->img_arr[ALL]);
+	data->img_arr[ALL] = mlx_new_image(data->mlx, screenWidth, screenHeight);
+	// mlx_set_instance_depth(data->img_arr[ALL], 900);
+	// data->img_arr[ALL]->instances->z
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		key_w(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		key_s(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		key_a(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		key_d(data);
-	mlx_delete_image(data->mlx, data->img_arr[PLAYER]);
-	draw_player(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		key_a(data);
+	if(mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		key_left_arrow(data);
+	if(mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_right_arrow(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		key_left_arrow(data);  
+	
+	cast_rays(&data->data, data);
+}
+
+void init_data_for_ray_cast(t_ray_casting *data)
+{
+	data->posX = 22;
+	data->posY = 12;
+	data->dirX = -1;
+	data->dirY = 0;
+	data->plane_X = 0;
+	data->plane_Y = 0.66;
+	data->time = 0;
 }
 
 
-void cast_rays(t_mlx *data)
+
+void cast_rays(t_ray_casting* data, t_mlx* mlx_info)
 {
-	ft_putstr_fd("here\n", 2);
-	int r;
-	int mx;
-	int my;
-	// int mp;
-	int dof;
-
-	double rx;
-	double ry;
-	double r_dir;
-	double xo;
-	double yo;
-	double a_Tan;
-	
-	// r_dir = data->dir - DR * 30;
-	// if (r_dir < 0)
-	// 	r_dir += 2 * PI;
-	// if (r_dir > 2 * PI)
-	// 	r_dir -= 2 * PI;
-
-	r_dir = data->dir;
-	r = 0;
-	while(r < 1)
-	{
-		r++;
-		dof = 0;
-		a_Tan = -1/tan(r_dir);
-		if (r_dir > PI) //ray looking down r_dir < PI?? 'y' flipped
-		{
-			ry = (int)(data->py / IMG_SIDE) * IMG_SIDE;
-			rx = (data->px - ry) * a_Tan + data->px;
-			yo = -IMG_SIDE;
-			xo = -yo * a_Tan;
-		}
-		if (r_dir < PI)
-		{
-			ry = (int)(data->py / IMG_SIDE) * IMG_SIDE + IMG_SIDE;
-			rx = (data->px - ry) * a_Tan + data->px;
-			yo = IMG_SIDE;
-			xo = -yo * a_Tan;
-		}
-		if (r_dir == 0 || r_dir == PI)
-		{
-			rx = data->px;
-			ry = data->py;
-			dof = 8;
-		}
-		while (dof < 8)
-		{
-			mx = (int)(rx / IMG_SIDE);
-			my = (int)(ry / IMG_SIDE);
-			if (mx > 0 &&
-				mx < data->map_width &&
-				my > 0 &&
-				my < data->map_height &&
-				data->map[my][mx] == '1')
-			{
-				dof = 8;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-			}
-		}
-		data->img_arr[5] = mlx_new_image(data->mlx, data->map_width * IMG_SIDE, data->map_height * IMG_SIDE);
-		draw_line(	data->img_arr[5],
-					data->px,
-					data->py,
-					rx,
-					ry,
-					0xFF0000);
-		mlx_image_to_window(data->mlx, data->img_arr[5], 0, 0);
-		
+	static int i = 0;
+	// printf("Take %d\n", i);
+	for(int x = 0; x < screenWidth; x++)
+	{	
+		ray_init(data, x);
+		calculate_step(data);
+		check_if_hit(data);
+		calculate_ray_len(data);
+		get_line_start_end_points(data);
+		draw_line(mlx_info->img_arr[ALL], x, data->draw_start, data->draw_end, 0xFF0000FF);
+		// draw_line(mlx_info->img_arr[ALL], 2, 100, 200, 0xFF0000FF);
+		// printf("%d ", x);
 	}
-	
+	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[ALL], 0, 0);
 }
-
-
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    t_mlx   mlx_info;
+	// t_ray_casting data;
+	t_mlx mlx_info;
+	mlx_info.data.colour = 0xFF0000FF;//RED
+	init_data_for_ray_cast(&mlx_info.data);
+	mlx_info.mlx = mlx_init( screenWidth,screenHeight, "Cat shooter", 1);
 
-    if(argc != 2 || check_map(argv, &mlx_info) == 0)
-    {
-        printf("Error\n");
-        return (0);
-    }
-    
-    init_mlx_thingy(&mlx_info);
+	mlx_info.img_arr[ALL] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
+	cast_rays(&mlx_info.data, &mlx_info);
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
