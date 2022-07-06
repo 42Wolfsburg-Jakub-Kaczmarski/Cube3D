@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/06 19:10:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:54:12 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,3,3,3,3,0,0,0,1},
+  {1,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,2,2,2,2,2,0,0,0,1},
   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,3,3,3,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,3,0,0,0,0,2,2,2,2,2,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,2,2,2,2,2,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,2,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,3,0,0,0,0,3,0,0,0,3,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,3,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,1},
+  {1,2,2,3,3,3,2,2,2,0,0,0,0,0,3,0,0,3,0,0,0,0,0,1},
+  {1,2,0,2,0,0,0,0,2,0,0,0,0,0,3,0,0,3,0,0,0,0,0,1},
+  {1,2,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,1},
+  {1,2,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,1},
+  {1,2,0,3,3,3,3,2,2,0,0,0,0,0,0,0,0,3,0,0,0,0,0,1},
+  {1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
@@ -232,23 +232,31 @@ void	calculate_wall_texX(t_mlx_info *mlx_info)
 void	load_images(t_mlx_info *mlx_info)
 {
 	t_temp_img img;
+	t_temp_img img1;
+	t_temp_img img2;
 	mlx_info->mlx_imgs = calloc(10,sizeof(void *));
-	mlx_info->texture_data = calloc(4,sizeof(mlx_info->texture_data ));
+	mlx_info->texture_data = calloc(5,sizeof(*mlx_info->texture_data ));
 	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, "wall_2.xpm",& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
-	// mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, "south_wall.xpm", &mlx_info->window_width, &mlx_info->window_height);
-	// mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, "west_wall.xpm", &mlx_info->window_width, &mlx_info->window_height);
+	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, "wall_thingy.xpm", & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
+	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, "beach.xpm", & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
 	// mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, "east_texture.xpm", &mlx_info->window_width, &mlx_info->window_height);
 	img.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
-	// printf("Siemanko %d", mlx_info->texture_data[0].height);
+	img1.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[1], &img1.img_bp, &img1.img_sl, &img1.img_e);
+	img2.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[2], &img2.img_bp, &img2.img_sl, &img2.img_e);
+
 	mlx_info->texture_data[0].arr_color = create_color_arr(&img,mlx_info->texture_data[0].height, mlx_info->texture_data[0].width);
+	mlx_info->texture_data[1].arr_color = create_color_arr(&img1,mlx_info->texture_data[1].height, mlx_info->texture_data[1].width);
+	mlx_info->texture_data[2].arr_color = create_color_arr(&img1,mlx_info->texture_data[2].height, mlx_info->texture_data[2].width);
 
 	mlx_info->texture_data[0].img_h = mlx_info->mlx_imgs[0];
+	mlx_info->texture_data[1].img_h = mlx_info->mlx_imgs[1];
+	mlx_info->texture_data[2].img_h = mlx_info->mlx_imgs[2];
 }
 
 
 void	render_textures(t_mlx_info *mlx_info, int x)
 {
-	double step = 1.0 * mlx_info->texture_data[0].height / mlx_info->draw_prop.lineHeight;
+	double step = 1.0 * mlx_info->texture_data[mlx_info->draw_prop.texture_num].height / mlx_info->draw_prop.lineHeight;
 
 	double texPos = (mlx_info->draw_prop.drawStart - mlx_info->window_height / 2 + mlx_info->draw_prop.lineHeight / 2) * step;
 	
@@ -256,13 +264,12 @@ void	render_textures(t_mlx_info *mlx_info, int x)
 
 	while(y < mlx_info->draw_prop.drawEnd)
 	{
-		int texY = (int) texPos & (mlx_info->texture_data[0].height - 1);
+		int texY = (int) texPos & (mlx_info->texture_data[mlx_info->draw_prop.texture_num].height - 1);
 		texPos += step;
 
-		t_color color = *mlx_info->texture_data[0].arr_color[mlx_info->draw_prop.texX][  texY];
+		t_color color = *mlx_info->texture_data[mlx_info->draw_prop.texture_num].arr_color[mlx_info->draw_prop.texX][  texY];
 
 		// if(x || color.a){}
-		if(x || texY){}
 		int r = color.r & 0xFF;
 		int g = color.g & 0xFF;
 		int b = color.b & 0xFF;
