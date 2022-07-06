@@ -17,4 +17,5 @@ fclean:
 re: fclean all
 
 remix: fclean test
+	./kk
 .PHONY: all clean fclean re test
