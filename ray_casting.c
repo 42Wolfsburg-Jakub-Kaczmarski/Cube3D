@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/06 19:53:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:58:25 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,66 +19,65 @@
 #define screenHeight 480
 
 
-void  movement_hook(void *x)
+void draw_line(mlx_image_t *img, int x, int beginY, int endY, int colour)
 {
-  t_mlx *data;
-  
-  data = x;
-
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
+	while(beginY < endY)
+	{
+		mlx_put_pixel(img, x, beginY, colour);
+		beginY++;
+	}	
 }
 
 
-typedef struct s_ray_casting
-{
-	//Player position
-	double  posX;
-	double  posY;
-	//Make sure the camera plane is perpendicular to the direction, but you can change the length of it.
-	//Direciton
-	double  dirX;
-	double  dirY;
-  //Plane
-	double  planeX;
-	double  planeY;
-  //the time difference between these two -> how much you should move when a certain key is pressed
-  //and for the FPS counter.
-	double  time;
-	double  old_time;
-	//the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
-	//done this way so that the right side of the screen will get coordinate 1,
-	//the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1. 
-	double  cameraX;
-	//Ray direction
-	double  rayDirX;
-	double  rayDirY;
-	//mapX and mapY represent the current square of the map the ray is in.
-	int     mapX;
-	int     mapY;
-	//side_dist_X and side_dist_Y are initially the distance the ray has to travel from its start position
-	//to the first x-side and the first y-side. They will be incremented while steps are taken.
-	double side_dist_X;
-	double side_dist_Y;
-	//delta_dist_X and delta_dist_Y are the distance the ray has to travel to go from 1 x-side to the next x-side,
-	//or from 1 y-side to the next y-side.
-	double delta_dist_X;
-	double delta_dist_Y;
-	//used later to calculate the length of the ray
-	double perp_wall_dist;
-	//used to determinate whether or not the coming loop may be ended
-	bool  hit;
-	int  side; //0 for x-side, 1 for y-side
-	//direction indicaiton
-	int	stepX;
-	int stepY;
-	long long int colour;
-	int line_height;
-	int draw_start;
-	int draw_end;
-	//for the loop, idk yet
-	bool confused;
-} t_ray_casting;
+// typedef struct s_ray_casting
+// {
+// 	//Player position
+// 	double  posX;
+// 	double  posY;
+// 	//Make sure the camera plane is perpendicular to the direction, but you can change the length of it.
+// 	//Direciton
+// 	double  dirX;
+// 	double  dirY;
+//   //Plane
+// 	double  planeX;
+// 	double  planeY;
+//   //the time difference between these two -> how much you should move when a certain key is pressed
+//   //and for the FPS counter.
+// 	double  time;
+// 	double  old_time;
+// 	//the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
+// 	//done this way so that the right side of the screen will get coordinate 1,
+// 	//the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1. 
+// 	double  cameraX;
+// 	//Ray direction
+// 	double  rayDirX;
+// 	double  rayDirY;
+// 	//mapX and mapY represent the current square of the map the ray is in.
+// 	int     mapX;
+// 	int     mapY;
+// 	//side_dist_X and side_dist_Y are initially the distance the ray has to travel from its start position
+// 	//to the first x-side and the first y-side. They will be incremented while steps are taken.
+// 	double side_dist_X;
+// 	double side_dist_Y;
+// 	//delta_dist_X and delta_dist_Y are the distance the ray has to travel to go from 1 x-side to the next x-side,
+// 	//or from 1 y-side to the next y-side.
+// 	double delta_dist_X;
+// 	double delta_dist_Y;
+// 	//used later to calculate the length of the ray
+// 	double perp_wall_dist;
+// 	//used to determinate whether or not the coming loop may be ended
+// 	bool  hit;
+// 	int  side; //0 for x-side, 1 for y-side
+// 	//direction indicaiton
+// 	int	stepX;
+// 	int stepY;
+// 	long long int colour;
+// 	int line_height;
+// 	int draw_start;
+// 	int draw_end;
+// 	//for the loop, idk yet
+// 	bool confused;
+// } t_ray_casting;
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -108,27 +107,46 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void draw_line(mlx_image_t *img, int x, int beginY, int endY, int colour)
+void key_w(t_ray_casting *data)
 {
-	while(beginY < endY)
+	// printf("here\n");
+	// printf("%d\n\n", worldMap[(int)(data->posX + data->dirX * MOVEMENT_SPEED)][(int)data->posY]);
+	// // if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
+	// printf("Position X = %f\n", data->posX);
+	// printf("Position Y = %f\n", data->posY);
+	// printf("Direction X = %f\n", data->dirX);
+	// printf("Direction Y = %f\n", data->dirY);
+	// printf("Projected position X: %f\n", data->posX + data->dirX * MOVEMENT_SPEED);
+	// printf("Map box: %d\n", int(data->posX + data->dirX * MOVEMENT_SPEED);
+	if (worldMap[(int)(data->posX + data->dirX * MOVEMENT_SPEED)][(int)(data->posY)] == false)
 	{
-		mlx_put_pixel(img, x, beginY, colour);
-		beginY++;
-	}	
+		// printf("here1\n");
+		data->posX += data->dirX * MOVEMENT_SPEED;
+	}
+	if (worldMap[(int)(data->posX)][(int)(data->posY - data->dirY * MOVEMENT_SPEED)] == false)
+	{	
+		// printf("From second: %d\n", worldMap[(int)(data->posX)][(int)(data->posY - data->dirY * MOVEMENT_SPEED)]);
+		// printf("here2\n");
+		data->posY += data->dirY * MOVEMENT_SPEED;
+	}
 }
 
+void key_a(t_ray_casting *data)
+{
+	
+}
+void  movement_hook(void *x)
+{
+  t_mlx *data;
+  
+  data = x;
 
-// int draw_line(mlx_image_t *img,int x, int beginY, int endY, int colour)
-// {
-// 	int beg_y = beginY;
-//   	// printf("SMORT %i %i %i %\n",x,  beginY,  endY);
-// 	while (beg_y > endY)
-// 	{
-// 		mlx_put_pixel(img, x, endY, colour);
-// 		endY++;
-// 	}
-// 	return (0);
-// }
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		key_w(&data->data);
+		
+}
 
 void init_data_for_ray_cast(t_ray_casting *data)
 {
