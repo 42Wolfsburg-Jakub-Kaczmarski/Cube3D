@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/06 22:29:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/06 22:46:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 640
-#define screenHeight 480
 
 
 void cast_rays(t_ray_casting* data, t_mlx* mlx_info);
