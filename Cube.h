@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/06 18:23:46 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/06 23:49:15 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ typedef struct s_image_s
 	int	line_length;
 	int	endian;
 }	t_image;
+
+typedef struct s_floor_vars
+{
+	float rayDirX0;
+	float rayDirY0;
+	float rayDirX1;
+	float rayDirY1;
+	int p;
+	float posZ;
+	float rowDistance;
+	float floorStepX;
+	float floorStepY;
+	float floorX;
+	float floorY;
+	int	cellX;
+	int cellY;
+	int	tx;
+	int	ty;
+	int floor_index;
+	int	ceiling_index;
+	int color;
+}	t_floor_vars;
+
 
 typedef struct s_draw_prop
 {
@@ -132,6 +155,7 @@ typedef struct s_info_mlx{
 	void	**mlx_imgs;
 	t_texture	*texture_data;
 	void	*main_win;
+	t_floor_vars	floor_info;
 	t_uniq_prop	unique_prop;
 	t_draw_prop	draw_prop;
 }	t_mlx_info;

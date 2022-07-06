@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/06 19:54:12 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/07 01:04:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,12 +283,56 @@ void	render_textures(t_mlx_info *mlx_info, int x)
 	}
 }
 
+void	prep_floor(t_mlx_info *mlx_info, int y)
+{
+	mlx_info->floor_info.rayDirX0 = mlx_info->unique_prop.dirX - mlx_info->unique_prop.planeX;
+	mlx_info->floor_info.rayDirY0 = mlx_info->unique_prop.dirY - mlx_info->unique_prop.planeY;
+	mlx_info->floor_info.rayDirX1 = mlx_info->unique_prop.dirX + mlx_info->unique_prop.planeX;
+	mlx_info->floor_info.rayDirY1 = mlx_info->unique_prop.dirY + mlx_info->unique_prop.planeY;
+	mlx_info->floor_info.p = y - mlx_info->window_height / 2;
+	mlx_info->floor_info.posZ = 0.5 * mlx_info->window_height;
+	mlx_info->floor_info.rowDistance = mlx_info->floor_info.posZ / mlx_info->floor_info.p;
+	mlx_info->floor_info.floorStepX = mlx_info->floor_info.rowDistance * (mlx_info->floor_info.rayDirX1 - mlx_info->floor_info.rayDirX0) / mlx_info->window_width;
+	mlx_info->floor_info.floorStepY = mlx_info->floor_info.rowDistance * (mlx_info->floor_info.rayDirY1 - mlx_info->floor_info.rayDirY0) / mlx_info->window_width;
+	mlx_info->floor_info.floorX = mlx_info->unique_prop.posX + mlx_info->floor_info.rowDistance * mlx_info->floor_info.rayDirX0;
+	mlx_info->floor_info.floorY = mlx_info->unique_prop.posY + mlx_info->floor_info.rowDistance * mlx_info->floor_info.rayDirY0;
+}
+
+void	floor_casting(t_mlx_info *mlx_info)
+{
+	int y = 0;
+
+	while(y < mlx_info->window_height)
+	{
+		prep_floor(mlx_info, y);
+		int t = 0;
+		while(t < mlx_info->window_width)
+		{
+			mlx_info->floor_info.cellX = (int)mlx_info->floor_info.floorX;
+			mlx_info->floor_info.cellY = (int)mlx_info->floor_info.floorY;
+			mlx_info->floor_info.tx = (int) (mlx_info->texture_data->width * (mlx_info->floor_info.floorX - mlx_info->floor_info.cellX)) & (mlx_info->texture_data->width - 1);
+			mlx_info->floor_info.ty = (int) (mlx_info->texture_data->height * (mlx_info->floor_info.floorY - mlx_info->floor_info.cellY)) & (mlx_info->texture_data->height - 1);
+			mlx_info->floor_info.floorX += mlx_info->floor_info.floorStepX;
+			mlx_info->floor_info.floorY += mlx_info->floor_info.floorStepY;
+			
+			// int floor_texture = 2;
+			// int ceiling_texture = 1;
+			// int color;
+			better_pixel_put(&mlx_info->main_img, t, y, 0x000000FF);
+			better_pixel_put(&mlx_info->main_img, t, mlx_info->window_height - y - 1, 0x0000FFFF);
+			t++;
+		}
+		y++;
+	}
+}
+
 void	render(t_mlx_info *mlx_info)
 {
 	int x = 0;
 	int w = mlx_info->window_width;
 	init_img(mlx_info);
 	// mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
+	floor_casting(mlx_info);
 	while(x < w)
 	{
 		init_for_drawing(mlx_info, x, w);
