@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 01:00:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/06 00:05:11 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,59 @@ enum IMG
   
 };
 
+typedef struct s_ray_casting
+{
+	//Player position
+	double  posX;
+	double  posY;
+	//Make sure the camera plane is perpendicular to the direction, but you can change the length of it.
+	//Direciton
+	double  dirX;
+	double  dirY;
+  //Plane
+	double  planeX;
+	double  planeY;
+  //the time difference between these two -> how much you should move when a certain key is pressed
+  //and for the FPS counter.
+	double  time;
+	double  old_time;
+	//the x-coordinate on the camera plane that the current x-coordinate of the screen represents,
+	//done this way so that the right side of the screen will get coordinate 1,
+	//the center of the screen gets coordinate 0, and the left side of the screen gets coordinate -1. 
+	double  cameraX;
+	//Ray direction
+	double  rayDirX;
+	double  rayDirY;
+	//mapX and mapY represent the current square of the map the ray is in.
+	int     mapX;
+	int     mapY;
+	//sideDistX and sideDistY are initially the distance the ray has to travel from its start position
+	//to the first x-side and the first y-side. They will be incremented while steps are taken.
+	double sideDistX;
+	double sideDistY;
+	//deltaDistX and deltaDistY are the distance the ray has to travel to go from 1 x-side to the next x-side,
+	//or from 1 y-side to the next y-side.
+	double deltaDistX;
+	double deltaDistY;
+	//used later to calculate the length of the ray
+	double perpWallDist;
+	//used to determinate whether or not the coming loop may be ended
+	bool  hit;
+	int  side; //0 for x-side, 1 for y-side
+	//direction indicaiton
+	int	stepX;
+	int stepY;
+	long long int colour;
+	int line_height;
+	int draw_start;
+	int draw_end;
+	//for the loop, idk yet
+	bool confused;
+} t_ray_casting;
+
 typedef struct s_mlx_img
 {
+  t_ray_casting data;
   mlx_t *mlx;
   //Index 0 reserved for the player
   mlx_image_t **img_arr;
@@ -83,15 +134,15 @@ char	*ft_strrchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 ///keys.c
-void key_w(t_mlx *data);
-void key_s(t_mlx *data);
-void key_a(t_mlx *data);
-void key_d(t_mlx *data);
-void key_left_arrow(t_mlx *data);
-void key_right_arrow(t_mlx *data);
+// void key_w(t_mlx *data);
+// void key_s(t_mlx *data);
+// void key_a(t_mlx *data);
+// void key_d(t_mlx *data);
+// void key_left_arrow(t_mlx *data);
+// void key_right_arrow(t_mlx *data);
 
 //draw.c
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
+// int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
 void draw_wand(t_mlx *mlx_info);
 void draw_grid(t_mlx *mlx);
 void draw_player(t_mlx *mlx_info);

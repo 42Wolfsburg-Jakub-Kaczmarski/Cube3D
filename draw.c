@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/29 13:50:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/05 17:53:31 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cube.h"
 
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
-{
-	double	deltaX;
-	double	deltaY;
-	int 	pixels;
-	double 	pixelX;
-	double 	pixelY;
+// int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour)
+// {
+// 	double	deltaX;
+// 	double	deltaY;
+// 	int 	pixels;
+// 	double 	pixelX;
+// 	double 	pixelY;
 
-  	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
-	deltaX = endX - beginX;
-	deltaY = endY - beginY;
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	pixelX = beginX;
-	pixelY = beginY;
-	deltaX /= pixels;
-	deltaY /= pixels;
-	while (pixels)
-	{
-		mlx_put_pixel(img, pixelX, pixelY, colour);
-		pixelX += deltaX;
-		pixelY += deltaY;
-		--pixels;
-	}
-	return (0);
-}
+//   	// printf("SMORT %i %i %i %i\n",beginX,  beginY,  endX,  endY);
+// 	deltaX = endX - beginX;
+// 	deltaY = endY - beginY;
+// 	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+// 	pixelX = beginX;
+// 	pixelY = beginY;
+// 	deltaX /= pixels;
+// 	deltaY /= pixels;
+// 	while (pixels)
+// 	{
+// 		mlx_put_pixel(img, pixelX, pixelY, colour);
+// 		pixelX += deltaX;
+// 		pixelY += deltaY;
+// 		--pixels;
+// 	}
+// 	return (0);
+// }
 
 void draw_wand(t_mlx *mlx_info)
 {
