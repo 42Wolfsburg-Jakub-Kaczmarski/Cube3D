@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 18:06:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:24:41 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,16 @@ int		map_to_arr(t_mlx *mlx_info);
 int		check_if_right_characs(t_mlx *mlx_info);
 int		check_if_spaces_are_placed_correctly(t_mlx *mlx_info);
 int		check_borders(t_mlx *mlx_info);
+int		check_if_zeroes_are_placed_correctly(t_mlx *mlx_info);
 
 //validation.c
 void	init_element_booleans(t_mlx *mlx_info);
+
+//check_if_map_index_exists.c
+bool	square_exists(t_mlx *mlx_info, int i, int j);
+bool	square_below_exists(t_mlx *mlx_info, int i, int j);
+bool	square_above_exists(t_mlx *mlx_info, int i, int j);
+bool	square_left_exists(t_mlx *mlx_info, int i, int j);
+bool	square_right_exists(t_mlx *mlx_info, int i, int j);
+
 #endif

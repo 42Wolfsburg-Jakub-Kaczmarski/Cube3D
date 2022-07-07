@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 18:17:48 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 21:03:34 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,11 @@ int	map_checks(char *argv[], t_mlx *mlx_info)
 		printf("check_if_spaces_are_placed_correctly\n");
 		return (0);
 	}
+	if(check_if_zeroes_are_placed_correctly(mlx_info) == 0)
+	{
+		printf("check_if_zeroes_are_placed_correctly\n");
+		return (0);
+	}
 	if(check_borders(mlx_info) == 0)
 	{
 		printf("check_borders\n");
@@ -116,7 +121,6 @@ int find_longest_row(char **map, int rows)
 	while(i < rows)
 	{
 		curr_len = ft_strlen(map[i]);
-		// printf("Cur len: %d\n", curr_len);
 		if (curr_len > longest)
 			longest = curr_len;
 		i++;
@@ -197,11 +201,11 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	fill_map_with_0(&mlx_info);
-	printf("______________________________________\n");
-	print_2d_array(mlx_info.map);
-	printf("______________________________________\n");
+	// printf("______________________________________\n");
+	// print_2d_array(mlx_info.map);
+	// printf("______________________________________\n");
 	char_to_int_map(&mlx_info);
-	print_int_map(mlx_info.numeric_map, &mlx_info);
+	// print_int_map(mlx_info.numeric_map, &mlx_info);
 	free_2d_array(mlx_info.textures);
 	free_2d_array(mlx_info.map);
 	free_2d_int_array(mlx_info.numeric_map,  &mlx_info);
