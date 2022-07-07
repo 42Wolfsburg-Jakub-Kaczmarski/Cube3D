@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 15:56:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 21:43:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	check_texture_colours(char *colours, t_mlx *mlx_info)
 
 	three_colours = ft_split(colours, ',');
 	len_arr = arr_len(three_colours);
-	printf("Len_arr: %d\n", len_arr);
 	if (len_arr != 3 || count_chars(colours, ',') != 2)
 		return (free_2d_array(three_colours), 0);
 	if (ft_strlen(three_colours[0]) > 3 || ft_strlen(three_colours[1]) > 3
@@ -90,19 +89,15 @@ int	check_textures_amount(t_mlx *mlx_info)
 		el_nums = arr_len(elements);
 		if (el_nums < 2 || (el_nums == 3 && elements[el_nums - 1][0] != '\n')
 			|| (el_nums == 2 && elements[el_nums - 1][0] == '\n'))
-		{
-			free_2d_array(elements);
-			return (perror("Textures input hsould be 2 elements only"), 0);
-		}
+			return (0);
 		check_textures_names(elements[0], mlx_info);
 		if (((ft_strncmp(elements[0], "F", 1) == 0)
 				|| (ft_strncmp(elements[0], "C", 1) == 0))
 			&& check_texture_colours(elements[1], mlx_info) == 0)
-			return (free_2d_array(elements), 0);
+			return (0);
 		free_2d_array(elements);
 		i++;
 	}
-	printf("CHECKED ALL THE NAMES\n");
 	return (all_textures_are_present(mlx_info));
 }
 
@@ -126,13 +121,6 @@ void	check_textures_names(char *texture_name, t_mlx *mlx_info)
 
 int	all_textures_are_present(t_mlx *mlx_info)
 {
-	// printf("%d\n", mlx_info->elements.we);
-	// printf("SO %d\n",	mlx_info->elements.so );
-	// printf("%d\n",	mlx_info->elements.ea );
-	// printf("%d\n",	mlx_info->elements.we );
-	// printf("%d\n",	mlx_info->elements.f );
-	// printf("%d\n",	mlx_info->elements.c);
-	// printf("TRUE: %d\n", true);
 	return (mlx_info->elements.we
 		&& mlx_info->elements.so
 		&& mlx_info->elements.ea
