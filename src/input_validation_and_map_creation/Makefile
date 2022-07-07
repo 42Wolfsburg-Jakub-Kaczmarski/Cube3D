@@ -7,4 +7,4 @@ SRC =	validation.c \
 		helpers_2.c \
 
 all:
-	gcc   $(SRC) ../../get_next_line.c ../../get_next_line_utils.c ../../libft.a && ./a.out map.cub
+	gcc   $(SRC) ../../get_next_line.c ../../get_next_line_utils.c ../../libft.a

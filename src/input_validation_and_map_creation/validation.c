@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:19:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:52:48 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,14 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
 	if (argc != 2 || perform_checks(argv, mlx_info) == 0)
 	{
 		print_error(mlx_info->error_code);
+		free_2d_array(mlx_info->map_s);
+		free_2d_array(mlx_info->textures);
 		return (0);
 	}
 	else
 	{
+		fill_map_with_0(mlx_info, -1, -1);
+		char_to_int_map(mlx_info);
 		free_2d_array(mlx_info->map_s);
 	}
 	return (1);
@@ -103,6 +107,13 @@ int	main(int argc, char *argv[])
 	t_mlx	mlx_info;
 
 	file_input_is_okay(argc, argv, &mlx_info);
+	free_2d_int_array(mlx_info.map, &mlx_info);
+	char **arr = ft_split(mlx_info.textures[3], ' ');
+	int i = arr_len(arr);
+	printf("Element: %s\n", arr[1]);
+	printf("Element number: %d\n", i);
+	free_2d_array(arr);
+	free_2d_array(mlx_info.textures);
 	return (0);
 }
 

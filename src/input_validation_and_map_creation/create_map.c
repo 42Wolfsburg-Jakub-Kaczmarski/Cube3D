@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:18:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:38:50 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	str_to_char_arr2(t_mlx *mlx_info, char *line)
 }
 
 //makes the map rectangular by filling in all spcaes with zeros
+//i and j need to be passed as args because od the norm
+//both need to be -1
 void	fill_map_with_0(t_mlx *data, int i, int j)
 {
 	char	*new_row;
