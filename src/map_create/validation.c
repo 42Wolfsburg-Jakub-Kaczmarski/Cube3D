@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 17:59:47 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 18:17:48 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,30 +169,16 @@ void char_to_int_map(t_mlx *mlx_info)
 	char c;
 	i = 0;
 	j = 0;
-	printf("Line = %s\n", mlx_info->map[0]);
-	printf("Line = %s\n", mlx_info->map[1]);
-	printf("Line = %s\n", mlx_info->map[2]);
-	printf("Line = %s\n", mlx_info->map[3]);
 	
-
 	while(i < mlx_info->map_height)
 	{
-		// printf("Idx: %d Line in loop = %s\n",i, mlx_info->map[i]);
-		// printf("i = %d\n", i);
+
 		mlx_info->numeric_map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
 		while(j < mlx_info->longest_row)
 		{
-			// printf("Idx: %d Line in the other loop = %s\n",i, mlx_info->map[i]);
-			// c = mlx_info->map[i][j];
-			// printf("Char c: %d\n", (c) - '0');
-			// mlx_info->numeric_map[j] = ft_calloc(1, sizeof(int));
-			// c = (mlx_info->map[i][j]);
 			mlx_info->numeric_map[i][j] = (mlx_info->map[i][j]) - '0';
-			// printf("Char: %c \n", mlx_info->map[i][j]);
-			printf("Number: %d ", mlx_info->numeric_map[i][j]);
 			j++;
 		}
-		printf("\n");
 		j = 0;
 		i++;
 	}
@@ -217,6 +203,8 @@ int	main(int argc, char *argv[])
 	char_to_int_map(&mlx_info);
 	print_int_map(mlx_info.numeric_map, &mlx_info);
 	free_2d_array(mlx_info.textures);
+	free_2d_array(mlx_info.map);
+	free_2d_int_array(mlx_info.numeric_map,  &mlx_info);
 	// printf("%d", '1' - '0');
 	return (0);
 }
