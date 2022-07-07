@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 21:43:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:15:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ int	textures_to_arr(t_mlx *mlx_info)
 	{
 		line = get_next_line(mlx_info->fd);
 		if (line == NULL)
-		{
-			printf("Index %d\n", i);
-			printf("Not enough textures\n");
-			return (0);
-		}
+			return (set_error_code(mlx_info, NOT_ENOUGH_TEXTURES), 0);
 		if (ft_strncmp(line, "\n", 1) == 0)
 		{
 			free(line);
@@ -40,7 +36,6 @@ int	textures_to_arr(t_mlx *mlx_info)
 		i++;
 	}
 	mlx_info->textures[i] = NULL;
-	printf("GOT FIRST 6 LINES\n");
 	return (1);
 }
 
@@ -89,12 +84,12 @@ int	check_textures_amount(t_mlx *mlx_info)
 		el_nums = arr_len(elements);
 		if (el_nums < 2 || (el_nums == 3 && elements[el_nums - 1][0] != '\n')
 			|| (el_nums == 2 && elements[el_nums - 1][0] == '\n'))
-			return (0);
+			return (free_2d_array(elements), 0);
 		check_textures_names(elements[0], mlx_info);
 		if (((ft_strncmp(elements[0], "F", 1) == 0)
 				|| (ft_strncmp(elements[0], "C", 1) == 0))
 			&& check_texture_colours(elements[1], mlx_info) == 0)
-			return (0);
+			return (free_2d_array(elements), 0);
 		free_2d_array(elements);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 22:56:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:03:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_if_right_characs(t_mlx *mlx_info)
 		while (mlx_info->map_s[i][j] && mlx_info->map_s[i][j] != '\n')
 		{
 			if (ft_strchr(ALLOWED_SYMBOLS, mlx_info->map_s[i][j]) == NULL)
-				return (0);
+				return (set_error_code(mlx_info, UNKNOWN_SYMBOL), 0);
 			if (ft_strchr(PLAYER_POS, mlx_info->map_s[i][j]) != NULL
 				&& mlx_info->map_s[i][j] != '\0')
 				counter++;
@@ -37,7 +37,7 @@ int	check_if_right_characs(t_mlx *mlx_info)
 		i++;
 	}
 	if (counter != 1)
-		return (0);
+		return (set_error_code(mlx_info, ONLY_ONE_PLAYER_ALLOWED), 0);
 	return (1);
 }
 
@@ -48,7 +48,7 @@ bool	character_is_surrounded(t_mlx *mlx_info, int i, int j)
 		|| !square_above_exists(mlx_info, i, j)
 		|| !square_below_exists(mlx_info, i, j))
 	{
-		return (false);
+		return (set_error_code(mlx_info, NOT_ENCLOSED), false);
 	}
 	return (true);
 }
@@ -60,7 +60,7 @@ bool	char_surrounded_my_valid(t_mlx *mlx_info, int i, int j)
 		|| ft_strchr(VALID_SYMBOLS, mlx_info->map_s[i - 1][j]) == NULL
 		|| ft_strchr(VALID_SYMBOLS, mlx_info->map_s[i + 1][j]) == NULL)
 	{
-		return (false);
+		return (set_error_code(mlx_info, ELEMENT_POSITIONED_WRONG), false);
 	}
 	return (true);
 }

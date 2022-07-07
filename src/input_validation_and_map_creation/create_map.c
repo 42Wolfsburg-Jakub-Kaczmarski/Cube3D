@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 23:10:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:18:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	str_to_char_arr(t_mlx *mlx_info)
 	{
 		line = get_next_line(mlx_info->fd);
 		if (line == NULL)
-			return (0);
+			return (set_error_code(mlx_info, EMPTY_MAP), 0);
 		if (ft_strncmp(line, "\n", 1) == 0)
 			free(line);
 		else
 			break ;
 	}
-	if (str_to_char_arr2(mlx_info, line) == false)
+	if (str_to_char_arr2(mlx_info, line) == 0)
 		return (0);
 	return (1);
 }
@@ -51,7 +51,7 @@ int	str_to_char_arr2(t_mlx *mlx_info, char *line)
 			free(line);
 		}
 		else if (triggered)
-			return (0);
+			return (set_error_code(mlx_info, NEW_LINE_WITHIN_MAP), 0);
 		else
 		{
 			mlx_info->map_height++;

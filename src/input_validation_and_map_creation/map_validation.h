@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 23:08:06 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/08 00:12:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 # define MAP_VALIDATION_H
 
 # include "../../Cube.h"
+
+enum ERRORS
+{
+	NOTHING,
+	FILE_CANNOT_BE_OPENED,
+	EMPTY_FILE,
+	NOT_ENOUGH_TEXTURES,
+	WRONG_TEXTURE_DATA,
+	EMPTY_MAP,
+	NEW_LINE_WITHIN_MAP,
+	ONLY_ONE_PLAYER_ALLOWED,
+	UNKNOWN_SYMBOL,
+	NOT_ENCLOSED,
+	ELEMENT_POSITIONED_WRONG,
+	WRONG_AMOUNT_OF_ARGUMENTS,
+};
 
 //helpers.c
 void	print_2d_array(char **arr);
@@ -26,6 +42,7 @@ int		count_chars(char *str, char c);
 int		arr_len(char **arr);
 void	get_number_of_lines(t_mlx *mlx_info);
 int		longest_row(char **map, int rows);
+void	set_error_code(t_mlx *mlx_info, int num);
 
 //textures.c
 int		textures_to_arr(t_mlx *mlx_info);

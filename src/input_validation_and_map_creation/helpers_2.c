@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:11:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 23:10:27 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 23:49:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	get_number_of_lines(t_mlx *mlx_info)
 		if (line == NULL)
 		{
 			mlx_info->file_height = i;
+			close(mlx_info->fd);
 			return ;
 		}
 		i++;
 		free(line);
 	}
-	close(mlx_info->fd);
 }
 
 int	longest_row(char **map, int rows)
@@ -79,4 +79,9 @@ int	longest_row(char **map, int rows)
 		i++;
 	}
 	return (longest);
+}
+
+void	set_error_code(t_mlx *mlx_info, int num)
+{
+	mlx_info->error_code = num;
 }
