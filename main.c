@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:59:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:02:49 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,13 +209,20 @@ void	render_textures(t_mlx_info *mlx_info, int x)
 	double texPos = (mlx_info->draw_prop.drawStart - mlx_info->window_height / 2 + mlx_info->draw_prop.lineHeight / 2) * step;
 	
 	int y = mlx_info->draw_prop.drawStart;
-
+	printf("Tex pos before %f\n",texPos);
 	while(y < mlx_info->draw_prop.drawEnd)
 	{
-		int texY = (int) texPos & (mlx_info->texture_data[mlx_info->draw_prop.texture_num].height - 1);
+		// printf("%d height thingy\n", mlx_info->texture_data[mlx_info->draw_prop.texture_num].height );
+		// int texY = (int) texPos & (mlx_info->texture_data[mlx_info->draw_prop.texture_num].height - 1);
 		texPos += step;
-
-		t_color color = *mlx_info->texture_data[mlx_info->draw_prop.texture_num].arr_color[mlx_info->draw_prop.texX][  texY];
+		if(texPos - 1 < 0)
+		{
+			texPos = 1;
+		}else if(texPos - 1 > 199)
+		{
+			texPos = 199;
+		}
+		t_color color = *mlx_info->texture_data[mlx_info->draw_prop.texture_num].arr_color[mlx_info->draw_prop.texX][(int)(texPos) - 1];
 
 		// if(x || color.a){}
 		int r = color.r & 0xFF;
@@ -223,12 +230,14 @@ void	render_textures(t_mlx_info *mlx_info, int x)
 		int b = color.b & 0xFF;
 		int a = color.a & 0xFF;
 		// printf("Y start %d : Y end %d \n", y, mlx_info->draw_prop.drawEnd);
-		int pix = (r << 24) + (g << 16) + (b << 8) + (a);
+
+		int pix = (a << 24) + (r << 16) + (g << 8) + (b);
 		// if(mlx_info->draw_prop.side == 1) pix = (pix >> 1) & 8355711;
 		better_pixel_put(&mlx_info->main_img, x, y, pix);
 		// draw_line(mlx_info->mlx, x, mlx_info->draw_prop.drawStart, mlx_info->draw_prop.drawEnd, pix);
 		y++;
 	}
+	printf("Tex pos after %f\n",texPos);
 }
 
 void	prep_floor(t_mlx_info *mlx_info, int y)
