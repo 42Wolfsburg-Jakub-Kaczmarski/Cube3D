@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/06 22:49:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:49:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@
 
 enum IMG
 {
+  WEST_IMG,
+  EAST_IMG,
+  NORTH_IMG,
+  SOUTH_IMG,
   ALL,
-  BACKGROUND,
-  WALL,
-  WAND,
-  
 };
 
 typedef struct s_ray_casting
@@ -113,7 +113,8 @@ typedef struct s_mlx_img
   t_ray_casting data;
   mlx_t *mlx;
   //Index 0 reserved for the player
-  mlx_image_t **img_arr;
+  mlx_image_t	**img_arr;
+  mlx_texture_t	**texture_arr;
   float px;
   float py;
   float pdx;
@@ -127,6 +128,7 @@ typedef struct s_mlx_img
   double dir;
 } t_mlx;
 
+u_int32_t buffer[screenHeight][screenWidth];
 int worldMap[mapWidth][mapHeight];
 
 //Get_next_line
@@ -146,7 +148,6 @@ void	*ft_calloc(size_t nmemb, size_t size);
 // void key_right_arrow(t_mlx *data);
 
 //main.c
-void load_textures(t_mlx *mlx);
 bool check_movement(t_mlx *data);
 
 //raycasting.c

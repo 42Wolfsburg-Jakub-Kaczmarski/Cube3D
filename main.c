@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/06 22:46:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:49:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -43,12 +43,12 @@ int worldMap[mapWidth][mapHeight]=
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -155,7 +155,6 @@ void  movement_hook(void *x)
   data = x;
 	mlx_delete_image(data->mlx, data->img_arr[ALL]);
 	data->img_arr[ALL] = mlx_new_image(data->mlx, screenWidth, screenHeight);
-	// mlx_set_instance_depth(data->img_arr[ALL], 900);
 	// data->img_arr[ALL]->instances->z
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
@@ -205,16 +204,89 @@ void cast_rays(t_ray_casting* data, t_mlx* mlx_info)
 	}
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[ALL], 0, 0);
 }
+
+	// t_mlx mlx_info;
+	// mlx_info.data.colour = 0xFF0000FF;//RED
+	// init_data_for_ray_cast(&mlx_info.data);
+	// mlx_info.mlx = mlx_init( screenWidth,screenHeight, "Cat shooter", 1);
+
+	// mlx_info.img_arr[ALL] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
+	// mlx_texture_t * test_texture;
+	
+	// // mlx_info.img_arr[EAST_IMG] = mlx_new_image(mlx_info.mlx, 64, 64);
+	
+	// test_texture = mlx_load_png("images/east_colorstone.png");
+	// if (test_texture == NULL)
+	// 	printf("Wrong texture \n");
+	// mlx_texture_to_image(mlx_info.mlx, test_texture);
+	
+	// mlx_image_to_window(mlx_info.mlx, test_texture, 10, 10);
+
+
+
+
+
+	
+	// // cast_rays(&mlx_info.data, &mlx_info);
+	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
+	// mlx_loop(mlx_info.mlx);
+
+
+// void close_esc(void *param)
+// {
+// 	t_mlx* mlx_info;
+	
+// 	mlx_info = param;
+// 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_ESCAPE))
+// 		mlx_close_window(mlx_info->mlx);
+// }
+
+// int main()
+// {
+// 	t_mlx mlx_info;
+// 	mlx_texture_t* texture;
+// 	mlx_info.mlx = mlx_init(1000, 500, "LOAD IMAGES", 1);
+// 	texture = mlx_load_png("images/east_colorstone.png");
+// 	mlx_info.img_arr = calloc(6, sizeof(mlx_image_t *));
+// 	mlx_info.img_arr[EAST_IMG] = mlx_texture_to_image(mlx_info.mlx, texture);
+	
+// 	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[EAST_IMG], 0 ,0);
+	
+// 	mlx_loop_hook(mlx_info.mlx, &close_esc, (void *)(&mlx_info));
+// 	mlx_loop(mlx_info.mlx);
+// }
+
+void textures_to_images(t_mlx *mlx_info)
+{
+	mlx_info->texture_arr[EAST_IMG] = mlx_load_png("images/east_colorstone.png");
+	mlx_info->texture_arr[WEST_IMG] = mlx_load_png("images/west_bluestone.png");
+	mlx_info->texture_arr[NORTH_IMG] = mlx_load_png("images/north_redbrick.png");
+	mlx_info->texture_arr[SOUTH_IMG] = mlx_load_png("images/south_wood.png");
+	for (int i = 0; i < 4; i++)
+	{
+		if (mlx_info->texture_arr[i] == 0)
+			printf("SOmething went wrong\n");
+		else 
+		{
+			mlx_info->img_arr[i] = mlx_texture_to_image(mlx_info->mlx, mlx_info->texture_arr[i]);
+			// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[i], i * 20 , i * 10);
+		}
+	}
+}
+
 int main(int argc, char *argv[])
 {
-	// t_ray_casting data;
 	t_mlx mlx_info;
-	mlx_info.data.colour = 0xFF0000FF;//RED
+	
 	init_data_for_ray_cast(&mlx_info.data);
+	mlx_info.data.colour = 0xFF0000FF;//RED
 	mlx_info.mlx = mlx_init( screenWidth,screenHeight, "Cat shooter", 1);
-
+	mlx_info.texture_arr = calloc(4, sizeof(mlx_texture_t *));
+	mlx_info.img_arr = calloc(7, sizeof(mlx_image_t *)); //did not segfault without it?
 	mlx_info.img_arr[ALL] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
+	textures_to_images(&mlx_info);
 	cast_rays(&mlx_info.data, &mlx_info);
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
+
 }
