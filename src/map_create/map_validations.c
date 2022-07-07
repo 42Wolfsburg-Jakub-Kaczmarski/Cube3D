@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/05 21:41:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:30:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,26 @@ int	map_to_arr(t_mlx *mlx_info)
 	printf("File heihgt: %d\n", mlx_info->file_height);
 	mlx_info->map = malloc((mlx_info->file_height - TEXTURES + 10) * sizeof(char *));
 	triggered = false;
-	line = get_next_line(mlx_info->fd);
-	while (ft_strncmp(line, "\n", 1) == 0)
+
+	while (1)
 	{
-		free(line);
 		line = get_next_line(mlx_info->fd);
+		if (ft_strncmp(line, "\n", 1) == 0)
+			free(line);
+		else
+			break ;	
 	}
 	i = 0;
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, "\n", 1) == 0)
+		{
 			triggered = true;
+			free(line);
+		}
 		else if (triggered)
 		{
-			// free_2d_array(mlx_info->map); some double free?? but I shouldn't free here anyway?
+			free_2d_array(mlx_info->map); //some double free?? but I shouldn't free here anyway?
 			return (perror("No new line within map"), 0);
 		}
 		else
@@ -43,11 +49,15 @@ int	map_to_arr(t_mlx *mlx_info)
 			mlx_info->map_height++; //I might actually not use it 
 			mlx_info->map[i] = line;
 		}
+		// printf("Address of line: %p\n", line);
+		// printf("Contents of line: %s\n", line);
 		line = get_next_line(mlx_info->fd);
 		i++;
 	}
+	// printf("Address of line: %p", line);
 	mlx_info->map[i] = NULL;
 	printf("GOT MAP\n");
+	// print_2d_array(mlx_info->map);
 	return (1);
 }
 

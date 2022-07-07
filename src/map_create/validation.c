@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/05 21:41:33 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:59:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,99 @@ void	init_element_booleans(t_mlx *mlx_info)
 	printf("INITIALISED BOOLEANS\n");
 }
 
+int find_longest_row(char **map, int rows)
+{
+	int i;
+	int longest;
+	int curr_len;
+	
+	i = 0;
+	longest = 0;
+	while(i < rows)
+	{
+		curr_len = ft_strlen(map[i]);
+		// printf("Cur len: %d\n", curr_len);
+		if (curr_len > longest)
+			longest = curr_len;
+		i++;
+	}
+	return (longest);
+}
+
+void fill_map_with_0(t_mlx *mlx_info)
+{
+	int i;
+	int j;
+	char *new_row;
+
+	i = 0;
+	j = 0;
+	
+	mlx_info->longest_row = find_longest_row(mlx_info->map, mlx_info->map_height);
+	new_row = malloc(sizeof(char *) * (mlx_info->longest_row + 1));
+	while (i < mlx_info->map_height)
+	{
+		while(j < mlx_info->longest_row)
+		{
+			if (i <  mlx_info->map_height && j < ft_strlen(mlx_info->map[i]))
+			{
+				if (mlx_info->map[i][j] == '\n' || mlx_info->map[i][j] == ' ')
+					new_row[j] = '0';
+				else
+					new_row[j] = mlx_info->map[i][j];
+			}
+			else
+				new_row[j] = '0';
+			j++;
+		}
+		free(mlx_info->map[i]);
+		mlx_info->map[i] = ft_strdup(new_row);
+		free(new_row);
+		j = 0;
+		i++;
+		new_row = malloc(sizeof(char *) * (mlx_info->longest_row + 1));
+	}
+	free(new_row);
+	
+}
+
+void char_to_int_map(t_mlx *mlx_info)
+{
+	mlx_info->numeric_map = ft_calloc(mlx_info->map_height, sizeof(int *));
+	int	i;
+	int j;
+	char c;
+	i = 0;
+	j = 0;
+	printf("Line = %s\n", mlx_info->map[0]);
+	printf("Line = %s\n", mlx_info->map[1]);
+	printf("Line = %s\n", mlx_info->map[2]);
+	printf("Line = %s\n", mlx_info->map[3]);
+	
+
+	while(i < mlx_info->map_height)
+	{
+		// printf("Idx: %d Line in loop = %s\n",i, mlx_info->map[i]);
+		// printf("i = %d\n", i);
+		mlx_info->numeric_map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
+		while(j < mlx_info->longest_row)
+		{
+			// printf("Idx: %d Line in the other loop = %s\n",i, mlx_info->map[i]);
+			// c = mlx_info->map[i][j];
+			// printf("Char c: %d\n", (c) - '0');
+			// mlx_info->numeric_map[j] = ft_calloc(1, sizeof(int));
+			// c = (mlx_info->map[i][j]);
+			mlx_info->numeric_map[i][j] = (mlx_info->map[i][j]) - '0';
+			// printf("Char: %c \n", mlx_info->map[i][j]);
+			printf("Number: %d ", mlx_info->numeric_map[i][j]);
+			j++;
+		}
+		printf("\n");
+		j = 0;
+		i++;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx_info;
@@ -117,12 +210,18 @@ int	main(int argc, char *argv[])
 		printf("Error___________________XXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
 		return (0);
 	}
-	// print_2d_array(mlx_info.textures);
-	// print_2d_array(mlx_info.map);
-	// free_2d_array(mlx_info.textures);
-	// free_2d_array(mlx_info.map);
-	// char *string = ft_strchr("hello", 'k');
-	// if (string == NULL)
-	// 	printf("%s\n", string);
+	fill_map_with_0(&mlx_info);
+	printf("______________________________________\n");
+	print_2d_array(mlx_info.map);
+	printf("______________________________________\n");
+	char_to_int_map(&mlx_info);
+	print_int_map(mlx_info.numeric_map, &mlx_info);
+	free_2d_array(mlx_info.textures);
+	// printf("%d", '1' - '0');
 	return (0);
 }
+
+//the player will be N = 30
+// E = 21
+// W = 39
+// S = 35
