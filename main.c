@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 14:49:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 15:00:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,74 +187,36 @@ void init_data_for_ray_cast(t_ray_casting *data)
 
 
 
-void cast_rays(t_ray_casting* data, t_mlx* mlx_info)
+void cast_rays(t_ray_casting* ray, t_mlx* mlx_info)
 {
 	static int i = 0;
 	// printf("Take %d\n", i);
 	for(int x = 0; x < screenWidth; x++)
 	{	
-		ray_init(data, x);
-		calculate_step(data);
-		check_if_hit(data);
-		calculate_ray_len(data);
-		get_line_start_end_points(data);
-		draw_line(mlx_info->img_arr[ALL], x, data->draw_start, data->draw_end, 0xFF0000FF);
+		ray_init(ray, x);
+		calculate_step(ray);
+		check_if_hit(ray);
+		calculate_ray_len(ray);
+		get_line_start_end_points(ray);
+		///////////////////////
+		// mlx_info->tex_num = worldMap[ray->mapX][ray->mapY] - 1;
+		//calculate value of wallX
+		if (ray->side == 0)
+		{
+			mlx_info->wallX = ray->posY + ray->perp_wall_dist * ray->rayDirY;
+		}
+		else
+		{
+			mlx_info->wallX = ray->posX + ray->perp_wall_dist * ray->rayDirX;
+		}
+		mlx_info->wallX -= floor((mlx_info->wallX));
+		//////////////////
+		draw_line(mlx_info->img_arr[ALL], x, ray->draw_start, ray->draw_end, 0xFF0000FF);
 		// draw_line(mlx_info->img_arr[ALL], 2, 100, 200, 0xFF0000FF);
 		// printf("%d ", x);
 	}
 	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[ALL], 0, 0);
 }
-
-	// t_mlx mlx_info;
-	// mlx_info.data.colour = 0xFF0000FF;//RED
-	// init_data_for_ray_cast(&mlx_info.data);
-	// mlx_info.mlx = mlx_init( screenWidth,screenHeight, "Cat shooter", 1);
-
-	// mlx_info.img_arr[ALL] = mlx_new_image(mlx_info.mlx, screenWidth, screenHeight);
-	// mlx_texture_t * test_texture;
-	
-	// // mlx_info.img_arr[EAST_IMG] = mlx_new_image(mlx_info.mlx, 64, 64);
-	
-	// test_texture = mlx_load_png("images/east_colorstone.png");
-	// if (test_texture == NULL)
-	// 	printf("Wrong texture \n");
-	// mlx_texture_to_image(mlx_info.mlx, test_texture);
-	
-	// mlx_image_to_window(mlx_info.mlx, test_texture, 10, 10);
-
-
-
-
-
-	
-	// // cast_rays(&mlx_info.data, &mlx_info);
-	// mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
-	// mlx_loop(mlx_info.mlx);
-
-
-// void close_esc(void *param)
-// {
-// 	t_mlx* mlx_info;
-	
-// 	mlx_info = param;
-// 	if (mlx_is_key_down(mlx_info->mlx, MLX_KEY_ESCAPE))
-// 		mlx_close_window(mlx_info->mlx);
-// }
-
-// int main()
-// {
-// 	t_mlx mlx_info;
-// 	mlx_texture_t* texture;
-// 	mlx_info.mlx = mlx_init(1000, 500, "LOAD IMAGES", 1);
-// 	texture = mlx_load_png("images/east_colorstone.png");
-// 	mlx_info.img_arr = calloc(6, sizeof(mlx_image_t *));
-// 	mlx_info.img_arr[EAST_IMG] = mlx_texture_to_image(mlx_info.mlx, texture);
-	
-// 	mlx_image_to_window(mlx_info.mlx, mlx_info.img_arr[EAST_IMG], 0 ,0);
-	
-// 	mlx_loop_hook(mlx_info.mlx, &close_esc, (void *)(&mlx_info));
-// 	mlx_loop(mlx_info.mlx);
-// }
 
 void textures_to_images(t_mlx *mlx_info)
 {
@@ -289,4 +251,4 @@ int main(int argc, char *argv[])
 	mlx_loop_hook(mlx_info.mlx, &movement_hook, (void*)&mlx_info);
 	mlx_loop(mlx_info.mlx);
 
-}
+} 

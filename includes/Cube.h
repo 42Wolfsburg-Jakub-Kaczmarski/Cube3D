@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:49:47 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:56:55 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ typedef struct s_mlx_img
   int map_height;
   int map_width;
   double dir;
+  int tex_num;
+  double wallX;
 } t_mlx;
 
 u_int32_t buffer[screenHeight][screenWidth];
