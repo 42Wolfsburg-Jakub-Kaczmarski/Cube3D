@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/06 23:49:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:52:01 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@
 # else 
 	#define AUDIO ""
 # endif
+
+#define mapWidth 24
+#define mapHeight 24
+
+extern int worldMap[mapWidth][mapHeight];
 
 enum IMG
 {
@@ -162,25 +167,32 @@ typedef struct s_info_mlx{
 
 
 
+//Movement
+void key_W_hook(t_mlx_info *mlx_info);
+void	key_S(t_mlx_info *mlx_info);
+void	key_A(t_mlx_info *mlx_info);
+void	key_D(t_mlx_info *mlx_info);
+void	key_right_arr(t_mlx_info *mlx_info);
+void	key_left_arr(t_mlx_info *mlx_info);
+int	key_hook(int keycode,void *mlx);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Rendering
+void	render(t_mlx_info *mlx_info);
+void	render_textures(t_mlx_info *mlx_info, int x);
+void	better_pixel_put(t_image *data, int x, int y, int color);
+int draw_line(t_mlx_info *mlx_info,int x, int beginY, int endY, int colour);
+void	init_for_drawing(t_mlx_info *mlx_info, int x, int w);
+void	check_sideXY(t_mlx_info *mlx_info);
+void	hit_loop(t_mlx_info *mlx_info);
+t_color *set_color_fstr(t_temp_img *img, int x, int y);
+t_color ***create_color_arr(t_temp_img *img, int height, int width);
+void	color_walls(t_mlx_info *mlx_info, int x);
+void	init_img(t_mlx_info *mlx_info);
+void	calculate_wall_texX(t_mlx_info *mlx_info);
+void	load_images(t_mlx_info *mlx_info);
+void	prep_floor(t_mlx_info *mlx_info, int y);
+void	floor_casting(t_mlx_info *mlx_info);
 
 // typedef struct s_mlx_img
 // {
