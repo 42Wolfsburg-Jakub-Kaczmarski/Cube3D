@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/09 22:27:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:31:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,12 @@ char	*ft_strrchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 ///keys.c
-// void key_w(t_mlx *data);
-// void key_s(t_mlx *data);
-// void key_a(t_mlx *data);
-// void key_d(t_mlx *data);
-// void key_left_arrow(t_mlx *data);
-// void key_right_arrow(t_mlx *data);
+void key_w(t_mlx *data);
+void key_s(t_mlx *data);
+void key_a(t_mlx *data);
+void key_d(t_mlx *data);
+void key_left_arrow(t_mlx *data);
+void key_right_arrow(t_mlx *data);
 
 //main.c
 bool check_movement(t_mlx *data);
