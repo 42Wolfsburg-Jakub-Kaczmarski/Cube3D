@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:52:48 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 17:53:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ void	print_error(int error_code)
 		printf("Unknown error\n");
 }
 
+///if it returns 0, everything will have been freed
+//if it returns 1, the map is valid
+//textures and int array need to be freed in the end
 int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
 {
 	init_element_booleans(mlx_info);
@@ -106,14 +109,12 @@ int	main(int argc, char *argv[])
 {
 	t_mlx	mlx_info;
 
-	file_input_is_okay(argc, argv, &mlx_info);
-	free_2d_int_array(mlx_info.map, &mlx_info);
-	char **arr = ft_split(mlx_info.textures[3], ' ');
-	int i = arr_len(arr);
-	printf("Element: %s\n", arr[1]);
-	printf("Element number: %d\n", i);
-	free_2d_array(arr);
-	free_2d_array(mlx_info.textures);
+	if (file_input_is_okay(argc, argv, &mlx_info))
+	{
+		////do stuff and then free these two
+		free_2d_int_array(mlx_info.map, &mlx_info);
+		free_2d_array(mlx_info.textures);
+	}
 	return (0);
 }
 
