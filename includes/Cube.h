@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/09 19:13:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:27:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#define ALLOWED_SYMBOLS "10WESN \n"
+#define PLAYER_POS "WESN"
+#define VALID_SYMBOLS "01WESN"
+#define TEXTURES 6
 #define mapWidth 24
 #define mapHeight 24
 #define screenWidth 640
@@ -108,6 +112,16 @@ typedef struct s_ray_casting
 	bool confused;
 } t_ray_casting;
 
+typedef struct s_elements
+{
+  bool c;
+  bool f;
+  bool no;
+  bool so;
+  bool ea;
+  bool we;
+} t_elements;
+
 typedef struct s_texture
 {
 	int			tex_num;
@@ -124,15 +138,18 @@ typedef struct s_mlx_img
   //Index 0 reserved for the player
   mlx_image_t	**img_arr;
   mlx_texture_t	**texture_arr;
-  float			px;
-  float			py;
-  float			pdx;
-  float			pdy;
-  float			pa;
-  float			wx;
-  float			wy;
-  char			**map;
+  char			**map_s;
+  
+  int			longest_row;
   int			map_height;
+  int			file_height;
+  int			new_lines;
+  int			fd;
+  char			**textures;
+  t_elements	elements;
+  int			**map;
+  int			error_code;
+  
   int			map_width;
   double		dir;
   double		wall_X;
@@ -142,6 +159,7 @@ typedef struct s_mlx_img
   double		step;
   double		tex_position;
   u_int32_t		colour;
+  
 } t_mlx;
 
 u_int32_t buffer[screenHeight][screenWidth];

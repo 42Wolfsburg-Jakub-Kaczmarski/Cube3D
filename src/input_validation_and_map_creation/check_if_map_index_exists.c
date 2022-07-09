@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 20:13:33 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 22:20:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:20:33 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../includes/Cube.h"
 
 //universal but with the others it is easier to read
 bool	square_exists(t_mlx *mlx_info, int i, int j)

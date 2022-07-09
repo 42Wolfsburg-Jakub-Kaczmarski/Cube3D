@@ -6,14 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:12:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:19:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
 
-# include "../../Cube.h"
+# include "../../includes/Cube.h"
 
 enum ERRORS
 {

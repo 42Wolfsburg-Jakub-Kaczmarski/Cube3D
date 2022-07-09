@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:03:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:22:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../includes/Cube.h"
 #include "map_validation.h"
 
 int	check_if_right_characs(t_mlx *mlx_info)

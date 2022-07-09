@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/09 17:53:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:29:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../includes/Cube.h"
 #include "map_validation.h"
 
 int	check_if_file_can_be_opened(char *argv[], t_mlx *mlx_info)
@@ -89,7 +89,12 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
 	mlx_info->file_height = 0;
 	mlx_info->map_height = 0;
 	mlx_info->error_code = WRONG_AMOUNT_OF_ARGUMENTS;
-	if (argc != 2 || perform_checks(argv, mlx_info) == 0)
+	if (argc != 2)
+	{
+		print_error(mlx_info->error_code);
+		return (0);
+	}
+	if (perform_checks(argv, mlx_info) == 0)
 	{
 		print_error(mlx_info->error_code);
 		free_2d_array(mlx_info->map_s);

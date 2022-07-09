@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:15:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 22:22:41 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../includes/Cube.h"
 #include "map_validation.h"
 
 //Gets the first 6 lines which are not empty (empty == "\n")
