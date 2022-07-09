@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:56:55 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 19:13:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,15 @@ typedef struct s_ray_casting
 	bool confused;
 } t_ray_casting;
 
+typedef struct s_texture
+{
+	int			tex_num;
+	int			tex_X;
+	int			tex_Y;
+	double		step;
+	u_int32_t	colour;
+} t_texture;
+
 typedef struct s_mlx_img
 {
   t_ray_casting data;
@@ -115,19 +124,24 @@ typedef struct s_mlx_img
   //Index 0 reserved for the player
   mlx_image_t	**img_arr;
   mlx_texture_t	**texture_arr;
-  float px;
-  float py;
-  float pdx;
-  float pdy;
-  float pa;
-  float wx;
-  float wy;
-  char **map;
-  int map_height;
-  int map_width;
-  double dir;
-  int tex_num;
-  double wallX;
+  float			px;
+  float			py;
+  float			pdx;
+  float			pdy;
+  float			pa;
+  float			wx;
+  float			wy;
+  char			**map;
+  int			map_height;
+  int			map_width;
+  double		dir;
+  double		wall_X;
+  int			tex_num;
+  int			tex_X;
+  int			tex_Y;
+  double		step;
+  double		tex_position;
+  u_int32_t		colour;
 } t_mlx;
 
 u_int32_t buffer[screenHeight][screenWidth];

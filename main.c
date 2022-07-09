@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 10:42:55 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 15:00:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/09 20:24:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 #define mapWidth 24
 #define mapHeight 24
-
+#define texWidth 64
+#define texHeight 64
 
 void cast_rays(t_ray_casting* data, t_mlx* mlx_info);
 void draw_line(mlx_image_t *img, int x, int beginY, int endY, int colour)
@@ -121,8 +122,6 @@ void key_left_arrow(t_mlx *big_struct)
 	double	old_dir_X;
 	double old_plane_X;
 	
-	printf("Position X: %f\n", data->posX);
-	printf("Position Y: %f\n", data->posY);
 	data = &big_struct->data;
 	old_dir_X = data->dirX;
 	old_plane_X = data->plane_X;
@@ -185,9 +184,51 @@ void init_data_for_ray_cast(t_ray_casting *data)
 	data->time = 0;
 }
 
+void get_wall_X_and_x_coord_of_texture(t_ray_casting* ray, t_mlx* mlx_info)
+{
+	mlx_info->tex_num = worldMap[ray->mapX][ray->mapY] - 1;
+	//calculate value of wall_X
+	if (ray->side == 0)
+	{
+		mlx_info->wall_X = ray->posY + ray->perp_wall_dist * ray->rayDirY;
+	}
+	else
+	{
+		mlx_info->wall_X = ray->posX + ray->perp_wall_dist * ray->rayDirX;
+	}
+	mlx_info->wall_X -= floor((mlx_info->wall_X));
 
+	//x coordinate on the texture
+	
+	mlx_info->tex_X = (int)(mlx_info->wall_X * (double)(texWidth));
+	if (ray->side == 0 && ray->dirX > 0)
+	{
+		mlx_info->tex_X = texWidth - mlx_info->tex_X - 1;
+	}
+	if (ray->side == 1 && ray->dirY < 0)
+	{
+		//////////////////////it is literally the same, so what's up with that?
+		mlx_info->tex_X = texWidth - mlx_info->tex_X - 1;
+	}
+}
 
-void cast_rays(t_ray_casting* ray, t_mlx* mlx_info)
+void fill_buffer_with_colors(t_ray_casting* ray, t_mlx* data)
+{
+	int	y;
+	
+	data->step = 1.0 * texHeight / ray->line_height;
+	//starting texture coordinate
+	data->tex_position = (ray->draw_start - screenHeight / 2 + ray->line_height / 2) * data->step;
+	y = ray->draw_start;
+	while(y < ray->draw_end)
+	{
+		data->tex_Y = (int)data->tex_position & (texHeight - 1);
+		data->tex_position += data->step;
+		// data->colour = data->texture_arr[data->tex_num].;
+		y++;
+	}
+}
+void cast_rays(t_ray_casting* ray, t_mlx* data)
 {
 	static int i = 0;
 	// printf("Take %d\n", i);
@@ -199,23 +240,17 @@ void cast_rays(t_ray_casting* ray, t_mlx* mlx_info)
 		calculate_ray_len(ray);
 		get_line_start_end_points(ray);
 		///////////////////////
-		// mlx_info->tex_num = worldMap[ray->mapX][ray->mapY] - 1;
-		//calculate value of wallX
-		if (ray->side == 0)
-		{
-			mlx_info->wallX = ray->posY + ray->perp_wall_dist * ray->rayDirY;
-		}
-		else
-		{
-			mlx_info->wallX = ray->posX + ray->perp_wall_dist * ray->rayDirX;
-		}
-		mlx_info->wallX -= floor((mlx_info->wallX));
+		get_wall_X_and_x_coord_of_texture(ray, data);
+		
+		
+		
+		
 		//////////////////
-		draw_line(mlx_info->img_arr[ALL], x, ray->draw_start, ray->draw_end, 0xFF0000FF);
+		draw_line(data->img_arr[ALL], x, ray->draw_start, ray->draw_end, 0xFF0000FF);
 		// draw_line(mlx_info->img_arr[ALL], 2, 100, 200, 0xFF0000FF);
 		// printf("%d ", x);
 	}
-	mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[ALL], 0, 0);
+	mlx_image_to_window(data->mlx, data->img_arr[ALL], 0, 0);
 }
 
 void textures_to_images(t_mlx *mlx_info)
@@ -231,7 +266,10 @@ void textures_to_images(t_mlx *mlx_info)
 		else 
 		{
 			mlx_info->img_arr[i] = mlx_texture_to_image(mlx_info->mlx, mlx_info->texture_arr[i]);
-			// mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[i], i * 20 , i * 10);
+			mlx_image_to_window(mlx_info->mlx, mlx_info->img_arr[i], i * 20 , i * 10);
+			printf("%u\n", mlx_info->img_arr[i]->height);
+			printf("%u\n", mlx_info->img_arr[i]->width);
+			// mlx_info->img_arr[0].
 		}
 	}
 }
