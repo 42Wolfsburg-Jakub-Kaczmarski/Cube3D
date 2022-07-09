@@ -1,6 +1,6 @@
 NAME = Cube3d
 
-SRCs = main.c map_check.c get_next_line.c get_next_line_utils.c keys.c draw.c
+SRCs = main.c map_check.c get_next_line.c get_next_line_utils.c keys.c draw.c 
 
 all: $(NAME)
 

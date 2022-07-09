@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:08:38 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 17:16:23 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 22:20:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool check_movement(t_mlx *data)
 {
 	int x_pos = (data->pdx + data->px) / IMG_SIDE;
 	int y_pos = (data->pdy + data->py) / IMG_SIDE;
-	if (data->map[y_pos][x_pos] == '1')
+	if (data->map_s[y_pos][x_pos] == '1')
 		return (true);
 	return (false);
 }
@@ -152,7 +152,7 @@ void cast_rays(t_mlx *data)
 				mx < data->map_width &&
 				my > 0 &&
 				my < data->map_height &&
-				data->map[my][mx] == '1')
+				data->map_s[my][mx] == '1')
 			{
 				dof = 8;
 			}

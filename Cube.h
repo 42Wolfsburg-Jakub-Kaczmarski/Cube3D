@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/03 20:20:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/07 23:22:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <string.h>
 #define ALLOWED_SYMBOLS "10WESN \n"
 #define PLAYER_POS "WESN"
+#define VALID_SYMBOLS "01WESN"
 #define DR 0.0174533 //one degree in radian
 #define TEXTURES 6
 #define IMG_SIDE 80
@@ -79,10 +80,10 @@ typedef struct s_mlx_img
   float			pa;
   float			wx;
   float			wy;
-  char			**map;
+  char			**map_s;
   int			map_width;
   
-  
+  int			longest_row;
   int			map_height;
   int			file_height;
   int			new_lines;
@@ -90,6 +91,8 @@ typedef struct s_mlx_img
   char			**textures;
   t_elements	elements;
   double		dir;
+  int			**map;
+  int			error_code;
 } t_mlx;
 
 int	check_map(char **argv, t_mlx *mlx_info);

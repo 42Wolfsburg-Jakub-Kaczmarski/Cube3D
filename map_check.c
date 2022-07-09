@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:46:08 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/06/29 14:22:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/07 22:20:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ int	check_map(char **argv,  t_mlx *mlx_info)
 	fd = open(argv[1], O_RDONLY);
 	line = get_next_line(fd);
 	mlx_info->map_width = ft_strlen(line);
-	mlx_info->map = ft_calloc(counter + 1,sizeof(char **));
+	mlx_info->map_s = ft_calloc(counter + 1,sizeof(char **));
 	mlx_info->map_height = counter;
 	counter = 0;
 	while(line)
 	{
-		mlx_info->map[counter++] = line;
+		mlx_info->map_s[counter++] = line;
 		line = get_next_line(fd);
 	}
- 	if(check_if_only_walls(mlx_info->map) == -1 || check_if_right_characs(mlx_info->map) == -1)
+ 	if(check_if_only_walls(mlx_info->map_s) == -1 || check_if_right_characs(mlx_info->map_s) == -1)
 	 	return 0;
 	return 1;
 	//|| 

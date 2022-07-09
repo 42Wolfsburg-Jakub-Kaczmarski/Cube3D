@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 21:17:12 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/06/29 13:50:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/07 22:20:42 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void draw_grid(t_mlx *mlx)
 		y = 0;
 		while(j < mlx->map_width)
 		{
-				if(mlx->map[i][j] == '1')
+				if(mlx->map_s[i][j] == '1')
 					mlx_image_to_window(mlx->mlx ,mlx->img_arr[1],y, x);
-				else if(mlx->map[i][j] == '0' || mlx->map[i][j] == 'P')
+				else if(mlx->map_s[i][j] == '0' || mlx->map_s[i][j] == 'P')
 				{
 					mlx_image_to_window(mlx->mlx, mlx->img_arr[2], y, x);
 				}
