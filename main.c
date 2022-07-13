@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 17:14:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:24:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,12 @@ void	init_img(t_mlx_info *mlx_info)
 	mlx_info->main_img.addr = mlx_get_data_addr(mlx_info->main_img.img, &mlx_info->main_img.bits_per_pixel, &mlx_info->main_img.line_length, &mlx_info->main_img.endian);
 }
 
+//Check if it hits horizontal or vertical 
+//Check if y is positive or negative
+//if horizontal positive and y is negative
+//texnum = 0
+//if horizontal positive and y is negative
+//texnum = 1
 void	calculate_wall_texX(t_mlx_info *mlx_info)
 {
 	mlx_info->draw_prop.texture_num = worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] - 1;
@@ -224,6 +230,7 @@ void	render_textures(t_mlx_info *mlx_info, int x)
 		t_color color = *mlx_info->texture_data[mlx_info->draw_prop.texture_num].arr_color[mlx_info->draw_prop.texX][(int)(texPos) - 1];
 
 		// if(x || color.a){}
+		// printf("%f",  mlx_info->draw_prop.rayDirX);
 		int r = color.r & 0xFF;
 		int g = color.g & 0xFF;
 		int b = color.b & 0xFF;
