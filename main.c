@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 17:54:34 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:48:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,9 @@ void	load_images(t_mlx_info *mlx_info)
 	t_temp_img img2;
 	mlx_info->mlx_imgs = calloc(10,sizeof(void *));
 	mlx_info->texture_data = calloc(5,sizeof(*mlx_info->texture_data ));
-	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, "wall_2.xpm",& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
-	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, "wall_thingy.xpm", & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
-	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, "beach.xpm", & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
+	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, "assets/wall_2.xpm",& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
+	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, "assets/wall_thingy.xpm", & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
+	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, "assets/beach.xpm", & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
 	// mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, "east_texture.xpm", &mlx_info->window_width, &mlx_info->window_height);
 	img.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
 	img1.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[1], &img1.img_bp, &img1.img_sl, &img1.img_e);
