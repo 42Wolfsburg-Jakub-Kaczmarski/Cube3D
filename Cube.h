@@ -6,15 +6,17 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:52:01 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 17:51:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUBE_H
 # define CUBE_H
 
 #include <fcntl.h>
 #include "minilbx/mlx.h"
+#include <stdbool.h>
 #include "libft.h"
 #include <stdio.h>
 #include <math.h>
@@ -28,6 +30,10 @@
 #define SOUTH 1/2.0 * PI
 #define WEST PI
 #define EAST 0.0f
+#define ALLOWED_SYMBOLS "10WESN \n"
+#define PLAYER_POS "WESN"
+#define VALID_SYMBOLS "01WESN"
+#define TEXTURES 6
 #define BUFFER_SIZE 1000
 # include <unistd.h>
 #define ROTATION_SPEED PI / 100
@@ -240,4 +246,54 @@ void	floor_casting(t_mlx_info *mlx_info);
 // void load_textures(t_mlx *mlx);
 // bool check_movement(t_mlx *data);
 // int draw_rays(t_mlx *mlx_info);
+typedef struct s_elements
+{
+  bool c;
+  bool f;
+  bool no;
+  bool so;
+  bool ea;
+  bool we;
+} t_elements;
+
+typedef struct s_mlx_img
+{
+  void			*mlx;
+  //Index 0 reserved for the player
+  float			px;
+  float			py;
+  float			pdx;
+  float			pdy;
+  float			pa;
+  float			wx;
+  float			wy;
+  char			**map_s;
+  int			map_width;
+  
+  int			longest_row;
+  int			map_height;
+  int			file_height;
+  int			new_lines;
+  int			fd;
+  char			**textures;
+  t_elements	elements;
+  double		dir;
+  int			**map;
+  int			error_code;
+} t_mlx;
+
+int	check_map(char **argv, t_mlx *mlx_info);
+
+//Get_next_line
+char	*get_next_line(int fd);
+size_t	ft_strlen(const char *ch);
+void	*ft_memset(void *ptr, int value, size_t num);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+char	*ft_strrchr(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
+
+
+//main.c
+void load_textures(t_mlx *mlx);
+bool check_movement(t_mlx *data);
 #endif
