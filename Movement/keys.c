@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:30:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 20:06:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void key_W_hook(t_mlx_info *mlx_info)
 	prop = &(mlx_info->unique_prop);
 	
 
-	if(square_exists(mlx_info, (int)prop->posX + (int)prop->dirX * (int)prop->move_speed, (int)prop->posY) &&
-		worldMap[(int)prop->posX + (int)prop->dirX * (int)prop->move_speed][(int)prop->posY] != 1)
+	if(worldMap[(int)prop->posX + (int)prop->dirX * (int)prop->move_speed][(int)prop->posY] != 1)
 	{
 		prop->posX += prop->dirX * prop->move_speed;
 	}
