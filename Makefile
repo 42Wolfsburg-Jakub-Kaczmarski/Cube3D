@@ -12,7 +12,7 @@ SRCs = main.c Rendering/tools.c Movement/keys.c Movement/arrows.c Movement/key_h
 all: $(NAME)
 
 Cube3d:
-	gcc -g $(SRCs) libmlx.dylib -framework Cocoa -framework OpenGL -framework IOKit libft.a -o Cube3d
+	gcc -g -Wall -Wextra -Werror $(SRCs) libmlx.dylib -framework Cocoa -framework OpenGL -framework IOKit libft.a -o Cube3d
 
 clean:
 	@rm -f $(NAME)

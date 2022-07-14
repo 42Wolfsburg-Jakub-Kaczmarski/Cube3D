@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:38:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:16:37 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 //Reads from file and creates a string array
 int	str_to_char_arr(t_mlx *mlx_info)
 {
-	int		i;
 	char	*line;
 
 	mlx_info->map_s = malloc((mlx_info->file_height + 10) * sizeof(char *));
@@ -75,9 +74,9 @@ void	fill_map_with_0(t_mlx *data, int i, int j)
 	new_row = malloc(sizeof(char *) * (data->longest_row + 1));
 	while (++i < data->map_height)
 	{
-		while (++j < data->longest_row)
+		while (++j < (int)data->longest_row)
 		{
-			if (i < data->map_height && j < ft_strlen(data->map_s[i]))
+			if (i < data->map_height && j < (int)ft_strlen(data->map_s[i]))
 			{
 				if (data->map_s[i][j] == '\n' || data->map_s[i][j] == ' ')
 					new_row[j] = '0';
@@ -101,7 +100,6 @@ void	char_to_int_map(t_mlx *mlx_info)
 {
 	int		i;
 	int		j;
-	char	c;
 
 	i = 0;
 	j = 0;

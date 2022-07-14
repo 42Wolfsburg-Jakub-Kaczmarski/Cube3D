@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/08 00:03:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:09:52 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	check_if_zeroes_and_player_are_placed_correctly(t_mlx *mlx_info)
 	int		i;
 	int		j;
 	int		counter;
-	char	c;
 
 	counter = 0;
 	i = 0;
