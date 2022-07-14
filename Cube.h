@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 23:22:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 17:45:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUBE_H
 
 #include <fcntl.h>
-#include "MLX42/include/MLX42/MLX42.h"
+#include <stdbool.h>
 #include "libft.h"
 #include <stdio.h>
 #include <math.h>
@@ -23,19 +23,7 @@
 #define ALLOWED_SYMBOLS "10WESN \n"
 #define PLAYER_POS "WESN"
 #define VALID_SYMBOLS "01WESN"
-#define DR 0.0174533 //one degree in radian
 #define TEXTURES 6
-#define IMG_SIDE 80
-#define COLS 12
-#define ROWS 6
-#define PLAYER_SIZE 20
-#define WAND_LEN 30
-#define NORTH 3.0/2 * PI
-#define SOUTH 1/2.0 * PI
-#define WEST PI
-#define EAST 0.0f
-#define WINDOW_WIDTH ((COLS * IMG_SIDE) + COLS - 1)
-#define WINDOW_HEIGHT ((ROWS * IMG_SIDE) + ROWS - 1)
 #define BUFFER_SIZE 1000
 # include <unistd.h>
 #define ROTATION_SPEED PI / 20
@@ -70,9 +58,8 @@ typedef struct s_elements
 
 typedef struct s_mlx_img
 {
-  mlx_t			*mlx;
+  void			*mlx;
   //Index 0 reserved for the player
-  mlx_image_t	**img_arr;
   float			px;
   float			py;
   float			pdx;
@@ -105,19 +92,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*ft_strrchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
 
-///keys.c
-void key_w(t_mlx *data);
-void key_s(t_mlx *data);
-void key_a(t_mlx *data);
-void key_d(t_mlx *data);
-void key_left_arrow(t_mlx *data);
-void key_right_arrow(t_mlx *data);
-
-//draw.c
-int draw_line(mlx_image_t *img,  int beginX, int beginY, int endX, int endY, int colour);
-void draw_wand(t_mlx *mlx_info);
-void draw_grid(t_mlx *mlx);
-void draw_player(t_mlx *mlx_info);
 
 //main.c
 void load_textures(t_mlx *mlx);
