@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:04:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:37:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,18 +157,43 @@ typedef struct s_texture
 	void *img_data;
 }	t_texture;
 
+typedef struct s_elements
+{
+  bool c;
+  bool f;
+  bool no;
+  bool so;
+  bool ea;
+  bool we;
+} t_elements;
 
 typedef struct s_info_mlx{
-	void	*mlx;
-	t_image	main_img;
-	int		window_width;
-	int		window_height;
-	void	**mlx_imgs;
-	t_texture	*texture_data;
-	void	*main_win;
+	void			*mlx;
+	t_image			main_img;
+	int				window_width;
+	int				window_height;
+	void			**mlx_imgs;
+	t_texture		*texture_data;
+	void			*main_win;
 	t_floor_vars	floor_info;
-	t_uniq_prop	unique_prop;
-	t_draw_prop	draw_prop;
+	t_uniq_prop		unique_prop;
+	t_draw_prop		draw_prop;
+
+
+	////added from Krisi
+	char			**map_s;
+	int			map_width;
+
+	int			longest_row;
+	int			map_height;
+	int			file_height;
+	int			new_lines;
+	int			fd;
+	char			**textures;
+	t_elements	elements;
+	double		dir;
+	int			**map;
+	int			error_code;
 }	t_mlx_info;
 
 
@@ -246,27 +271,12 @@ void	floor_casting(t_mlx_info *mlx_info);
 // void load_textures(t_mlx *mlx);
 // bool check_movement(t_mlx *data);
 // int draw_rays(t_mlx *mlx_info);
-typedef struct s_elements
-{
-  bool c;
-  bool f;
-  bool no;
-  bool so;
-  bool ea;
-  bool we;
-} t_elements;
 
 typedef struct s_mlx_img
 {
   void			*mlx;
   //Index 0 reserved for the player
-  float			px;
-  float			py;
-  float			pdx;
-  float			pdy;
-  float			pa;
-  float			wx;
-  float			wy;
+
   char			**map_s;
   int			map_width;
   

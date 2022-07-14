@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:40:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 #include "map_validation.h"
 
-int	check_if_file_can_be_opened(char *argv[], t_mlx *mlx_info)
+int	check_if_file_can_be_opened(char *argv[], t_mlx_info *mlx_info)
 {
 	mlx_info->fd = open(argv[1], O_RDONLY);
 	if (mlx_info->fd < 0)
@@ -21,7 +21,7 @@ int	check_if_file_can_be_opened(char *argv[], t_mlx *mlx_info)
 	return (1);
 }
 
-void	init_element_booleans(t_mlx *mlx_info)
+void	init_element_booleans(t_mlx_info *mlx_info)
 {
 	mlx_info->elements.c = false;
 	mlx_info->elements.f = false;
@@ -31,7 +31,7 @@ void	init_element_booleans(t_mlx *mlx_info)
 	mlx_info->elements.we = false;
 }
 
-int	perform_checks(char *argv[], t_mlx *mlx_info)
+int	perform_checks(char *argv[], t_mlx_info *mlx_info)
 {
 	if (check_if_file_can_be_opened(argv, mlx_info) == 0)
 		return (set_error_code(mlx_info, FILE_CANNOT_BE_OPENED), 0);
@@ -83,7 +83,7 @@ void	print_error(int error_code)
 ///if it returns 0, everything will have been freed
 //if it returns 1, the map is valid
 //textures and int array need to be freed in the end
-int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
+int	file_input_is_okay(int argc, char *argv[], t_mlx_info *mlx_info)
 {
 	init_element_booleans(mlx_info);
 	mlx_info->file_height = 0;
@@ -109,12 +109,12 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
 // {
 // 	t_mlx	mlx_info;
 
-// 	if (file_input_is_okay(argc, argv, &mlx_info))
-// 	{
-// 		////do stuff and then free these two
-// 		free_2d_int_array(mlx_info.map, &mlx_info);
-// 		free_2d_array(mlx_info.textures);
-// 	}
+	// if (file_input_is_okay(argc, argv, &mlx_info))
+	// {
+	// 	////do stuff and then free these two
+	// 	free_2d_int_array(mlx_info.map, &mlx_info);
+	// 	free_2d_array(mlx_info.textures);
+	// }
 // 	return (0);
 // }
 

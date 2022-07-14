@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:36:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //Gets the first 6 lines which are not empty (empty == "\n")
 //returns 0 if there aren't 6 lines
-int	textures_to_arr(t_mlx *mlx_info)
+int	textures_to_arr(t_mlx_info *mlx_info)
 {
 	int		i;
 	char	*line;
@@ -71,7 +71,7 @@ int	check_texture_colours(char *colours)
 
 //checks how many elements there are in each texture instruction
 //regardless of 'spaces'
-int	check_textures_amount(t_mlx *mlx_info)
+int	check_textures_amount(t_mlx_info *mlx_info)
 {
 	int		i;
 	char	**elements;
@@ -98,7 +98,7 @@ int	check_textures_amount(t_mlx *mlx_info)
 
 //Checks if the instruction is one of the needed ones
 //and sets it's flag to true
-void	check_textures_names(char *texture_name, t_mlx *mlx_info)
+void	check_textures_names(char *texture_name, t_mlx_info *mlx_info)
 {
 	if (ft_strncmp(texture_name, "NO", 3) == 0)
 		mlx_info->elements.no = true;
@@ -114,7 +114,7 @@ void	check_textures_names(char *texture_name, t_mlx *mlx_info)
 		mlx_info->elements.c = true;
 }
 
-int	all_textures_are_present(t_mlx *mlx_info)
+int	all_textures_are_present(t_mlx_info *mlx_info)
 {
 	return (mlx_info->elements.we
 		&& mlx_info->elements.so

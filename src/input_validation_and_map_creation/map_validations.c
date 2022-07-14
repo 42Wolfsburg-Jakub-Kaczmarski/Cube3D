@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_validations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:36:29 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 #include "map_validation.h"
 
-int	check_if_right_characs(t_mlx *mlx_info)
+int	check_if_right_characs(t_mlx_info *mlx_info)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,7 @@ int	check_if_right_characs(t_mlx *mlx_info)
 	return (1);
 }
 
-bool	character_is_surrounded(t_mlx *mlx_info, int i, int j)
+bool	character_is_surrounded(t_mlx_info *mlx_info, int i, int j)
 {
 	if (!square_left_exists(mlx_info, i, j)
 		|| !square_right_exists(mlx_info, i, j)
@@ -53,7 +53,7 @@ bool	character_is_surrounded(t_mlx *mlx_info, int i, int j)
 	return (true);
 }
 
-bool	char_surrounded_my_valid(t_mlx *mlx_info, int i, int j)
+bool	char_surrounded_my_valid(t_mlx_info *mlx_info, int i, int j)
 {
 	if (ft_strchr(VALID_SYMBOLS, mlx_info->map_s[i][j - 1]) == NULL
 		|| ft_strchr(VALID_SYMBOLS, mlx_info->map_s[i][j + 1]) == NULL
@@ -65,7 +65,7 @@ bool	char_surrounded_my_valid(t_mlx *mlx_info, int i, int j)
 	return (true);
 }
 
-int	check_if_zeroes_and_player_are_placed_correctly(t_mlx *mlx_info)
+int	check_if_zeroes_and_player_are_placed_correctly(t_mlx_info *mlx_info)
 {
 	int		i;
 	int		j;

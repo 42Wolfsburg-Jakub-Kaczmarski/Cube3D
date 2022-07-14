@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:21 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:36:11 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_2d_array(char **arr)
 	}
 }
 
-void	free_2d_int_array(int **arr, t_mlx	*mlx_info)
+void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info)
 {
 	int	i;
 	int	j;
@@ -57,7 +57,7 @@ void	free_2d_int_array(int **arr, t_mlx	*mlx_info)
 	free(arr);
 }
 
-void	print_int_map(t_mlx	*mlx_info)
+void	print_int_map(t_mlx_info	*mlx_info)
 {
 	int	i;
 	int	j;

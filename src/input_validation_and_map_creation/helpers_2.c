@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:11:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:26 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:36:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	count_chars(char *str, char c)
 	return (count);
 }
 
-void	get_number_of_lines(t_mlx *mlx_info)
+void	get_number_of_lines(t_mlx_info *mlx_info)
 {
 	int		i;
 	char	*line;
@@ -81,7 +81,7 @@ int	longest_row(char **map, int rows)
 	return (longest);
 }
 
-void	set_error_code(t_mlx *mlx_info, int num)
+void	set_error_code(t_mlx_info *mlx_info, int num)
 {
 	mlx_info->error_code = num;
 }

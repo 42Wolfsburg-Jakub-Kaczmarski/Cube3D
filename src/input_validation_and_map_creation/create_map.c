@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:01:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:35:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "map_validation.h"
 
 //Reads from file and creates a string array
-int	str_to_char_arr(t_mlx *mlx_info)
+int	str_to_char_arr(t_mlx_info *mlx_info)
 {
 	char	*line;
 
@@ -35,7 +35,7 @@ int	str_to_char_arr(t_mlx *mlx_info)
 }
 
 //Reads from file and creates a string array
-int	str_to_char_arr2(t_mlx *mlx_info, char *line)
+int	str_to_char_arr2(t_mlx_info *mlx_info, char *line)
 {
 	int		i;
 	bool	triggered;
@@ -66,7 +66,7 @@ int	str_to_char_arr2(t_mlx *mlx_info, char *line)
 //makes the map rectangular by filling in all spcaes with zeros
 //i and j need to be passed as args because od the norm
 //both need to be -1
-void	fill_map_with_0(t_mlx *data, int i, int j)
+void	fill_map_with_0(t_mlx_info *data, int i, int j)
 {
 	char	*new_row;
 
@@ -96,7 +96,7 @@ void	fill_map_with_0(t_mlx *data, int i, int j)
 }
 
 //Reads from the string array and creates an int array
-void	char_to_int_map(t_mlx *mlx_info)
+void	char_to_int_map(t_mlx_info *mlx_info)
 {
 	int		i;
 	int		j;

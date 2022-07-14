@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:01:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:40:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "include/Cube.h"
-
+#include "src/input_validation_and_map_creation/map_validation.h"
 int worldMap[mapWidth][mapHeight]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -327,12 +327,17 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx, mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	t_mlx_info mlx_info;
 	mlx_info.mlx = mlx_init();
 	if(!mlx_info.mlx)
 		return 0;
+	if (!file_input_is_okay(argc, argv, &mlx_info))
+	{
+		// printf("sth");
+		return (0);
+	}
 	init_main(&mlx_info);
 	load_images(&mlx_info);
 	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);
