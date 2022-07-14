@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 18:21:29 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:02:44 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 #include "map_validation.h"
 
 int	check_if_file_can_be_opened(char *argv[], t_mlx *mlx_info)

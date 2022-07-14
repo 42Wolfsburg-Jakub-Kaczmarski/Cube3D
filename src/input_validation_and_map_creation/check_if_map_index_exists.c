@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_if_map_index_exists.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 20:13:33 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 18:17:42 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:04:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 
 //universal but with the others it is easier to read
 bool	square_exists(t_mlx *mlx_info, int i, int j)

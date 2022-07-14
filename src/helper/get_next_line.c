@@ -6,11 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:31:41 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 18:20:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:04:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 
 static void	ft_buffjoin(char **line, char *buff)
 {

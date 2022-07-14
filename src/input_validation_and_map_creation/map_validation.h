@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 18:12:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:03:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
 
-# include "../../Cube.h"
 
 enum ERRORS
 {

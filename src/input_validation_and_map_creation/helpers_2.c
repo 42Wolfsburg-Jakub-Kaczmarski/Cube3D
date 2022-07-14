@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   helpers_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:11:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/07 23:49:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:02:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 #include "map_validation.h"
 
 int	arr_len(char **arr)

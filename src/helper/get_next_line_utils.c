@@ -6,11 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:32:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 18:05:18 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:04:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 
 size_t	ft_strlen(const char *ch)
 {

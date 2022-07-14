@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 18:27:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:01:26 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cube.h"
+#include "../include/Cube.h"
 
 
 int	key_hook(int keycode,void *mlx)

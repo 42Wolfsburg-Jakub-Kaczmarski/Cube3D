@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 17:51:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:04:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define CUBE_H
 
 #include <fcntl.h>
-#include "minilbx/mlx.h"
+#include "mlx.h"
 #include <stdbool.h>
 #include "libft.h"
 #include <stdio.h>

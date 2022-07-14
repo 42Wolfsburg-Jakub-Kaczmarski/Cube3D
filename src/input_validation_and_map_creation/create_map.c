@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 18:16:37 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:01:54 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Cube.h"
+#include "../../include/Cube.h"
 #include "map_validation.h"
 
 //Reads from file and creates a string array

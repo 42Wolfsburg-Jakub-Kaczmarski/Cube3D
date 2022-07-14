@@ -6,11 +6,11 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:58:11 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:58:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:01:15 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Cube.h"
+#include "../include/Cube.h"
 
 void	better_pixel_put(t_image *data, int x, int y, int color)
 {
