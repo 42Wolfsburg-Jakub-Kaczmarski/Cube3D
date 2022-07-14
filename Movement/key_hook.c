@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/07 14:55:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:27:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int	key_hook(int keycode,void *mlx)
 		mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
 		exit(1);
 	}
+	mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
+	render(mlx_info);
 	return 0;
 }
