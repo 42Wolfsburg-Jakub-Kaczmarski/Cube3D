@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 18:04:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 19:53:25 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,14 +328,14 @@ void	init_main(t_mlx_info *mlx_info)
 int main(int argc, char **argv)
 {
 	t_mlx_info mlx_info;
-	mlx_info.mlx = mlx_init();
-	if(!mlx_info.mlx)
-		return 0;
 	if (!file_input_is_okay(argc, argv, &mlx_info))
 	{
 		// printf("sth");
 		return (0);
 	}
+	mlx_info.mlx = mlx_init();
+	if(!mlx_info.mlx)
+		return 0;
 	init_main(&mlx_info);
 	load_images(&mlx_info);
 	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);
