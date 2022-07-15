@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 15:27:41 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:54:39 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void key_W_hook(t_mlx_info *mlx_info)
 	{
 		printf("Passed first check\n");
 		printf("Square value: %d\n", worldMap[x][y]);
-		if (worldMap[x][y] != 2)
+		if (worldMap[x][y] != 1)
 		{
 			printf("Square value: %d\n", worldMap[x][y]);
 			printf("Current x in: %d\n", x);
