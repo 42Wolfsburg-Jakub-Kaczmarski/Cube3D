@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 15:26:52 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:04:38 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "include/Cube.h"
 #include "src/input_validation_and_map_creation/map_validation.h"
-int worldMap[mapWidth][mapHeight]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+// int mlx_info->map[mapWidth][mapHeight]=
+// {
+//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+// };
 
 void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
 {
@@ -95,7 +95,7 @@ void	hit_loop(t_mlx_info *mlx_info)
 			mlx_info->draw_prop.mapY += mlx_info->draw_prop.stepY;
 			mlx_info->draw_prop.side = 1;
 		}
-		if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] > 0)
+		if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] > 0)
 			mlx_info->draw_prop.hit = 1;
 	}
 }
@@ -126,15 +126,15 @@ void	color_walls(t_mlx_info *mlx_info, int x)
 {
 	int color;
 
-	if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 1)
+	if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 1)
 		color = 0x00FFFFFF;	
-	else if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 2)
+	else if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 2)
 		color = 0x00FF00FF;
-	else if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 0)
+	else if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 0)
 		color = 0;
-	else if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 3)
+	else if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 3)
 		color = 0x0000FFFF;
-	else if(worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 4)
+	else if(mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 4)
 		color = 0x00FFF0FF;
 	else
 		color = 0;
@@ -159,7 +159,7 @@ void	init_img(t_mlx_info *mlx_info)
 //texnum = 1
 void	calculate_wall_texX(t_mlx_info *mlx_info)
 {
-	mlx_info->draw_prop.texture_num = worldMap[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] - 1;
+	mlx_info->draw_prop.texture_num = mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] - 1;
 	
 	if(mlx_info->draw_prop.side == 0)
 	{
@@ -319,25 +319,23 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->unique_prop.planeY = 0.66;
 	mlx_info->unique_prop.rotSpeed = 0.1;
 	mlx_info->unique_prop.move_speed = 0.6;
-	mlx_info->unique_prop.posX = 22;
-	mlx_info->unique_prop.posY = 12;
 	mlx_info->unique_prop.texWidth = 200;
 	mlx_info->unique_prop.texHeight = 200;
 	mlx_info->mlx_imgs = calloc(4, sizeof(void *));
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx, mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_mlx_info mlx_info;
 	mlx_info.mlx = mlx_init();
 	if(!mlx_info.mlx)
 		return 0;
-	// if (!file_input_is_okay(argc, argv, &mlx_info))
-	// {
-	// 	// printf("sth");
-	// 	return (0);
-	// }
+	if (!file_input_is_okay(argc, argv, &mlx_info))
+	{
+		// printf("sth");
+		return (0);
+	}
 	init_main(&mlx_info);
 	load_images(&mlx_info);
 	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);

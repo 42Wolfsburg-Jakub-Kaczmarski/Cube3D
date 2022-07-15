@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:35:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:03:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,11 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		mlx_info->map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
 		while (j < mlx_info->longest_row)
 		{
+			if(mlx_info->map_s[i][j] == 'N')
+			{
+					mlx_info->unique_prop.posX = i;
+					mlx_info->unique_prop.posY = j;
+			}
 			mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
 			j++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 15:54:39 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:04:06 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void key_W_hook(t_mlx_info *mlx_info)
 	if( temp_X > 1 && temp_X < mapWidth - 1 && temp_Y > 1 && temp_Y < mapHeight - 1)
 	{
 		printf("Passed first check\n");
-		printf("Square value: %d\n", worldMap[x][y]);
-		if (worldMap[x][y] != 1)
+		printf("Square value: %d\n", mlx_info->map[x][y]);
+		if (mlx_info->map[x][y] != 1)
 		{
-			printf("Square value: %d\n", worldMap[x][y]);
+			printf("Square value: %d\n", mlx_info->map[x][y]);
 			printf("Current x in: %d\n", x);
 			printf("Current y in: %d\n", y);
 			printf("Position X: %f\n", prop->posX + prop->dirX * prop->move_speed);
@@ -51,7 +51,7 @@ void key_W_hook(t_mlx_info *mlx_info)
 		}
 	}
 	// if(( x2 > 1 && x2 < mapHeight - 1) && (y2 > 1 && y2 < mapWidth) &&
-	// 	worldMap[(int)prop->posX][(int)prop->posY - (int)prop->dirY * (int)prop->move_speed ] != 1)
+	// 	mlx_info->map[(int)prop->posX][(int)prop->posY - (int)prop->dirY * (int)prop->move_speed ] != 1)
 	// {
 	// }
 }
@@ -69,9 +69,9 @@ void	key_S(t_mlx_info *mlx_info)
 	printf("x: %d\n", x);
 	printf("y: %d\n", y);
 	if( temp_X > 1 && temp_X < mapWidth - 1 && temp_Y > 1 && temp_Y < mapHeight - 1 &&
-		worldMap[x][y] != 1)
+		mlx_info->map[x][y] != 1)
 	{
-		printf("Square value: %d\n", worldMap[x][y]);
+		printf("Square value: %d\n", mlx_info->map[x][y]);
 		printf("Current x in: %d\n", x);
 		printf("Current y in: %d\n", y);
 		printf("Position X: %f\n", prop->posX - prop->dirX * prop->move_speed);
@@ -99,9 +99,9 @@ void	key_A(t_mlx_info *mlx_info)
 		printf("Projected y: %d\n", y);
 	printf("Status %d\n", (x > 1 && x < mapHeight - 1));
 	if(temp_X > 1 && temp_X < mapWidth - 1 && temp_Y > 1 && temp_Y < mapHeight - 1 &&
-		worldMap[x][y] != 1)
+		mlx_info->map[x][y] != 1)
 	{
-		printf("Square value: %d\n", worldMap[x][y]);
+		printf("Square value: %d\n", mlx_info->map[x][y]);
 		printf("Current x in: %d\n", x);
 		printf("Current y in: %d\n", y);
 		prop->posX -= prop->planeX * prop->move_speed;
@@ -131,9 +131,9 @@ void	key_D(t_mlx_info *mlx_info)
 
 	
 	if(temp_X > 1 && temp_X < mapWidth - 1 && temp_Y > 1 && temp_Y < mapHeight - 1 &&
-		worldMap[x][y] != 1)
+		mlx_info->map[x][y] != 1)
 	{
-		printf("Square value: %d\n", worldMap[x][y]);
+		printf("Square value: %d\n", mlx_info->map[x][y]);
 		printf("Current x in: %d\n", x);
 		printf("Current y in: %d\n", y);
 		prop->posX += prop->planeX * prop->move_speed;

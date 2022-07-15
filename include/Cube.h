@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:37:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:02:03 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,9 +182,7 @@ typedef struct s_info_mlx{
 
 	////added from Krisi
 	char			**map_s;
-	int			map_width;
-
-	int			longest_row;
+	int			longest_row; //Map width
 	int			map_height;
 	int			file_height;
 	int			new_lines;
