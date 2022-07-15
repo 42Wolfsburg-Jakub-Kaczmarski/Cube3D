@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:04:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:46:53 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,41 @@ typedef struct s_floor_vars
 	int color;
 }	t_floor_vars;
 
+typedef struct s_elements
+{
+  bool c;
+  bool f;
+  bool no;
+  bool so;
+  bool ea;
+  bool we;
+} t_elements;
+
+typedef struct s_mlx_img
+{
+  void			*mlx;
+  //Index 0 reserved for the player
+  float			px;
+  float			py;
+  float			pdx;
+  float			pdy;
+  float			pa;
+  float			wx;
+  float			wy;
+  char			**map_s;
+  int			longest_row;
+  int			map_height;
+  int			file_height;
+  int			new_lines;
+  int			fd;
+  char			**textures;
+  t_elements	elements;
+  double		dir;
+  int			**map;
+  int			error_code;
+  int			start_idx;
+  int			start_idy;
+} t_mlx;
 
 typedef struct s_draw_prop
 {
@@ -169,6 +204,10 @@ typedef struct s_info_mlx{
 	t_floor_vars	floor_info;
 	t_uniq_prop	unique_prop;
 	t_draw_prop	draw_prop;
+	int		map_height;
+	int		map_width;
+	int		**map;
+	int start_idx;
 }	t_mlx_info;
 
 
@@ -199,7 +238,7 @@ void	calculate_wall_texX(t_mlx_info *mlx_info);
 void	load_images(t_mlx_info *mlx_info);
 void	prep_floor(t_mlx_info *mlx_info, int y);
 void	floor_casting(t_mlx_info *mlx_info);
-
+void	init_main(t_mlx_info *mlx_info, t_mlx *mlx_thingy);
 // typedef struct s_mlx_img
 // {
 //   mlx_t *mlx;
@@ -246,41 +285,6 @@ void	floor_casting(t_mlx_info *mlx_info);
 // void load_textures(t_mlx *mlx);
 // bool check_movement(t_mlx *data);
 // int draw_rays(t_mlx *mlx_info);
-typedef struct s_elements
-{
-  bool c;
-  bool f;
-  bool no;
-  bool so;
-  bool ea;
-  bool we;
-} t_elements;
-
-typedef struct s_mlx_img
-{
-  void			*mlx;
-  //Index 0 reserved for the player
-  float			px;
-  float			py;
-  float			pdx;
-  float			pdy;
-  float			pa;
-  float			wx;
-  float			wy;
-  char			**map_s;
-  int			map_width;
-  
-  int			longest_row;
-  int			map_height;
-  int			file_height;
-  int			new_lines;
-  int			fd;
-  char			**textures;
-  t_elements	elements;
-  double		dir;
-  int			**map;
-  int			error_code;
-} t_mlx;
 
 int	check_map(char **argv, t_mlx *mlx_info);
 
@@ -291,7 +295,7 @@ void	*ft_memset(void *ptr, int value, size_t num);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 char	*ft_strrchr(const char *s, int c);
 void	*ft_calloc(size_t nmemb, size_t size);
-
+int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info);
 
 //main.c
 void load_textures(t_mlx *mlx);

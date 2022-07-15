@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:01:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:52:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,15 @@ void	char_to_int_map(t_mlx *mlx_info)
 		mlx_info->map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
 		while (j < mlx_info->longest_row)
 		{
-			mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
+			if (mlx_info->map_s[i][j] == 'N')
+			{
+				printf("what\n");
+				mlx_info->map[i][j] = 0;
+				mlx_info->start_idx = i;
+				mlx_info->start_idy = j;
+			}
+			else
+				mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
 			j++;
 		}
 		j = 0;

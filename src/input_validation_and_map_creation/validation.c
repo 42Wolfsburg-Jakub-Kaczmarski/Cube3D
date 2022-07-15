@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:02:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:43:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	perform_checks(char *argv[], t_mlx *mlx_info)
 		return (set_error_code(mlx_info, WRONG_TEXTURE_DATA), 0);
 	if (str_to_char_arr(mlx_info) == 0)
 		return (0);
-	if (check_if_right_characs(mlx_info) == 0)
-		return (0);
-	if (check_if_zeroes_and_player_are_placed_correctly(mlx_info) == 0)
-		return (0);
+	// if (check_if_right_characs(mlx_info) == 0)
+		// return (0);
+	// if (check_if_zeroes_and_player_are_placed_correctly(mlx_info) == 0)
+		// return (0);
 	return (1);
 }
 
@@ -91,9 +91,9 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx *mlx_info)
 	mlx_info->error_code = WRONG_AMOUNT_OF_ARGUMENTS;
 	if (argc != 2 || perform_checks(argv, mlx_info) == 0)
 	{
-		print_error(mlx_info->error_code);
-		free_2d_array(mlx_info->map_s);
-		free_2d_array(mlx_info->textures);
+		// print_error(mlx_info->error_code);
+		// free_2d_array(mlx_info->map_s);
+		// free_2d_array(mlx_info->textures);
 		return (0);
 	}
 	else
