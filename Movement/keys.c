@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 18:04:06 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 20:00:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,28 @@ void	key_S(t_mlx_info *mlx_info)
 	int y = (int)prop->posY - (int)prop->dirY * (int)prop->move_speed ;
 	double temp_X = prop->posX - prop->dirX * prop->move_speed;
 	double temp_Y = prop->posY - prop->dirY * prop->move_speed;
-	printf("x: %d\n", x);
-	printf("y: %d\n", y);
+	// printf("x: %d\n", x);
+	// printf("y: %d\n", y);
 	if( temp_X > 1 && temp_X < mapWidth - 1 && temp_Y > 1 && temp_Y < mapHeight - 1 &&
 		mlx_info->map[x][y] != 1)
 	{
-		printf("Square value: %d\n", mlx_info->map[x][y]);
-		printf("Current x in: %d\n", x);
-		printf("Current y in: %d\n", y);
-		printf("Position X: %f\n", prop->posX - prop->dirX * prop->move_speed);
+		// printf("Square value: %d\n", mlx_info->map[x][y]);
+		// printf("Current x in: %d\n", x);
+		// printf("Current y in: %d\n", y);
+		// printf("Position X: %f\n", prop->posX - prop->dirX * prop->move_speed);
 		prop->posX -= prop->dirX * prop->move_speed;
 		prop->posY -= prop->dirY * prop->move_speed;
 	}
+	// t_uniq_prop *prop;
+	// prop = &(mlx_info->unique_prop);
+	// if(mlx_info->map[(int)prop->posX - (int)prop->dirX * (int) prop->move_speed][(int)prop->posY] != 1)
+	// {
+	// 	prop->posX -= prop->dirX * prop->move_speed;
+	// }
+	// if(mlx_info->map[(int)prop->posX][(int)prop->posY - (int)prop->dirY * (int)prop->move_speed ] != 1)
+	// {
+	// 	prop->posY -= prop->dirY * prop->move_speed;
+	// }
 }
 
 void	key_A(t_mlx_info *mlx_info)

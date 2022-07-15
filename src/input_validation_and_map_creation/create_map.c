@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/15 18:03:16 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/15 20:21:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,40 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 	free(new_row);
 }
 
+
+void set_direction(t_mlx_info *mlx_info, char c)
+{
+	if (c == 'N')
+	{
+		mlx_info->unique_prop.dirX = 0;
+		mlx_info->unique_prop.dirY = -1;
+		mlx_info->unique_prop.planeX = 0.66;
+		mlx_info->unique_prop.planeY = 0;
+	}
+	else if (c == 'W')
+	{
+		mlx_info->unique_prop.dirX = -1;
+		mlx_info->unique_prop.dirY = 0;
+		mlx_info->unique_prop.planeX = 0;
+		mlx_info->unique_prop.planeY = -0.66;
+	}
+	else if (c == 'E')
+	{
+		mlx_info->unique_prop.dirX = 1;
+		mlx_info->unique_prop.dirY = 0;
+		mlx_info->unique_prop.planeX = 0;
+		mlx_info->unique_prop.planeY = 0.66;
+	}
+	else if (c == 'S')
+	{
+		mlx_info->unique_prop.dirX = 0;
+		mlx_info->unique_prop.dirY = 1;
+		mlx_info->unique_prop.planeX = -0.66;
+		mlx_info->unique_prop.planeY = 0;
+	}
+}
+
+
 //Reads from the string array and creates an int array
 void	char_to_int_map(t_mlx_info *mlx_info)
 {
@@ -109,15 +143,25 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		mlx_info->map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
 		while (j < mlx_info->longest_row)
 		{
-			if(mlx_info->map_s[i][j] == 'N')
+			if(ft_strchr(PLAYER_POS, mlx_info->map_s[i][j]) != NULL)
 			{
-					mlx_info->unique_prop.posX = i;
-					mlx_info->unique_prop.posY = j;
+				set_direction(mlx_info, mlx_info->map_s[i][j]);
+				printf("%f\n", mlx_info->unique_prop.dirX);
+				printf("%f\n", mlx_info->unique_prop.dirY);
+				printf("%f\n", mlx_info->unique_prop.planeX);
+				printf("%f\n", mlx_info->unique_prop.planeY);
+				mlx_info->map[i][j] = 0;
+				mlx_info->unique_prop.posX = i;
+				mlx_info->unique_prop.posY = j;
 			}
-			mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
+			else
+				mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
 			j++;
 		}
 		j = 0;
 		i++;
 	}
 }
+
+
+
