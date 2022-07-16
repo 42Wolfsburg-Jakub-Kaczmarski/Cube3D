@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 14:35:11 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 14:48:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,14 +188,14 @@ void	load_images(t_mlx_info *mlx_info)
 	t_temp_img img;
 	t_temp_img img1;
 	t_temp_img img2;
-	// printf("Here %s\n",mlx_info->texture_paths[3]);
 	t_temp_img img3;
+
 	mlx_info->mlx_imgs = calloc(10,sizeof(void *));
 	mlx_info->texture_data = calloc(7,sizeof(*mlx_info->texture_data ));
-	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[0], "\n"),& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
-	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[1], "\n"), & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
-	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[2], "\n"), & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
-	mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[3], "\n"), & mlx_info->texture_data[3].width, &mlx_info->texture_data[3].height);
+	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, mlx_info->texture_paths[0],& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
+	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, mlx_info->texture_paths[1], & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
+	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, mlx_info->texture_paths[2], & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
+	mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, mlx_info->texture_paths[3], & mlx_info->texture_data[3].width, &mlx_info->texture_data[3].height);
 	img.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
 	img1.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[1], &img1.img_bp, &img1.img_sl, &img1.img_e);
 	img2.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[2], &img2.img_bp, &img2.img_sl, &img2.img_e);
@@ -390,33 +390,56 @@ void	get_textures(t_mlx_info *mlx_info)
 			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_path, " ");
-			mlx_info->texture_paths[0] = ft_strdup(temp);
+			free(just_path);
+			just_path = ft_strtrim(temp, "\n");
+			mlx_info->texture_paths[0] = ft_strdup(just_path);
 			free(just_path);
 		}else if(ft_strncmp(temp, "WE", 2) == 0)
 		{
 			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_path, " ");
-			mlx_info->texture_paths[1] = ft_strdup(temp);
+			free(just_path);
+			just_path = ft_strtrim(temp, "\n");
+			mlx_info->texture_paths[1] = ft_strdup(just_path);
 			free(just_path);
 		}else if(ft_strncmp(temp, "EA", 2) == 0)
 		{
 			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_path, " ");
-			mlx_info->texture_paths[2] = ft_strdup(temp);
+			free(just_path);
+			just_path = ft_strtrim(temp, "\n");
+			mlx_info->texture_paths[2] = ft_strdup(just_path);
 			free(just_path);
 		}else if(ft_strncmp(temp, "SO", 2) == 0)
 		{
 			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_path, " ");
-			mlx_info->texture_paths[3] = ft_strdup(temp);
+			free(just_path);
+			just_path = ft_strtrim(temp, "\n");
+			mlx_info->texture_paths[3] = ft_strdup(just_path);
 			free(just_path);
 		}
 		free(temp);
 		i++;
 	}
+}
+
+int	check_if_tex_exist(t_mlx_info *mlx_info)
+{
+	int i = 0;
+	
+	while(i < 4)
+	{
+		if(access(mlx_info->texture_paths[i], F_OK | R_OK) != 0)
+		{
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
 
 int main(int argc, char **argv)
@@ -433,6 +456,12 @@ int main(int argc, char **argv)
 	init_main(&mlx_info);
 	get_colors(&mlx_info);
 	get_textures(&mlx_info);
+	if(check_if_tex_exist(&mlx_info) == 1)
+	{
+		free_2d_array(mlx_info.texture_paths);
+		perror("Provided paths are wrong or cannot open textures\n");
+		return -1;
+	};
 	load_images(&mlx_info);
 	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);
 	// mlx_info.mlx_imgs[0] = mlx_png_file_to_image(mlx_info.mlx, "catto_Tex.png", &w, &h);
