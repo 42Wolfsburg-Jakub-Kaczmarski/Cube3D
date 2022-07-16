@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/16 21:46:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:50:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,29 +102,21 @@ void set_direction(t_mlx_info *mlx_info, char c)
 	{
 		mlx_info->unique_prop.dirX = 0;
 		mlx_info->unique_prop.dirY = -1;
-		// mlx_info->unique_prop.planeX = 0.66;
-		// mlx_info->unique_prop.planeY = 0;
 	}
 	else if (c == 'W')
 	{
 		mlx_info->unique_prop.dirX = -1;
 		mlx_info->unique_prop.dirY = 0;
-		// mlx_info->unique_prop.planeX = 0;
-		// mlx_info->unique_prop.planeY = -0.66;
 	}
 	else if (c == 'E')
 	{
 		mlx_info->unique_prop.dirX = 1;
 		mlx_info->unique_prop.dirY = 0;
-		// mlx_info->unique_prop.planeX = 0;
-		// mlx_info->unique_prop.planeY = 0.66;
 	}
 	else if (c == 'S')
 	{
 		mlx_info->unique_prop.dirX = 0;
 		mlx_info->unique_prop.dirY = 1;
-		// mlx_info->unique_prop.planeX = -0.66;
-		// mlx_info->unique_prop.planeY = 0;
 	}
 	mlx_info->unique_prop.planeX = 	mlx_info->unique_prop.dirY;
 	mlx_info->unique_prop.planeY = 	mlx_info->unique_prop.dirX * -1;

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 21:48:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:52:29 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void	init_main(t_mlx_info *mlx_info)
 {
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
-	// mlx_info->unique_prop.dirX = -1;
-	// mlx_info->unique_prop.dirY = 0;
-	// mlx_info->unique_prop.planeX = 0;
-	// mlx_info->unique_prop.planeY = 0.66;
 	mlx_info->unique_prop.rotSpeed = 0.1;
 	mlx_info->unique_prop.move_speed = 0.6;
 	mlx_info->unique_prop.texWidth = 200;
@@ -50,13 +46,7 @@ int main(int argc, char **argv)
 		return -1;
 	};
 	load_images(&mlx_info);
-	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);
-	// mlx_info.mlx_imgs[0] = mlx_png_file_to_image(mlx_info.mlx, "catto_Tex.png", &w, &h);
-	// mlx_put_image_to_window(mlx_info.mlx, mlx_info.main_win, 	mlx_info.mlx_imgs[0], 0,0);
 	render(&mlx_info);
-	// mlx_loop_hook(mlx_info.mlx, frame_render, &mlx_info);
-	
 	mlx_hook(mlx_info.main_win, 2,0,key_hook,&mlx_info);
 	mlx_loop(mlx_info.mlx);
-
 }
