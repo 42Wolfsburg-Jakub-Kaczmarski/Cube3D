@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:49:57 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:31:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,9 @@ int	key_hook(int keycode,void *mlx);
 
 
 //Rendering
-void	render(t_mlx_info *mlx_info);
+void	
+
+render(t_mlx_info *mlx_info);
 void	render_textures(t_mlx_info *mlx_info, int x);
 void	better_pixel_put(t_image *data, int x, int y, int color);
 int draw_line(t_mlx_info *mlx_info,int x, int beginY, int endY, int colour);
