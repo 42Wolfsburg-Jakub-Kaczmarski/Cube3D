@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:48:08 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:48:05 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	init_main(t_mlx_info *mlx_info)
 {
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
-	mlx_info->unique_prop.dirX = -1;
-	mlx_info->unique_prop.dirY = 0;
-	mlx_info->unique_prop.planeX = 0;
-	mlx_info->unique_prop.planeY = 0.66;
+	// mlx_info->unique_prop.dirX = -1;
+	// mlx_info->unique_prop.dirY = 0;
+	// mlx_info->unique_prop.planeX = 0;
+	// mlx_info->unique_prop.planeY = 0.66;
 	mlx_info->unique_prop.rotSpeed = 0.1;
 	mlx_info->unique_prop.move_speed = 0.6;
 	mlx_info->unique_prop.texWidth = 200;
@@ -35,7 +35,6 @@ int main(int argc, char **argv)
 	t_mlx_info mlx_info;
 	if (!file_input_is_okay(argc, argv, &mlx_info))
 	{
-		// printf("sth");
 		return (0);
 	}
 	mlx_info.mlx = mlx_init();
