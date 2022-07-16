@@ -1,9 +1,9 @@
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture
+NO ./assets/wall_thingy.xpm
+WE ./assets/wall_thingy.xpm
 F 100,100,0
-      EA ./path_to_the_east_texture
+      EA ./assets/beach.xpm
 C             65,53,35
-SO ./path_to_the_south_texture
+SO ./assets/catto_tex42.xpm42
 
 
 
