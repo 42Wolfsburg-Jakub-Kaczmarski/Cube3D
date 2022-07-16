@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 14:48:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 14:52:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,51 +376,40 @@ void	get_colors(t_mlx_info *mlx_info)
 	}
 }
 
+void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i)
+{
+	char *just_path;
+
+	just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
+	free(temp);
+	temp = ft_strtrim(just_path, " ");
+	free(just_path);
+	just_path = ft_strtrim(temp, "\n");
+	mlx_info->texture_paths[i] = ft_strdup(just_path);
+	free(just_path);
+}
+
 void	get_textures(t_mlx_info *mlx_info)
 {
 	int i = 0;
 	char *temp;
-	char *just_path;
+
 	mlx_info->texture_paths = calloc(sizeof(char *), 4);
 	while(mlx_info->textures[i])
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");
 		if(ft_strncmp(temp, "NO", 2) == 0)
 		{
-			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
-			free(temp);
-			temp = ft_strtrim(just_path, " ");
-			free(just_path);
-			just_path = ft_strtrim(temp, "\n");
-			mlx_info->texture_paths[0] = ft_strdup(just_path);
-			free(just_path);
+			switch_right_tex(mlx_info, temp, 0);
 		}else if(ft_strncmp(temp, "WE", 2) == 0)
 		{
-			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
-			free(temp);
-			temp = ft_strtrim(just_path, " ");
-			free(just_path);
-			just_path = ft_strtrim(temp, "\n");
-			mlx_info->texture_paths[1] = ft_strdup(just_path);
-			free(just_path);
+			switch_right_tex(mlx_info, temp, 1);
 		}else if(ft_strncmp(temp, "EA", 2) == 0)
 		{
-			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
-			free(temp);
-			temp = ft_strtrim(just_path, " ");
-			free(just_path);
-			just_path = ft_strtrim(temp, "\n");
-			mlx_info->texture_paths[2] = ft_strdup(just_path);
-			free(just_path);
+			switch_right_tex(mlx_info, temp, 2);
 		}else if(ft_strncmp(temp, "SO", 2) == 0)
 		{
-			just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
-			free(temp);
-			temp = ft_strtrim(just_path, " ");
-			free(just_path);
-			just_path = ft_strtrim(temp, "\n");
-			mlx_info->texture_paths[3] = ft_strdup(just_path);
-			free(just_path);
+			switch_right_tex(mlx_info, temp, 3);
 		}
 		free(temp);
 		i++;
