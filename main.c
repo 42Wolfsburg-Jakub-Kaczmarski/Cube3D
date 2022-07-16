@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 14:52:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 15:08:22 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,6 +293,23 @@ void	floor_casting(t_mlx_info *mlx_info)
 	}
 }
 
+
+void	get_which_tex(t_mlx_info *mlx_info)
+{
+	if(mlx_info->draw_prop.side == 0 && mlx_info->draw_prop.rayDirX > 0)
+	{
+		mlx_info->draw_prop.texture_num = EAST;
+	}else if(mlx_info->draw_prop.side == 0)
+	{
+		mlx_info->draw_prop.texture_num = WEST;
+	}else if(mlx_info->draw_prop.side == 1 && mlx_info->draw_prop.rayDirY > 0)
+	{
+		mlx_info->draw_prop.texture_num = SOUTH;
+	}else
+	{
+		mlx_info->draw_prop.texture_num = NORTH;
+	}
+}
 void	render(t_mlx_info *mlx_info)
 {
 	int x = 0;
@@ -307,6 +324,7 @@ void	render(t_mlx_info *mlx_info)
 		hit_loop(mlx_info);
 		calculate_wall_dist(mlx_info);
 		calculate_wall_texX(mlx_info);
+		get_which_tex(mlx_info);
 		render_textures(mlx_info, x);
 		// color_walls(mlx_info, x);
 		x++;
@@ -460,4 +478,5 @@ int main(int argc, char **argv)
 	
 	mlx_hook(mlx_info.main_win, 2,0,key_hook,&mlx_info);
 	mlx_loop(mlx_info.mlx);
+
 }

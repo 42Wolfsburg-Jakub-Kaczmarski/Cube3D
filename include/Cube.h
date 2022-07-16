@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 14:17:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 15:01:40 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 #define IMG_SIDE 80
 #define PLAYER_SIZE 20
 #define WAND_LEN (PLAYER_SIZE)
-#define NORTH 3.0/2 * PI
-#define SOUTH 1/2.0 * PI
-#define WEST PI
-#define EAST 0.0f
 #define ALLOWED_SYMBOLS "10WESN \n"
 #define PLAYER_POS "WESN"
 #define VALID_SYMBOLS "01WESN"
@@ -60,6 +56,14 @@ enum IMG
 	BACKGROUND,
 	WALL,
 	WAND,
+};
+
+enum DIREC
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
 };
 
 typedef struct s_image_s
@@ -178,7 +182,7 @@ typedef struct s_info_mlx{
 	t_floor_vars	floor_info;
 	t_uniq_prop		unique_prop;
 	t_draw_prop		draw_prop;
-
+	int					direction;
 
 	////added from Krisi
 	char			**map_s;
