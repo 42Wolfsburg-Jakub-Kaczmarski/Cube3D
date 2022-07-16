@@ -10,47 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CUBE_H
 # define CUBE_H
 
-#include <fcntl.h>
-#include "mlx.h"
-#include <stdbool.h>
-#include "libft.h"
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#define DR 0.0174533 //one degree in radian
-#define IMG_SIDE 80
-#define PLAYER_SIZE 20
-#define WAND_LEN (PLAYER_SIZE)
-#define ALLOWED_SYMBOLS "10WESN \n"
-#define PLAYER_POS "WESN"
-#define VALID_SYMBOLS "01WESN"
-#define TEXTURES 6
-#define BUFFER_SIZE 1000
+# include "libft.h"
+# include "mlx.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# define DR 0.0174533 // one degree in radian
+# define IMG_SIDE 80
+# define PLAYER_SIZE 20
+# define WAND_LEN (PLAYER_SIZE)
+# define ALLOWED_SYMBOLS "10WESN \n"
+# define PLAYER_POS "WESN"
+# define VALID_SYMBOLS "01WESN"
+# define TEXTURES 6
+# define BUFFER_SIZE 1000
 # include <unistd.h>
-#define ROTATION_SPEED PI / 100
-#define PI 3.14159265359
-#define DR 0.0174533
-#define MOVEMENT_SPEED 5
-#define rotationfix (PI / 241)
+# define ROTATION_SPEED PI / 100
+# define PI 3.14159265359
+# define DR 0.0174533
+# define MOVEMENT_SPEED 5
+# define rotationfix (PI / 241)
 # if defined(__linux__)
-		#define AUDIO "/usr/bin/aplay"
+#  define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
-		#define AUDIO "/usr/bin/afplay", "--volume", "1"
-# else 
-	#define AUDIO ""
+#  define AUDIO "/usr/bin/afplay", "--volume", "1"
+# else
+#  define AUDIO ""
 # endif
 
-#define mapWidth 24
-#define mapHeight 24
+# define mapWidth 24
+# define mapHeight 24
 
-extern int worldMap[mapWidth][mapHeight];
+extern int			worldMap[mapWidth][mapHeight];
 
-enum IMG
+enum				IMG
 {
 	PLAYER,
 	BACKGROUND,
@@ -58,7 +57,7 @@ enum IMG
 	WAND,
 };
 
-enum DIREC
+enum				DIREC
 {
 	NORTH,
 	SOUTH,
@@ -72,112 +71,112 @@ enum DIREC
 // 	int		texNum;
 // }	t_sprite;
 
-typedef struct s_image_s
+typedef struct		s_image_s
 {
-	void *img;
-	char *addr;
-	int	bits_per_pixel;
-	int	line_length;
-	int	endian;
-}	t_image;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_image;
 
-typedef struct s_floor_vars
+typedef struct		s_floor_vars
 {
-	float rayDirX0;
-	float rayDirY0;
-	float rayDirX1;
-	float rayDirY1;
-	int p;
-	float posZ;
-	float rowDistance;
-	float floorStepX;
-	float floorStepY;
-	float floorX;
-	float floorY;
-	int	cellX;
-	int cellY;
-	int	tx;
-	int	ty;
-	int floor_index;
-	int	ceiling_index;
-	int color;
-}	t_floor_vars;
+	float			rayDirX0;
+	float			rayDirY0;
+	float			rayDirX1;
+	float			rayDirY1;
+	int				p;
+	float			posZ;
+	float			rowDistance;
+	float			floorStepX;
+	float			floorStepY;
+	float			floorX;
+	float			floorY;
+	int				cellX;
+	int				cellY;
+	int				tx;
+	int				ty;
+	int				floor_index;
+	int				ceiling_index;
+	int				color;
+}					t_floor_vars;
 
-
-typedef struct s_draw_prop
+typedef struct		s_draw_prop
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int mapX;
-	int	mapY;
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
-	double	sideDistX;
-	double	sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	int	stepX;
-	int	stepY;
-	double	perpWallDist;
-	int	hit;
-	int	side;
-	int	texture_num;
-	double	wall_X;
-	int	texX;
-}	t_draw_prop;
+	double			cameraX;
+	double			rayDirX;
+	double			rayDirY;
+	int				mapX;
+	int				mapY;
+	int				lineHeight;
+	int				drawStart;
+	int				drawEnd;
+	double			sideDistX;
+	double			sideDistY;
+	double			deltaDistX;
+	double			deltaDistY;
+	int				stepX;
+	int				stepY;
+	double			perpWallDist;
+	int				hit;
+	int				side;
+	int				texture_num;
+	double			wall_X;
+	int				texX;
+}					t_draw_prop;
 
-typedef struct s_uniq_prop
+typedef struct		s_uniq_prop
 {
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double rotSpeed;
-	double move_speed;	
-	double	posX;
-	double	posY;
-	int		texWidth;
-	int		texHeight;
-} t_uniq_prop;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
+	double			rotSpeed;
+	double			move_speed;
+	double			posX;
+	double			posY;
+	int				texWidth;
+	int				texHeight;
+}					t_uniq_prop;
 
-typedef struct s_color
+typedef struct		s_color
 {
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
-	unsigned char a;
-}	t_color;
+	unsigned char	b;
+	unsigned char	g;
+	unsigned char	r;
+	unsigned char	a;
+}					t_color;
 
-typedef struct s_temp_img
+typedef struct		s_temp_img
 {
-	char	*img_data;
-	int	img_bp;
-	int	img_sl;
-	int	img_e;
-}	t_temp_img;
+	char			*img_data;
+	int				img_bp;
+	int				img_sl;
+	int				img_e;
+}					t_temp_img;
 
-typedef struct s_texture
+typedef struct		s_texture
 {
-	void *img_h;
-	t_color	***arr_color;
-	int	height;
-	int	width;
-	void *img_data;
-}	t_texture;
+	void			*img_h;
+	t_color			***arr_color;
+	int				height;
+	int				width;
+	void			*img_data;
+}					t_texture;
 
-typedef struct s_elements
+typedef struct		s_elements
 {
-  bool c;
-  bool f;
-  bool no;
-  bool so;
-  bool ea;
-  bool we;
-} t_elements;
+	bool			c;
+	bool			f;
+	bool			no;
+	bool			so;
+	bool			ea;
+	bool			we;
+}					t_elements;
 
-typedef struct s_info_mlx{
+typedef struct		s_info_mlx
+{
 	void			*mlx;
 	t_image			main_img;
 	int				window_width;
@@ -188,93 +187,89 @@ typedef struct s_info_mlx{
 	t_floor_vars	floor_info;
 	t_uniq_prop		unique_prop;
 	t_draw_prop		draw_prop;
-	int					direction;
+	int				direction;
 
 	////added from Krisi
 	char			**map_s;
-	int			longest_row; //Map width
-	int			map_height;
-	int			file_height;
-	int			new_lines;
-	int			fd;
+	int longest_row; // Map width
+	int				map_height;
+	int				file_height;
+	int				new_lines;
+	int				fd;
 	char			**textures;
-	t_elements	elements;
-	double		dir;
-	int			**map;
-	int			error_code;
-	int			celling_color;
-	int			floor_color;
-	char 	**texture_paths;
-}	t_mlx_info;
+	t_elements		elements;
+	double			dir;
+	int				**map;
+	int				error_code;
+	int				celling_color;
+	int				floor_color;
+	char			**texture_paths;
+}					t_mlx_info;
 
+// Movement
+void				key_W_hook(t_mlx_info *mlx_info);
+void				key_S(t_mlx_info *mlx_info);
+void				key_A(t_mlx_info *mlx_info);
+void				key_D(t_mlx_info *mlx_info);
+void				key_right_arr(t_mlx_info *mlx_info);
+void				key_left_arr(t_mlx_info *mlx_info);
+int					key_hook(int keycode, void *mlx);
 
-
-//Movement
-void key_W_hook(t_mlx_info *mlx_info);
-void	key_S(t_mlx_info *mlx_info);
-void	key_A(t_mlx_info *mlx_info);
-void	key_D(t_mlx_info *mlx_info);
-void	key_right_arr(t_mlx_info *mlx_info);
-void	key_left_arr(t_mlx_info *mlx_info);
-int	key_hook(int keycode,void *mlx);
-
-
-//Rendering
-void	render(t_mlx_info *mlx_info);
-void	render_textures(t_mlx_info *mlx_info, int x);
-void	better_pixel_put(t_image *data, int x, int y, int color);
-int draw_line(t_mlx_info *mlx_info,int x, int beginY, int endY, int colour);
-void	init_for_drawing(t_mlx_info *mlx_info, int x, int w);
-void	check_sideXY(t_mlx_info *mlx_info);
-void	hit_loop(t_mlx_info *mlx_info);
-t_color *set_color_fstr(t_temp_img *img, int x, int y);
-t_color ***create_color_arr(t_temp_img *img, int height, int width);
-void	color_walls(t_mlx_info *mlx_info, int x);
-void	init_img(t_mlx_info *mlx_info);
-void	calculate_wall_texX(t_mlx_info *mlx_info);
-void	load_images(t_mlx_info *mlx_info);
-void	prep_floor(t_mlx_info *mlx_info, int y);
-void	floor_casting(t_mlx_info *mlx_info);
-void	get_which_tex(t_mlx_info *mlx_info);
-void	calculate_wall_dist(t_mlx_info *mlx_info);
-int			convert_to_argb(char *colors_str);
-void	get_colors(t_mlx_info *mlx_info);
-void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
-void	get_textures(t_mlx_info *mlx_info);
-int		check_if_tex_exist(t_mlx_info *mlx_info);
-void	free_2d_array(char **arr);
-typedef struct s_mlx_img
+// Rendering
+void				render(t_mlx_info *mlx_info);
+void				render_textures(t_mlx_info *mlx_info, int x);
+void				better_pixel_put(t_image *data, int x, int y, int color);
+int					draw_line(t_mlx_info *mlx_info, int x, int beginY, int endY, int colour);
+void				init_for_drawing(t_mlx_info *mlx_info, int x, int w);
+void				check_sideXY(t_mlx_info *mlx_info);
+void				hit_loop(t_mlx_info *mlx_info);
+t_color				*set_color_fstr(t_temp_img *img, int x, int y);
+t_color				***create_color_arr(t_temp_img *img, int height, int width);
+void				color_walls(t_mlx_info *mlx_info, int x);
+void				init_img(t_mlx_info *mlx_info);
+void				calculate_wall_texX(t_mlx_info *mlx_info);
+void				load_images(t_mlx_info *mlx_info);
+void				prep_floor(t_mlx_info *mlx_info, int y);
+void				floor_casting(t_mlx_info *mlx_info);
+void				get_which_tex(t_mlx_info *mlx_info);
+void				calculate_wall_dist(t_mlx_info *mlx_info);
+int					convert_to_argb(char *colors_str);
+void				get_colors(t_mlx_info *mlx_info);
+void				switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
+void				get_textures(t_mlx_info *mlx_info);
+int					check_if_tex_exist(t_mlx_info *mlx_info);
+void				free_2d_array(char **arr);
+typedef struct		s_mlx_img
 {
-  void			*mlx;
-  //Index 0 reserved for the player
+	void			*mlx;
+	// Index 0 reserved for the player
 
-  char			**map_s;
-  int			map_width;
-  
-  int			longest_row;
-  int			map_height;
-  int			file_height;
-  int			new_lines;
-  int			fd;
-  char			**textures;
-  t_elements	elements;
-  double		dir;
-  int			**map;
-  int			error_code;
-} t_mlx;
+	char			**map_s;
+	int				map_width;
 
-int	check_map(char **argv, t_mlx *mlx_info);
+	int				longest_row;
+	int				map_height;
+	int				file_height;
+	int				new_lines;
+	int				fd;
+	char			**textures;
+	t_elements		elements;
+	double			dir;
+	int				**map;
+	int				error_code;
+}					t_mlx;
 
-//Get_next_line
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *ch);
-void	*ft_memset(void *ptr, int value, size_t num);
-void	*ft_memmove(void *dest, const void *src, size_t n);
-char	*ft_strrchr(const char *s, int c);
-void	*ft_calloc(size_t nmemb, size_t size);
+int					check_map(char **argv, t_mlx *mlx_info);
 
+// Get_next_line
+char				*get_next_line(int fd);
+size_t				ft_strlen(const char *ch);
+void				*ft_memset(void *ptr, int value, size_t num);
+void				*ft_memmove(void *dest, const void *src, size_t n);
+char				*ft_strrchr(const char *s, int c);
+void				*ft_calloc(size_t nmemb, size_t size);
 
-//main.c
-void load_textures(t_mlx *mlx);
-bool check_movement(t_mlx *data);
+// main.c
+void				load_textures(t_mlx *mlx);
+bool				check_movement(t_mlx *data);
 #endif

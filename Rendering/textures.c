@@ -12,16 +12,15 @@
 
 #include "../include/Cube.h"
 
-int	convert_to_argb(char *colors_str)
+int		convert_to_argb(char *colors_str)
 {
-	char **temp;
-	int red;
-	int green;
-	int blue;
-	int a;
+	char	**temp;
+	int		red;
+	int		green;
+	int		blue;
+	int		a;
 
 	a = 0;
-
 	temp = ft_split(colors_str, ',');
 	red = ft_atoi(temp[0]);
 	green = ft_atoi(temp[1]);
@@ -32,20 +31,23 @@ int	convert_to_argb(char *colors_str)
 
 void	get_colors(t_mlx_info *mlx_info)
 {
-	int i = 0;
-	char *temp;
-	char *just_colors;
-	while(mlx_info->textures[i])
+	int		i;
+	char	*temp;
+	char	*just_colors;
+
+	i = 0;
+	while (mlx_info->textures[i])
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");
-		if(ft_strncmp(temp, "C", 1) == 0)
+		if (ft_strncmp(temp, "C", 1) == 0)
 		{
 			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_colors, " ");
 			free(just_colors);
 			mlx_info->celling_color = convert_to_argb(temp);
-		}else if(ft_strncmp(temp, "F", 1) == 0)
+		}
+		else if (ft_strncmp(temp, "F", 1) == 0)
 		{
 			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
 			free(temp);
@@ -60,7 +62,7 @@ void	get_colors(t_mlx_info *mlx_info)
 
 void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i)
 {
-	char *just_path;
+	char	*just_path;
 
 	just_path = ft_substr(temp, 2, ft_strlen(temp) - 1);
 	free(temp);
@@ -73,23 +75,27 @@ void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i)
 
 void	get_textures(t_mlx_info *mlx_info)
 {
-	int i = 0;
-	char *temp;
+	int		i;
+	char	*temp;
 
+	i = 0;
 	mlx_info->texture_paths = calloc(sizeof(char *), 4);
-	while(mlx_info->textures[i])
+	while (mlx_info->textures[i])
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");
-		if(ft_strncmp(temp, "NO", 2) == 0)
+		if (ft_strncmp(temp, "NO", 2) == 0)
 		{
 			switch_right_tex(mlx_info, temp, 0);
-		}else if(ft_strncmp(temp, "WE", 2) == 0)
+		}
+		else if (ft_strncmp(temp, "WE", 2) == 0)
 		{
 			switch_right_tex(mlx_info, temp, 1);
-		}else if(ft_strncmp(temp, "EA", 2) == 0)
+		}
+		else if (ft_strncmp(temp, "EA", 2) == 0)
 		{
 			switch_right_tex(mlx_info, temp, 2);
-		}else if(ft_strncmp(temp, "SO", 2) == 0)
+		}
+		else if (ft_strncmp(temp, "SO", 2) == 0)
 		{
 			switch_right_tex(mlx_info, temp, 3);
 		}
@@ -98,17 +104,18 @@ void	get_textures(t_mlx_info *mlx_info)
 	}
 }
 
-int	check_if_tex_exist(t_mlx_info *mlx_info)
+int		check_if_tex_exist(t_mlx_info *mlx_info)
 {
-	int i = 0;
-	
-	while(i < 4)
+	int	i;
+
+	i = 0;
+	while (i < 4)
 	{
-		if(access(mlx_info->texture_paths[i], F_OK | R_OK) != 0)
+		if (access(mlx_info->texture_paths[i], F_OK | R_OK) != 0)
 		{
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
