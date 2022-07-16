@@ -1,5 +1,5 @@
 NO ./assets/wall_thingy.xpm
-WE ./assets/wall_thingy.xpm
+WE ./assets/SPACE.xpm
 F 100,100,0
       EA ./assets/beach.xpm
 C             65,53,35
