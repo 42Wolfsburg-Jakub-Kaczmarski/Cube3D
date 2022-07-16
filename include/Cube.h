@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:01:40 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 15:49:57 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,54 +229,14 @@ void	calculate_wall_texX(t_mlx_info *mlx_info);
 void	load_images(t_mlx_info *mlx_info);
 void	prep_floor(t_mlx_info *mlx_info, int y);
 void	floor_casting(t_mlx_info *mlx_info);
-
-// typedef struct s_mlx_img
-// {
-//   mlx_t *mlx;
-//   //Index 0 reserved for the player
-//   mlx_image_t **img_arr;
-//   float px;
-//   float py;
-//   float pdx;
-//   float pdy;
-//   float pa;
-//   float wx;
-//   float wy;
-//   char **map;
-//   int map_height;
-//   int map_width;
-//   double dir;
-// } t_mlx;
-
-// int	check_map(char **argv, t_mlx *mlx_info);
-
-// //Get_next_line
-// char	*get_next_line(int fd);
-// size_t	ft_strlen(const char *ch);
-// void	*ft_memset(void *ptr, int value, size_t num);
-// void	*ft_memmove(void *dest, const void *src, size_t n);
-// char	*ft_strrchr(const char *s, int c);
-// void	*ft_calloc(size_t nmemb, size_t size);
-
-// ///keys.c
-// void key_w(t_mlx *data);
-// void key_s(t_mlx *data);
-// void key_a(t_mlx *data);
-// void key_d(t_mlx *data);
-// void key_left_arrow(t_mlx *data);
-// void key_right_arrow(t_mlx *data);
-
-// //draw.c
-// int draw_line(mlx_image_t *img,int x, int beginY, int endY, int colour);
-// void draw_wand(t_mlx *mlx_info);
-// void draw_grid(t_mlx *mlx);
-// void draw_player(t_mlx *mlx_info);
-
-// //main.c
-// void load_textures(t_mlx *mlx);
-// bool check_movement(t_mlx *data);
-// int draw_rays(t_mlx *mlx_info);
-
+void	get_which_tex(t_mlx_info *mlx_info);
+void	calculate_wall_dist(t_mlx_info *mlx_info);
+int			convert_to_argb(char *colors_str);
+void	get_colors(t_mlx_info *mlx_info);
+void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
+void	get_textures(t_mlx_info *mlx_info);
+int		check_if_tex_exist(t_mlx_info *mlx_info);
+void	free_2d_array(char **arr);
 typedef struct s_mlx_img
 {
   void			*mlx;

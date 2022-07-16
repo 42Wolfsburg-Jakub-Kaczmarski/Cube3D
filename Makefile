@@ -1,6 +1,6 @@
 NAME = Cube3d
 
-SRCs = main.c Rendering/tools.c Movement/keys.c Movement/arrows.c Movement/key_hook.c src/helper/get_next_line.c src/helper/get_next_line_utils.c \
+SRCs = main.c Rendering/textures.c Rendering/raycast.c Rendering/render.c Rendering/drawing.c Rendering/tools.c Movement/keys.c Movement/arrows.c Movement/key_hook.c src/helper/get_next_line.c src/helper/get_next_line_utils.c \
 		src/input_validation_and_map_creation/validation.c \
 		src/input_validation_and_map_creation/map_validations.c \
 		src/input_validation_and_map_creation/create_map.c \
