@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 19:53:25 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/16 14:10:55 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,8 +280,8 @@ void	floor_casting(t_mlx_info *mlx_info)
 			// int floor_texture = 2;
 			// int ceiling_texture = 1;
 			// int color;
-			better_pixel_put(&mlx_info->main_img, t, y, 0x000000FF);
-			better_pixel_put(&mlx_info->main_img, t, mlx_info->window_height - y - 1, 0x0000FFFF);
+			better_pixel_put(&mlx_info->main_img, t, y, mlx_info->floor_color);
+			better_pixel_put(&mlx_info->main_img, t, mlx_info->window_height - y - 1, mlx_info->celling_color);
 			t++;
 		}
 		y++;
@@ -325,6 +325,51 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx, mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
 
+int	convert_to_argb(char *colors_str)
+{
+	char **temp;
+	int red;
+	int green;
+	int blue;
+	int a;
+
+	a = 0;
+
+	temp = ft_split(colors_str, ',');
+	red = ft_atoi(temp[0]);
+	green = ft_atoi(temp[1]);
+	blue = ft_atoi(temp[2]);
+	free_2d_array(temp);
+	return (a << 24) + (red << 16) + (green << 8) + (blue);
+}
+
+void	get_colors(t_mlx_info *mlx_info)
+{
+	int i = 0;
+	char *temp;
+	char *just_colors;
+	while(mlx_info->textures[i])
+	{
+		temp = ft_strtrim(mlx_info->textures[i], " ");
+		if(ft_strncmp(temp, "C", 1) == 0)
+		{
+			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
+			free(temp);
+			temp = ft_strtrim(just_colors, " ");
+			free(just_colors);
+			mlx_info->celling_color = convert_to_argb(temp);
+		}else if(ft_strncmp(temp, "F", 1) == 0)
+		{
+			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
+			free(temp);
+			temp = ft_strtrim(just_colors, " ");
+			free(just_colors);
+			mlx_info->floor_color = convert_to_argb(temp);
+		}
+		free(temp);
+		i++;
+	}
+}
 int main(int argc, char **argv)
 {
 	t_mlx_info mlx_info;
@@ -337,12 +382,14 @@ int main(int argc, char **argv)
 	if(!mlx_info.mlx)
 		return 0;
 	init_main(&mlx_info);
+	get_colors(&mlx_info);
 	load_images(&mlx_info);
 	// mlx_info.main_img.img = mlx_new_image(mlx_info.mlx, mlx_info.window_width, mlx_info.window_height);
 	// mlx_info.mlx_imgs[0] = mlx_png_file_to_image(mlx_info.mlx, "catto_Tex.png", &w, &h);
 	// mlx_put_image_to_window(mlx_info.mlx, mlx_info.main_win, 	mlx_info.mlx_imgs[0], 0,0);
 	render(&mlx_info);
 	// mlx_loop_hook(mlx_info.mlx, frame_render, &mlx_info);
+	
 	mlx_hook(mlx_info.main_win, 2,0,key_hook,&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }

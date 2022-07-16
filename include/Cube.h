@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/15 18:02:03 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 13:59:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ typedef struct s_info_mlx{
 	double		dir;
 	int			**map;
 	int			error_code;
+	int			celling_color;
+	int			floor_color;
 }	t_mlx_info;
 
 
