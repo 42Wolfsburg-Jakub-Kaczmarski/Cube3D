@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 14:32:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/16 14:35:11 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,27 +188,28 @@ void	load_images(t_mlx_info *mlx_info)
 	t_temp_img img;
 	t_temp_img img1;
 	t_temp_img img2;
-	// t_temp_img img3;
+	// printf("Here %s\n",mlx_info->texture_paths[3]);
+	t_temp_img img3;
 	mlx_info->mlx_imgs = calloc(10,sizeof(void *));
 	mlx_info->texture_data = calloc(7,sizeof(*mlx_info->texture_data ));
 	mlx_info->mlx_imgs[0] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[0], "\n"),& mlx_info->texture_data[0].width, &mlx_info->texture_data[0].height);
 	mlx_info->mlx_imgs[1] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[1], "\n"), & mlx_info->texture_data[1].width, &mlx_info->texture_data[1].height);
 	mlx_info->mlx_imgs[2] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[2], "\n"), & mlx_info->texture_data[2].width, &mlx_info->texture_data[2].height);
-	// mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[3], "\n"), & mlx_info->texture_data[3].width, &mlx_info->texture_data[3].height);
+	mlx_info->mlx_imgs[3] = mlx_xpm_file_to_image(mlx_info->mlx, ft_strtrim(mlx_info->texture_paths[3], "\n"), & mlx_info->texture_data[3].width, &mlx_info->texture_data[3].height);
 	img.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
 	img1.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[1], &img1.img_bp, &img1.img_sl, &img1.img_e);
 	img2.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[2], &img2.img_bp, &img2.img_sl, &img2.img_e);
-	// img3.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[3], &img3.img_bp, &img3.img_sl, &img3.img_e);
+	img3.img_data = mlx_get_data_addr(mlx_info->mlx_imgs[3], &img3.img_bp, &img3.img_sl, &img3.img_e);
 
 	mlx_info->texture_data[0].arr_color = create_color_arr(&img,mlx_info->texture_data[0].height, mlx_info->texture_data[0].width);
 	mlx_info->texture_data[1].arr_color = create_color_arr(&img1,mlx_info->texture_data[1].height, mlx_info->texture_data[1].width);
 	mlx_info->texture_data[2].arr_color = create_color_arr(&img2,mlx_info->texture_data[2].height, mlx_info->texture_data[2].width);
-	// mlx_info->texture_data[3].arr_color = create_color_arr(&img3,mlx_info->texture_data[3].height, mlx_info->texture_data[3].width);
+	mlx_info->texture_data[3].arr_color = create_color_arr(&img3,mlx_info->texture_data[3].height, mlx_info->texture_data[3].width);
 
 	mlx_info->texture_data[0].img_h = mlx_info->mlx_imgs[0];
 	mlx_info->texture_data[1].img_h = mlx_info->mlx_imgs[1];
 	mlx_info->texture_data[2].img_h = mlx_info->mlx_imgs[2];
-	// mlx_info->texture_data[3].img_h = mlx_info->mlx_imgs[3];
+	mlx_info->texture_data[3].img_h = mlx_info->mlx_imgs[3];
 }
 
 
