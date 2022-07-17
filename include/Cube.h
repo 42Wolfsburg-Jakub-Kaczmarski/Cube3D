@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 17:18:07 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 23:14:59 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,18 @@ typedef struct s_sprite_data
 	double	*sprite_distance;
 	t_sprite	*sprite_arr;
 	int			sprite_count;
+	double	sprite_x;
+	double	sprite_y;
+	double	invDet;
+	double	transformX;
+	double	transformY;
+	int			spriteScreenX;
+	int			spriteHeight;
+	int			DrawStartY;
+	int			DrawEndY;
+	int			spriteWidth;
+	int			drawStartX;
+	int			drawEndX;
 }	t_sprite_data;
 
 typedef struct s_info_mlx
