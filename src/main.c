@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 21:52:29 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:13:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "include/Cube.h"
-#include "src/input_validation_and_map_creation/map_validation.h"
+#include "../include/Cube.h"
+#include "../src/input_validation_and_map_creation/map_validation.h"
 
 void	init_main(t_mlx_info *mlx_info)
 {
@@ -50,3 +50,5 @@ int main(int argc, char **argv)
 	mlx_hook(mlx_info.main_win, 2,0,key_hook,&mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
+
+///I need to fix the freeing when there is an error

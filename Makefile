@@ -1,6 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/07/17 13:09:57 by kmilchev          #+#    #+#              #
+#    Updated: 2022/07/17 13:15:26 by kmilchev         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = gcc
+
 NAME = Cube3d
 
-SRCs = main.c \
+SRCs =	src/main.c \
 		src/Rendering/textures.c \
 		src/Rendering/raycast.c \
 		src/Rendering/render.c \
@@ -19,19 +33,29 @@ SRCs = main.c \
 		src/input_validation_and_map_creation/helpers.c \
 		src/input_validation_and_map_creation/helpers_2.c \
 
-CFLAGS = -Wall -Wextra -Werror;
+OBJs := $(SRCs:.c=.o)
 
-LIBS = libmlx.dylib libft.a
+CFLAGS = -Wall -Wextra -Werror
+
+LIBS = libraries/libft.a
+
+%.o: %.c 
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
-Cube3d:
-	gcc -g $(SRCs) $(LIBS) -framework Cocoa -framework OpenGL -framework IOKit -o Cube3d
+$(NAME): $(OBJs)
+	$(MAKE) -C minilbx/
+	mv minilbx/libmlx.dylib .
+	gcc -g $(OBJs) $(LIBS) libmlx.dylib  -framework Cocoa -framework OpenGL -framework IOKit -o Cube3d
 
 clean:
-	@rm -f $(NAME)
-fclean:
-	@rm -f $(NAME)
+	$(MAKE) clean -C minilbx/
+	rm -f $(OBJs)
+
+fclean: clean
+	rm -f libmlx.dylib 
+	rm -f $(NAME)
 
 re: fclean all
 
