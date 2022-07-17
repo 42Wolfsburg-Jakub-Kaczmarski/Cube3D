@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:48:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:13:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,39 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->mlx_imgs = calloc(4, sizeof(void *));
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx, mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
+void	load_sprites(t_mlx_info *mlx_info)
+{
+		int i = 4;
+		//Replace add more paths to texture paths :)
+		char *path = ft_strdup("./assets/catt_sprite.xpm");
+		// while(i < 5)
+		// {
+				mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
+				path,
+				&mlx_info->texture_data[i].width,
+				&mlx_info->texture_data[i].height);
+		mlx_info->im[i].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[i],
+				&mlx_info->im[i].img_bp,
+				&mlx_info->im[i].img_sl,
+				&mlx_info->im[i].img_e);
+		mlx_info->texture_data[i].arr_color = create_color_arr(&mlx_info->im[i],
+				mlx_info->texture_data[i].height,
+				mlx_info->texture_data[i].width);
+		mlx_info->texture_data[i].img_h = mlx_info->mlx_imgs[i];
+		// }
 
+		// i++;
+}
+void	init_sprites(t_mlx_info *mlx_info)
+{
+	mlx_info->sprite_arr = ft_calloc(5, sizeof(t_sprite));
+	mlx_info->sprite_arr[0].x = 5;
+	mlx_info->sprite_arr[0].y = 5;
+	mlx_info->sprite_arr[0].tex_num = 4;
+	mlx_info->sprite_arr[1].x = 10;
+	mlx_info->sprite_arr[1].y = 7;
+	mlx_info->sprite_arr[1].tex_num = 4;
+}
 int main(int argc, char **argv)
 {
 	t_mlx_info mlx_info;
@@ -46,6 +78,8 @@ int main(int argc, char **argv)
 		return -1;
 	};
 	load_images(&mlx_info);
+	init_sprites(&mlx_info);
+	load_sprites(&mlx_info);
 	render(&mlx_info);
 	mlx_hook(mlx_info.main_win, 2,0,key_hook,&mlx_info);
 	mlx_loop(mlx_info.mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:58:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:13:24 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ enum e_DIREC
 	WEST,
 	EAST,
 };
+
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	int		tex_num;
+} t_sprite;
+
 
 typedef struct s_image_s
 {
@@ -157,6 +165,13 @@ typedef struct s_elements
 	bool	we;
 }					t_elements;
 
+typedef struct s_sprite_data
+{
+	double *z_buff;
+	int			*sprite_order;
+	double	*sprite_distance;
+}	t_sprite_data;
+
 typedef struct s_info_mlx
 {
 	void			*mlx;
@@ -185,6 +200,8 @@ typedef struct s_info_mlx
 	int				celling_color;
 	int				floor_color;
 	char			**texture_paths;
+	
+	t_sprite	*sprite_arr;
 }					t_mlx_info;
 
 // Movement
