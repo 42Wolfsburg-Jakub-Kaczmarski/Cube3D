@@ -6,15 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:40:22 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 10:31:14 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
 
-
-enum ERRORS
+enum e_ERRORS
 {
 	NOTHING,
 	FILE_CANNOT_BE_OPENED,

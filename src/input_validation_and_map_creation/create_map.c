@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/16 21:50:52 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 10:31:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,7 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 	free(new_row);
 }
 
-
-void set_direction(t_mlx_info *mlx_info, char c)
+void	set_direction(t_mlx_info *mlx_info, char c)
 {
 	if (c == 'N')
 	{
@@ -118,10 +117,9 @@ void set_direction(t_mlx_info *mlx_info, char c)
 		mlx_info->unique_prop.dirX = 0;
 		mlx_info->unique_prop.dirY = 1;
 	}
-	mlx_info->unique_prop.planeX = 	mlx_info->unique_prop.dirY;
-	mlx_info->unique_prop.planeY = 	mlx_info->unique_prop.dirX * -1;
+	mlx_info->unique_prop.planeX = mlx_info->unique_prop.dirY;
+	mlx_info->unique_prop.planeY = mlx_info->unique_prop.dirX * -1;
 }
-
 
 //Reads from the string array and creates an int array
 void	char_to_int_map(t_mlx_info *mlx_info)
@@ -137,13 +135,9 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		mlx_info->map[i] = ft_calloc(mlx_info->longest_row, sizeof(int));
 		while (j < mlx_info->longest_row)
 		{
-			if(ft_strchr(PLAYER_POS, mlx_info->map_s[i][j]) != NULL)
+			if (ft_strchr(PLAYER_POS, mlx_info->map_s[i][j]) != NULL)
 			{
 				set_direction(mlx_info, mlx_info->map_s[i][j]);
-				printf("%f\n", mlx_info->unique_prop.dirX);
-				printf("%f\n", mlx_info->unique_prop.dirY);
-				printf("%f\n", mlx_info->unique_prop.planeX);
-				printf("%f\n", mlx_info->unique_prop.planeY);
 				mlx_info->map[i][j] = 0;
 				mlx_info->unique_prop.posX = i;
 				mlx_info->unique_prop.posY = j;
@@ -156,6 +150,3 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		i++;
 	}
 }
-
-
-
