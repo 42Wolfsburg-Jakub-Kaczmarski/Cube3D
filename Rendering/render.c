@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:42:05 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:08:39 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	render(t_mlx_info *mlx_info)
 		check_sideXY(mlx_info);
 		hit_loop(mlx_info);
 		calculate_wall_dist(mlx_info);
-		calculate_wall_texX(mlx_info);
+		calculate_wall_tex_x(mlx_info);
 		get_which_tex(mlx_info);
 		render_textures(mlx_info, x);
 		// color_walls(mlx_info, x);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:42:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:43:54 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:24:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,151 +14,107 @@
 
 void	hit_loop(t_mlx_info *mlx_info)
 {
-	while (mlx_info->draw_prop.hit == 0)
+	t_draw_prop	*draw_prop;
+
+	draw_prop = &mlx_info->draw_prop;
+	while (draw_prop->hit == 0)
 	{
-		if (mlx_info->draw_prop.sideDistX < mlx_info->draw_prop.sideDistY)
+		if (draw_prop->sideDistX < draw_prop->sideDistY)
 		{
-			mlx_info->draw_prop.sideDistX += mlx_info->draw_prop.deltaDistX;
-			mlx_info->draw_prop.mapX += mlx_info->draw_prop.stepX;
-			mlx_info->draw_prop.side = 0;
+			draw_prop->sideDistX += draw_prop->deltaDistX;
+			draw_prop->mapX += draw_prop->stepX;
+			draw_prop->side = 0;
 		}
 		else
 		{
-			mlx_info->draw_prop.sideDistY += mlx_info->draw_prop.deltaDistY;
-			mlx_info->draw_prop.mapY += mlx_info->draw_prop.stepY;
-			mlx_info->draw_prop.side = 1;
+			draw_prop->sideDistY += draw_prop->deltaDistY;
+			draw_prop->mapY += draw_prop->stepY;
+			draw_prop->side = 1;
 		}
-		if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] > 0)
-			mlx_info->draw_prop.hit = 1;
+		if (mlx_info->map[draw_prop->mapX][draw_prop->mapY] > 0)
+			draw_prop->hit = 1;
 	}
 }
 
 void	calculate_wall_dist(t_mlx_info *mlx_info)
 {
-	if (mlx_info->draw_prop.side == 0)
-	{
-		mlx_info->draw_prop.perpWallDist =
-			mlx_info->draw_prop.sideDistX - mlx_info->draw_prop.deltaDistX;
-	}
+	t_draw_prop	*prop;
+
+	prop = &mlx_info->draw_prop;
+	if (prop->side == 0)
+		prop->perpWallDist = prop->sideDistX - prop->deltaDistX;
 	else
+		prop->perpWallDist = prop->sideDistY - prop->deltaDistY;
+	prop->lineHeight = (int)(mlx_info->window_height / prop->perpWallDist);
+	prop->drawStart = -prop->lineHeight / 2 + mlx_info->window_height / 2;
+	if (prop->drawStart < 0)
+		prop->drawStart = 0;
+	prop->drawEnd = prop->lineHeight / 2 + mlx_info->window_height / 2;
+	if (prop->drawEnd >= mlx_info->window_height)
 	{
-		mlx_info->draw_prop.perpWallDist =
-			(mlx_info->draw_prop.sideDistY - mlx_info->draw_prop.deltaDistY);
-	}
-	mlx_info->draw_prop.lineHeight =
-		(int)(mlx_info->window_height / mlx_info->draw_prop.perpWallDist);
-	mlx_info->draw_prop.drawStart =
-		-mlx_info->draw_prop.lineHeight / 2 + mlx_info->window_height / 2;
-	if (mlx_info->draw_prop.drawStart < 0)
-	{
-		mlx_info->draw_prop.drawStart = 0;
-	}
-	mlx_info->draw_prop.drawEnd =
-		mlx_info->draw_prop.lineHeight / 2 + mlx_info->window_height / 2;
-	if (mlx_info->draw_prop.drawEnd >= mlx_info->window_height)
-	{
-		mlx_info->draw_prop.drawEnd = mlx_info->window_height - 1;
+		prop->drawEnd = mlx_info->window_height - 1;
 	}
 }
 
-void	color_walls(t_mlx_info *mlx_info, int x)
+void	calculate_wall_tex_x(t_mlx_info *mlx_info)
 {
-	int	color;
+	t_draw_prop	*prop;
 
-	if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] == 1)
-		color = 0x00FFFFFF;
-	else if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] ==
-				2)
-		color = 0x00FF00FF;
-	else if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] ==
-				0)
-		color = 0;
-	else if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] ==
-				3)
-		color = 0x0000FFFF;
-	else if (mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] ==
-				4)
-		color = 0x00FFF0FF;
-	else
-		color = 0;
-	if (mlx_info->draw_prop.side == 1)
-		color = color / 2;
-	draw_line(mlx_info,
-				x,
-				mlx_info->draw_prop.drawStart,
-				mlx_info->draw_prop.drawEnd,
-				color);
-}
-
-void	calculate_wall_texX(t_mlx_info *mlx_info)
-{
-	mlx_info->draw_prop.texture_num =
-		mlx_info->map[mlx_info->draw_prop.mapX][mlx_info->draw_prop.mapY] - 1;
-	if (mlx_info->draw_prop.side == 0)
+	prop = &mlx_info->draw_prop;
+	prop->texture_num = mlx_info->map[prop->mapX][prop->mapY] - 1;
+	if (prop->side == 0)
 	{
-		mlx_info->draw_prop.wall_X = mlx_info->unique_prop.posY +
-			mlx_info->draw_prop.perpWallDist * mlx_info->draw_prop.rayDirY;
+		prop->wall_X = mlx_info->unique_prop.posY
+			+ prop->perpWallDist * prop->rayDirY;
 	}
 	else
 	{
-		mlx_info->draw_prop.wall_X = mlx_info->unique_prop.posX +
-			mlx_info->draw_prop.perpWallDist * mlx_info->draw_prop.rayDirX;
+		prop->wall_X = mlx_info->unique_prop.posX
+			+ prop->perpWallDist * prop->rayDirX;
 	}
-	mlx_info->draw_prop.wall_X -= floor((mlx_info->draw_prop.wall_X));
-	// X texture coord
-	mlx_info->draw_prop.texX = (int)(mlx_info->draw_prop.wall_X *
-										(double)mlx_info->unique_prop.texWidth);
-	if (mlx_info->draw_prop.side == 0 && mlx_info->draw_prop.rayDirX > 0)
+	prop->wall_X -= floor((prop->wall_X));
+	prop->texX = (int)(prop->wall_X * (double)mlx_info->unique_prop.texWidth);
+	if (prop->side == 0 && prop->rayDirX > 0)
 	{
-		mlx_info->draw_prop.texX =
-			mlx_info->unique_prop.texWidth - mlx_info->draw_prop.texX - 1;
+		prop->texX = mlx_info->unique_prop.texWidth - prop->texX - 1;
 	}
-	if (mlx_info->draw_prop.side == 1 && mlx_info->draw_prop.rayDirY < 0)
+	if (prop->side == 1 && prop->rayDirY < 0)
 	{
-		mlx_info->draw_prop.texX =
-			mlx_info->unique_prop.texWidth - mlx_info->draw_prop.texX - 1;
+		prop->texX = mlx_info->unique_prop.texWidth - prop->texX - 1;
 	}
 }
 
-void	render_textures(t_mlx_info *mlx_info, int x)
+void	add_transperency_to_colour(t_render_vars *vars)
 {
-	int	y;
-	int	r;
-	int	g;
-	int	b;
-	int	a;
-	int	pix;
+	vars->r = vars->color.r & 0xFF;
+	vars->g = vars->color.g & 0xFF;
+	vars->b = vars->color.b & 0xFF;
+	vars->a = vars->color.a & 0xFF;
+}
 
-	double step = 1.0 *
-		mlx_info->texture_data[mlx_info->draw_prop.texture_num].height /
-		mlx_info->draw_prop.lineHeight;
-	double texPos = (mlx_info->draw_prop.drawStart - mlx_info->window_height / 2 +
-						mlx_info->draw_prop.lineHeight / 2) *
-		step;
-	y = mlx_info->draw_prop.drawStart;
-	while (y < mlx_info->draw_prop.drawEnd)
+void	render_textures(t_mlx_info *data, int x)
+{
+	t_render_vars	v;
+	t_draw_prop		*prop;
+
+	prop = &data->draw_prop;
+	v.step = 1.0 * data->texture_data[prop->texture_num].height
+		/ prop->lineHeight;
+	v.tex_pos = (prop->drawStart - data->window_height / 2
+			+ prop->lineHeight / 2) * v.step;
+	v.y = prop->drawStart;
+	while (v.y < prop->drawEnd)
 	{
-		texPos += step;
-		if (texPos - 1 < 0)
-		{
-			texPos = 1;
-		}
-		else if (texPos - 1 >
-					mlx_info->texture_data[mlx_info->draw_prop.texture_num].height)
-		{
-			texPos =
-				mlx_info->texture_data[mlx_info->draw_prop.texture_num].height -
-				1;
-		}
-		t_color color =
-			*mlx_info->texture_data[mlx_info->draw_prop.texture_num]
-					.arr_color[mlx_info->draw_prop.texX][(int)(texPos)-1];
-		r = color.r & 0xFF;
-		g = color.g & 0xFF;
-		b = color.b & 0xFF;
-		a = color.a & 0xFF;
-		pix = (a << 24) + (r << 16) + (g << 8) + (b);
-		better_pixel_put(&mlx_info->main_img, x, y, pix);
-		y++;
+		v.tex_pos += v.step;
+		if (v.tex_pos - 1 < 0)
+			v.tex_pos = 1;
+		else if (v.tex_pos - 1 > data->texture_data[prop->texture_num].height)
+			v.tex_pos = data->texture_data[prop->texture_num].height - 1;
+		v.color = *data->texture_data[prop->texture_num]
+			.arr_color[prop->texX][(int)(v.tex_pos) - 1];
+		add_transperency_to_colour(&v);
+		v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
+		better_pixel_put(&data->main_img, x, v.y, v.pix);
+		v.y++;
 	}
 }

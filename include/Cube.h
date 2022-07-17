@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 10:51:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:18:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ enum				DIREC
 	EAST,
 };
 
-// typedef struct s_sprite{
-// 	double	x;
-// 	double	y;
-// 	int		texNum;
-// }	t_sprite;
+
 
 typedef struct		s_image_s
 {
@@ -147,6 +143,20 @@ typedef struct		s_color
 	unsigned char	r;
 	unsigned char	a;
 }					t_color;
+
+//needed to norminette render_textures
+typedef struct render_texture_variables
+{
+	int	y;
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+	int	pix;
+	double step;
+	double tex_pos;
+	t_color color;
+} t_render_vars;
 
 typedef struct		s_temp_img
 {
@@ -227,7 +237,7 @@ t_color				*set_color_fstr(t_temp_img *img, int x, int y);
 t_color				***create_color_arr(t_temp_img *img, int height, int width);
 void				color_walls(t_mlx_info *mlx_info, int x);
 void				init_img(t_mlx_info *mlx_info);
-void				calculate_wall_texX(t_mlx_info *mlx_info);
+void				calculate_wall_tex_x(t_mlx_info *mlx_info);
 void				load_images(t_mlx_info *mlx_info);
 void				prep_floor(t_mlx_info *mlx_info, int y);
 void				floor_casting(t_mlx_info *mlx_info);
