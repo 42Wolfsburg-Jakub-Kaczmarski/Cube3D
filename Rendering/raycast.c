@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:42:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 11:24:38 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:26:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	calculate_wall_tex_x(t_mlx_info *mlx_info)
 	}
 }
 
-void	add_transperency_to_colour(t_render_vars *vars)
+static void	add_transperency_to_colour(t_render_vars *vars)
 {
 	vars->r = vars->color.r & 0xFF;
 	vars->g = vars->color.g & 0xFF;
