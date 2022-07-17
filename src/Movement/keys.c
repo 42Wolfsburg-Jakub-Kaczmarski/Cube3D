@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 16:50:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,63 @@
 
 void	key_W_hook(t_mlx_info *mlx_info)
 {
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x +
-							mlx_info->unique_prop.dir_x *
-								mlx_info->unique_prop.move_speed)]
-						[(int)mlx_info->unique_prop.pos_y] != 1)
+	t_uniq_prop *m;
+
+	m = &mlx_info->unique_prop;
+	
+	int map_x = m->pos_x + (m->dir_x * (m->move_speed ));
+	int map_y = m->pos_y + (m->dir_y * (m->move_speed ));
+
+	if (mlx_info->map[map_x][map_y] != 1)
 	{
-		mlx_info->unique_prop.pos_x +=
-			mlx_info->unique_prop.dir_x * mlx_info->unique_prop.move_speed;
-	}
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x)][(
-			int)(mlx_info->unique_prop.pos_y +
-					mlx_info->unique_prop.dir_y * mlx_info->unique_prop.move_speed)] !=
-		1)
-	{
-		mlx_info->unique_prop.pos_y +=
-			mlx_info->unique_prop.dir_y * mlx_info->unique_prop.move_speed;
+		m->pos_y += m->dir_y * m->move_speed;
+		m->pos_x += m->dir_x * m->move_speed;
 	}
 }
 
 void	key_S(t_mlx_info *mlx_info)
 {
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x -
-							mlx_info->unique_prop.dir_x *
-								mlx_info->unique_prop.move_speed)]
-						[(int)mlx_info->unique_prop.pos_y] != 1)
+	t_uniq_prop *m;
+
+	m = &mlx_info->unique_prop;
+	
+	int map_x = m->pos_x - m->dir_x * m->move_speed;
+	int map_y = m->pos_y - m->dir_y * m->move_speed;
+	
+	if (mlx_info->map[map_x][map_y] != 1)
 	{
-		mlx_info->unique_prop.pos_x -=
-			mlx_info->unique_prop.dir_x * mlx_info->unique_prop.move_speed;
-	}
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x)][(
-			int)(mlx_info->unique_prop.pos_y -
-					mlx_info->unique_prop.dir_y * mlx_info->unique_prop.move_speed)] !=
-		1)
-	{
-		mlx_info->unique_prop.pos_y -=
-			mlx_info->unique_prop.dir_y * mlx_info->unique_prop.move_speed;
+		m->pos_x -= m->dir_x * m->move_speed;
+		m->pos_y -= m->dir_y * m->move_speed;
 	}
 }
-
 void	key_A(t_mlx_info *mlx_info)
 {
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x -
-							mlx_info->unique_prop.plane_x *
-								mlx_info->unique_prop.move_speed)]
-						[(int)mlx_info->unique_prop.pos_y] != 1)
+	t_uniq_prop *m;
+
+	m = &mlx_info->unique_prop;
+	
+	int map_x = m->pos_x - m->plane_x * m->move_speed;
+	int map_y = m->pos_y - m->plane_y * m->move_speed;
+	
+	if (mlx_info->map[map_x][map_y] != 1)
 	{
-		mlx_info->unique_prop.pos_x -=
-			mlx_info->unique_prop.plane_x * mlx_info->unique_prop.move_speed;
-	}
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x)][(
-			int)(mlx_info->unique_prop.pos_y -
-					mlx_info->unique_prop.plane_y * mlx_info->unique_prop.move_speed)] !=
-		1)
-	{
-		mlx_info->unique_prop.pos_y -=
-			mlx_info->unique_prop.plane_y * mlx_info->unique_prop.move_speed;
+		m->pos_x -= m->plane_x * m->move_speed;
+		m->pos_y -= m->plane_y * m->move_speed;
 	}
 }
 
 void	key_D(t_mlx_info *mlx_info)
 {
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x -
-							mlx_info->unique_prop.plane_x * mlx_info->unique_prop.move_speed +
-							0.5)][(int)(mlx_info->unique_prop.pos_y + 0.5)] != 1)
+	t_uniq_prop *m;
+
+	m = &mlx_info->unique_prop;
+		
+	int map_x = m->pos_x + m->plane_x * m->move_speed;
+	int map_y = m->pos_y + m->plane_y * m->move_speed;
+	
+	if (mlx_info->map[map_x][map_y] != 1)
 	{
-		mlx_info->unique_prop.pos_x +=
-			mlx_info->unique_prop.plane_x * mlx_info->unique_prop.move_speed;
-	}
-	if (mlx_info->map[(int)(mlx_info->unique_prop.pos_x + 0.5)][(
-			int)(mlx_info->unique_prop.pos_y -
-					mlx_info->unique_prop.plane_y * mlx_info->unique_prop.move_speed +
-					0.5)] != 1)
-	{
-		mlx_info->unique_prop.pos_y +=
-			mlx_info->unique_prop.plane_y * mlx_info->unique_prop.move_speed;
+		m->pos_x += m->plane_x * m->move_speed;
+		m->pos_y += m->plane_y * m->move_speed;
 	}
 }
