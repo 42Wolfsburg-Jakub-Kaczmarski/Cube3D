@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:46:25 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 10:58:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,79 +14,54 @@
 
 void	load_images(t_mlx_info *mlx_info)
 {
-	t_temp_img	img;
-	t_temp_img	img1;
-	t_temp_img	img2;
-	t_temp_img	img3;
+	int	i;
 
+	i = 0;
 	mlx_info->mlx_imgs = calloc(10, sizeof(void *));
 	mlx_info->texture_data = calloc(7, sizeof(*mlx_info->texture_data));
-	mlx_info->mlx_imgs[0] =
-		mlx_xpm_file_to_image(mlx_info->mlx,
-								mlx_info->texture_paths[0],
-								&mlx_info->texture_data[0].width,
-								&mlx_info->texture_data[0].height);
-	mlx_info->mlx_imgs[1] =
-		mlx_xpm_file_to_image(mlx_info->mlx,
-								mlx_info->texture_paths[1],
-								&mlx_info->texture_data[1].width,
-								&mlx_info->texture_data[1].height);
-	mlx_info->mlx_imgs[2] =
-		mlx_xpm_file_to_image(mlx_info->mlx,
-								mlx_info->texture_paths[2],
-								&mlx_info->texture_data[2].width,
-								&mlx_info->texture_data[2].height);
-	mlx_info->mlx_imgs[3] =
-		mlx_xpm_file_to_image(mlx_info->mlx,
-								mlx_info->texture_paths[3],
-								&mlx_info->texture_data[3].width,
-								&mlx_info->texture_data[3].height);
-	img.img_data = mlx_get_data_addr(
-		mlx_info->mlx_imgs[0], &img.img_bp, &img.img_sl, &img.img_e);
-	img1.img_data = mlx_get_data_addr(
-		mlx_info->mlx_imgs[1], &img1.img_bp, &img1.img_sl, &img1.img_e);
-	img2.img_data = mlx_get_data_addr(
-		mlx_info->mlx_imgs[2], &img2.img_bp, &img2.img_sl, &img2.img_e);
-	img3.img_data = mlx_get_data_addr(
-		mlx_info->mlx_imgs[3], &img3.img_bp, &img3.img_sl, &img3.img_e);
-	mlx_info->texture_data[0].arr_color = create_color_arr(
-		&img, mlx_info->texture_data[0].height, mlx_info->texture_data[0].width);
-	mlx_info->texture_data[1].arr_color = create_color_arr(
-		&img1, mlx_info->texture_data[1].height, mlx_info->texture_data[1].width);
-	mlx_info->texture_data[2].arr_color = create_color_arr(
-		&img2, mlx_info->texture_data[2].height, mlx_info->texture_data[2].width);
-	mlx_info->texture_data[3].arr_color = create_color_arr(
-		&img3, mlx_info->texture_data[3].height, mlx_info->texture_data[3].width);
-	mlx_info->texture_data[0].img_h = mlx_info->mlx_imgs[0];
-	mlx_info->texture_data[1].img_h = mlx_info->mlx_imgs[1];
-	mlx_info->texture_data[2].img_h = mlx_info->mlx_imgs[2];
-	mlx_info->texture_data[3].img_h = mlx_info->mlx_imgs[3];
+	mlx_info->im = malloc(4 * sizeof(t_temp_img));
+	while (i < 4)
+	{
+		mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
+				mlx_info->texture_paths[i],
+				&mlx_info->texture_data[i].width,
+				&mlx_info->texture_data[i].height);
+		mlx_info->im[i].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[i],
+				&mlx_info->im[i].img_bp,
+				&mlx_info->im[i].img_sl,
+				&mlx_info->im[i].img_e);
+		mlx_info->texture_data[i].arr_color = create_color_arr(&mlx_info->im[i],
+				mlx_info->texture_data[i].height,
+				mlx_info->texture_data[i].width);
+		mlx_info->texture_data[i].img_h = mlx_info->mlx_imgs[i];
+		i++;
+	}
 }
 
 void	prep_floor(t_mlx_info *mlx_info, int y)
 {
-	mlx_info->floor_info.rayDirX0 =
-		mlx_info->unique_prop.dirX - mlx_info->unique_prop.planeX;
-	mlx_info->floor_info.rayDirY0 =
-		mlx_info->unique_prop.dirY - mlx_info->unique_prop.planeY;
-	mlx_info->floor_info.rayDirX1 =
-		mlx_info->unique_prop.dirX + mlx_info->unique_prop.planeX;
-	mlx_info->floor_info.rayDirY1 =
-		mlx_info->unique_prop.dirY + mlx_info->unique_prop.planeY;
-	mlx_info->floor_info.p = y - mlx_info->window_height / 2;
-	mlx_info->floor_info.posZ = 0.5 * mlx_info->window_height;
-	mlx_info->floor_info.rowDistance =
-		mlx_info->floor_info.posZ / mlx_info->floor_info.p;
-	mlx_info->floor_info.floorStepX = mlx_info->floor_info.rowDistance *
-		(mlx_info->floor_info.rayDirX1 - mlx_info->floor_info.rayDirX0) /
-		mlx_info->window_width;
-	mlx_info->floor_info.floorStepY = mlx_info->floor_info.rowDistance *
-		(mlx_info->floor_info.rayDirY1 - mlx_info->floor_info.rayDirY0) /
-		mlx_info->window_width;
-	mlx_info->floor_info.floorX = mlx_info->unique_prop.posX +
-		mlx_info->floor_info.rowDistance * mlx_info->floor_info.rayDirX0;
-	mlx_info->floor_info.floorY = mlx_info->unique_prop.posY +
-		mlx_info->floor_info.rowDistance * mlx_info->floor_info.rayDirY0;
+	t_floor_vars	floor_info;
+	t_uniq_prop		unique_prop;
+
+	floor_info = mlx_info->floor_info;
+	unique_prop = mlx_info->unique_prop;
+	floor_info.rayDirX0 = unique_prop.dirX - unique_prop.planeX;
+	floor_info.rayDirY0 = unique_prop.dirY - unique_prop.planeY;
+	floor_info.rayDirX1 = unique_prop.dirX + unique_prop.planeX;
+	floor_info.rayDirY1 = unique_prop.dirY + unique_prop.planeY;
+	floor_info.p = y - mlx_info->window_height / 2;
+	floor_info.posZ = 0.5 * mlx_info->window_height;
+	floor_info.rowDistance = floor_info.posZ / floor_info.p;
+	floor_info.floorStepX = floor_info.rowDistance
+		* (floor_info.rayDirX1 - floor_info.rayDirX0)
+		/ mlx_info->window_width;
+	floor_info.floorStepY = floor_info.rowDistance
+		* (floor_info.rayDirY1 - floor_info.rayDirY0)
+		/ mlx_info->window_width;
+	floor_info.floorX = unique_prop.posX
+		+ floor_info.rowDistance * floor_info.rayDirX0;
+	floor_info.floorY = unique_prop.posY
+		+ floor_info.rowDistance * floor_info.rayDirY0;
 }
 
 void	get_which_tex(t_mlx_info *mlx_info)

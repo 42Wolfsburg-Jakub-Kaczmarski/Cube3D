@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 21:17:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 10:51:43 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ typedef struct		s_info_mlx
 	t_uniq_prop		unique_prop;
 	t_draw_prop		draw_prop;
 	int				direction;
-
+	t_temp_img		*im;
 	////added from Krisi
 	char			**map_s;
 	int longest_row; // Map width
