@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 12:39:55 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	floor_casting(t_mlx_info *data)
 		t = -1;
 		while (++t < data->window_width)
 		{
-			data->floor_info.cellX = (int)data->floor_info.floorX;
-			data->floor_info.cellY = (int)data->floor_info.floorY;
+			data->floor_info.cell_x = (int)data->floor_info.floor_x;
+			data->floor_info.cell_y = (int)data->floor_info.floor_y;
 			data->floor_info.tx = (int)(data->texture_data->width
-					* (data->floor_info.floorX - data->floor_info.cellX))
+					* (data->floor_info.floor_x - data->floor_info.cell_x))
 				& (data->texture_data->width - 1);
 			data->floor_info.ty = (int)(data->texture_data->height
-					* (data->floor_info.floorY - data->floor_info.cellY))
+					* (data->floor_info.floor_y - data->floor_info.cell_y))
 				& (data->texture_data->height - 1);
-			data->floor_info.floorX += data->floor_info.floorStepX;
-			data->floor_info.floorY += data->floor_info.floorStepY;
+			data->floor_info.floor_x += data->floor_info.floor_step_x;
+			data->floor_info.floor_y += data->floor_info.floor_step_y;
 			better_pixel_put(&data->main_img, t, y, data->floor_color);
 			better_pixel_put(&data->main_img, t, data->window_height - y - 1,
 				data->celling_color);
@@ -54,33 +54,33 @@ void	floor_casting(t_mlx_info *data)
 
 static void	check_side_y(t_mlx_info *mlx_info)
 {
-	if (mlx_info->draw_prop.rayDirY < 0)
+	if (mlx_info->draw_prop.ray_dir_y < 0)
 	{
-		mlx_info->draw_prop.stepY = -1;
-		mlx_info->draw_prop.sideDistY = mlx_info->draw_prop.deltaDistY
-			* (mlx_info->unique_prop.posY - mlx_info->draw_prop.mapY);
+		mlx_info->draw_prop.step_y = -1;
+		mlx_info->draw_prop.side_dist_y = mlx_info->draw_prop.delta_dist_y
+			* (mlx_info->unique_prop.pos_y - mlx_info->draw_prop.map_y);
 	}
 	else
 	{
-		mlx_info->draw_prop.stepY = 1;
-		mlx_info->draw_prop.sideDistY = mlx_info->draw_prop.deltaDistY
-			* (mlx_info->draw_prop.mapY + 1.0 - mlx_info->unique_prop.posY);
+		mlx_info->draw_prop.step_y = 1;
+		mlx_info->draw_prop.side_dist_y = mlx_info->draw_prop.delta_dist_y
+			* (mlx_info->draw_prop.map_y + 1.0 - mlx_info->unique_prop.pos_y);
 	}
 }
 
 void	check_side_xy(t_mlx_info *mlx_info)
 {
-	if (mlx_info->draw_prop.rayDirX < 0)
+	if (mlx_info->draw_prop.ray_dir_x < 0)
 	{
-		mlx_info->draw_prop.stepX = -1;
-		mlx_info->draw_prop.sideDistX = mlx_info->draw_prop.deltaDistX
-			* (mlx_info->unique_prop.posX - mlx_info->draw_prop.mapX);
+		mlx_info->draw_prop.step_x = -1;
+		mlx_info->draw_prop.side_dist_x = mlx_info->draw_prop.delta_dist_x
+			* (mlx_info->unique_prop.pos_x - mlx_info->draw_prop.map_x);
 	}
 	else
 	{
-		mlx_info->draw_prop.stepX = 1;
-		mlx_info->draw_prop.sideDistX = mlx_info->draw_prop.deltaDistX
-			* (mlx_info->draw_prop.mapX + 1.0 - mlx_info->unique_prop.posX);
+		mlx_info->draw_prop.step_x = 1;
+		mlx_info->draw_prop.side_dist_x = mlx_info->draw_prop.delta_dist_x
+			* (mlx_info->draw_prop.map_x + 1.0 - mlx_info->unique_prop.pos_x);
 	}
 	check_side_y(mlx_info);
 }

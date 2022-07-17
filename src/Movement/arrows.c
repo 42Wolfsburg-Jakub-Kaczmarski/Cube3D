@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:54:46 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 12:39:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:48:07 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	key_right_arr(t_mlx_info *mlx_info)
 	t_uniq_prop	*unique_prop;
 
 	unique_prop = &mlx_info->unique_prop;
-	old_dir_x = unique_prop->dirX;
-	unique_prop->dirX = unique_prop->dirX * cos(-unique_prop->rotSpeed)
-		- unique_prop->dirY * sin(-unique_prop->rotSpeed);
-	unique_prop->dirY = old_dir_x * sin(-unique_prop->rotSpeed)
-		+ unique_prop->dirY * cos(-unique_prop->rotSpeed);
-	old_plane_x = unique_prop->planeX;
-	unique_prop->planeX = unique_prop->planeX * cos(-unique_prop->rotSpeed)
-		- unique_prop->planeY * sin(-unique_prop->rotSpeed);
-	unique_prop->planeY = old_plane_x * sin(-unique_prop->rotSpeed)
-		+ unique_prop->planeY * cos(-unique_prop->rotSpeed);
+	old_dir_x = unique_prop->dir_x;
+	unique_prop->dir_x = unique_prop->dir_x * cos(-unique_prop->rot_speed)
+		- unique_prop->dir_y * sin(-unique_prop->rot_speed);
+	unique_prop->dir_y = old_dir_x * sin(-unique_prop->rot_speed)
+		+ unique_prop->dir_y * cos(-unique_prop->rot_speed);
+	old_plane_x = unique_prop->plane_x;
+	unique_prop->plane_x = unique_prop->plane_x * cos(-unique_prop->rot_speed)
+		- unique_prop->plane_y * sin(-unique_prop->rot_speed);
+	unique_prop->plane_y = old_plane_x * sin(-unique_prop->rot_speed)
+		+ unique_prop->plane_y * cos(-unique_prop->rot_speed);
 }
 
 void	key_left_arr(t_mlx_info *mlx_info)
@@ -38,14 +38,14 @@ void	key_left_arr(t_mlx_info *mlx_info)
 	t_uniq_prop	*unique_prop;
 
 	unique_prop = &mlx_info->unique_prop;
-	old_dir_x = unique_prop->dirX;
-	unique_prop->dirX = unique_prop->dirX * cos(unique_prop->rotSpeed)
-		- unique_prop->dirY * sin(unique_prop->rotSpeed);
-	unique_prop->dirY = old_dir_x * sin(unique_prop->rotSpeed)
-		+ unique_prop->dirY * cos(unique_prop->rotSpeed);
-	old_plane_x = unique_prop->planeX;
-	unique_prop->planeX = unique_prop->planeX * cos(unique_prop->rotSpeed)
-		- unique_prop->planeY * sin(unique_prop->rotSpeed);
-	unique_prop->planeY = old_plane_x * sin(unique_prop->rotSpeed)
-		+ unique_prop->planeY * cos(unique_prop->rotSpeed);
+	old_dir_x = unique_prop->dir_x;
+	unique_prop->dir_x = unique_prop->dir_x * cos(unique_prop->rot_speed)
+		- unique_prop->dir_y * sin(unique_prop->rot_speed);
+	unique_prop->dir_y = old_dir_x * sin(unique_prop->rot_speed)
+		+ unique_prop->dir_y * cos(unique_prop->rot_speed);
+	old_plane_x = unique_prop->plane_x;
+	unique_prop->plane_x = unique_prop->plane_x * cos(unique_prop->rot_speed)
+		- unique_prop->plane_y * sin(unique_prop->rot_speed);
+	unique_prop->plane_y = old_plane_x * sin(unique_prop->rot_speed)
+		+ unique_prop->plane_y * cos(unique_prop->rot_speed);
 }

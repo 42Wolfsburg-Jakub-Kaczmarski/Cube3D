@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 12:39:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
 {
-	mlx_info->draw_prop.cameraX = 3 * x / (double)w - 1;
-	mlx_info->draw_prop.rayDirX = mlx_info->unique_prop.dirX
-		+ mlx_info->unique_prop.planeX * mlx_info->draw_prop.cameraX;
-	mlx_info->draw_prop.rayDirY = mlx_info->unique_prop.dirY
-		+ mlx_info->unique_prop.planeY * mlx_info->draw_prop.cameraX;
-	mlx_info->draw_prop.mapX = (int)mlx_info->unique_prop.posX;
-	mlx_info->draw_prop.mapY = (int)mlx_info->unique_prop.posY;
+	mlx_info->draw_prop.camera_x = 3 * x / (double)w - 1;
+	mlx_info->draw_prop.ray_dir_x = mlx_info->unique_prop.dir_x
+		+ mlx_info->unique_prop.plane_x * mlx_info->draw_prop.camera_x;
+	mlx_info->draw_prop.ray_dir_y = mlx_info->unique_prop.dir_y
+		+ mlx_info->unique_prop.plane_y * mlx_info->draw_prop.camera_x;
+	mlx_info->draw_prop.map_x = (int)mlx_info->unique_prop.pos_x;
+	mlx_info->draw_prop.map_y = (int)mlx_info->unique_prop.pos_y;
 	mlx_info->draw_prop.hit = 0;
-	if (mlx_info->draw_prop.rayDirX == 0)
-		mlx_info->draw_prop.deltaDistX = 1e30;
+	if (mlx_info->draw_prop.ray_dir_x == 0)
+		mlx_info->draw_prop.delta_dist_x = 1e30;
 	else
-		mlx_info->draw_prop.deltaDistX = fabs(1 / mlx_info->draw_prop.rayDirX);
-	if (mlx_info->draw_prop.rayDirY == 0)
-		mlx_info->draw_prop.deltaDistY = 1e30;
+		mlx_info->draw_prop.delta_dist_x = fabs(1 / mlx_info->draw_prop.ray_dir_x);
+	if (mlx_info->draw_prop.ray_dir_y == 0)
+		mlx_info->draw_prop.delta_dist_y = 1e30;
 	else
-		mlx_info->draw_prop.deltaDistY = fabs(1 / mlx_info->draw_prop.rayDirY);
+		mlx_info->draw_prop.delta_dist_y = fabs(1 / mlx_info->draw_prop.ray_dir_y);
 }
 
 void	load_images(t_mlx_info *mlx_info)
@@ -65,28 +65,28 @@ void	prep_floor(t_mlx_info *mlx_info, int y)
 
 	floor_info = mlx_info->floor_info;
 	unique_prop = mlx_info->unique_prop;
-	floor_info.rayDirX0 = unique_prop.dirX - unique_prop.planeX;
-	floor_info.rayDirY0 = unique_prop.dirY - unique_prop.planeY;
-	floor_info.rayDirX1 = unique_prop.dirX + unique_prop.planeX;
-	floor_info.rayDirY1 = unique_prop.dirY + unique_prop.planeY;
+	floor_info.ray_dir_x0 = unique_prop.dir_x - unique_prop.plane_x;
+	floor_info.ray_dir_y0 = unique_prop.dir_y - unique_prop.plane_y;
+	floor_info.ray_dir_x1 = unique_prop.dir_x + unique_prop.plane_x;
+	floor_info.ray_dir_y1 = unique_prop.dir_y + unique_prop.plane_y;
 	floor_info.p = y - mlx_info->window_height / 2;
-	floor_info.posZ = 0.5 * mlx_info->window_height;
-	floor_info.rowDistance = floor_info.posZ / floor_info.p;
-	floor_info.floorStepX = floor_info.rowDistance
-		* (floor_info.rayDirX1 - floor_info.rayDirX0)
+	floor_info.pos_z = 0.5 * mlx_info->window_height;
+	floor_info.row_distance = floor_info.pos_z / floor_info.p;
+	floor_info.floor_step_x = floor_info.row_distance
+		* (floor_info.ray_dir_x1 - floor_info.ray_dir_x0)
 		/ mlx_info->window_width;
-	floor_info.floorStepY = floor_info.rowDistance
-		* (floor_info.rayDirY1 - floor_info.rayDirY0)
+	floor_info.floor_step_y = floor_info.row_distance
+		* (floor_info.ray_dir_y1 - floor_info.ray_dir_y0)
 		/ mlx_info->window_width;
-	floor_info.floorX = unique_prop.posX
-		+ floor_info.rowDistance * floor_info.rayDirX0;
-	floor_info.floorY = unique_prop.posY
-		+ floor_info.rowDistance * floor_info.rayDirY0;
+	floor_info.floor_x = unique_prop.pos_x
+		+ floor_info.row_distance * floor_info.ray_dir_x0;
+	floor_info.floor_y = unique_prop.pos_y
+		+ floor_info.row_distance * floor_info.ray_dir_y0;
 }
 
 void	get_which_tex(t_mlx_info *mlx_info)
 {
-	if (mlx_info->draw_prop.side == 0 && mlx_info->draw_prop.rayDirX > 0)
+	if (mlx_info->draw_prop.side == 0 && mlx_info->draw_prop.ray_dir_x > 0)
 	{
 		mlx_info->draw_prop.texture_num = EAST;
 	}
@@ -94,7 +94,7 @@ void	get_which_tex(t_mlx_info *mlx_info)
 	{
 		mlx_info->draw_prop.texture_num = WEST;
 	}
-	else if (mlx_info->draw_prop.side == 1 && mlx_info->draw_prop.rayDirY > 0)
+	else if (mlx_info->draw_prop.side == 1 && mlx_info->draw_prop.ray_dir_y > 0)
 	{
 		mlx_info->draw_prop.texture_num = SOUTH;
 	}
