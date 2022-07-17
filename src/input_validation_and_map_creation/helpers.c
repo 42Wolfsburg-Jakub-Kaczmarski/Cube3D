@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:21 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 13:33:09 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:35:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	free_2d_safe(char ***arr)
 			(*arr)[i] = NULL;
 			i++;
 		}
+		free(*arr);
 		*arr = NULL;
 	}
 }
