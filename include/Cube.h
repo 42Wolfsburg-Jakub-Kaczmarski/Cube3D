@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:52:13 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:58:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@
 # else
 #  define AUDIO ""
 # endif
-
-enum e_IMG
-{
-	PLAYER,
-	BACKGROUND,
-	WALL,
-	WAND,
-};
 
 enum e_DIREC
 {
@@ -140,11 +132,11 @@ typedef struct render_texture_variables
 
 typedef struct s_temp_img
 {
-	char			*img_data;
-	int				img_bp;
-	int				img_sl;
-	int				img_e;
-}					t_temp_img;
+	char	*img_data;
+	int		img_bp;
+	int		img_sl;
+	int		img_e;
+}				t_temp_img;
 
 typedef struct s_texture
 {
