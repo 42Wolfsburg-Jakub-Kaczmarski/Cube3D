@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:42:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 11:26:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:52 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
+#include "../../include/Cube.h"
 
 void	hit_loop(t_mlx_info *mlx_info)
 {

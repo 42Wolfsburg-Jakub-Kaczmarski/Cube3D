@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:48:24 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 11:32:58 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
+#include "../../include/Cube.h"
 
 int	convert_to_argb(char *colors_str)
 {

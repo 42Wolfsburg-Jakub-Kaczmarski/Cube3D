@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 17:50:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
-#include "../src/input_validation_and_map_creation/map_validation.h"
+#include "../../include/Cube.h"
+#include "../../src/input_validation_and_map_creation/map_validation.h"
 
 void	key_W_hook(t_mlx_info *mlx_info)
 {

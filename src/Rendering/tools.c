@@ -6,11 +6,11 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:58:11 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 11:35:05 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
+#include "../../include/Cube.h"
 
 void	better_pixel_put(t_image *data, int x, int y, int color)
 {
