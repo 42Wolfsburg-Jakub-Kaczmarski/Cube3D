@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 17:13:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:19:37 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,21 @@ void	load_sprites(t_mlx_info *mlx_info)
 }
 void	init_sprites(t_mlx_info *mlx_info)
 {
-	mlx_info->sprite_arr = ft_calloc(5, sizeof(t_sprite));
-	mlx_info->sprite_arr[0].x = 5;
-	mlx_info->sprite_arr[0].y = 5;
-	mlx_info->sprite_arr[0].tex_num = 4;
-	mlx_info->sprite_arr[1].x = 10;
-	mlx_info->sprite_arr[1].y = 7;
-	mlx_info->sprite_arr[1].tex_num = 4;
+	mlx_info->sprites->sprite_arr = ft_calloc(5, sizeof(t_sprite));
+	mlx_info->sprites->sprite_arr[0].x = 5;
+	mlx_info->sprites->sprite_arr[0].y = 5;
+	mlx_info->sprites->sprite_arr[0].tex_num = 4;
+	mlx_info->sprites->sprite_arr[1].x = 10;
+	mlx_info->sprites->sprite_arr[1].y = 7;
+	mlx_info->sprites->sprite_arr[1].tex_num = 4;
+	mlx_info->sprites->sprite_count = 2;
+	mlx_info->sprites->z_buff = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
+	mlx_info->sprites->sprite_order = ft_calloc(mlx_info->sprites->sprite_count, sizeof(int));
+	mlx_info->sprites->sprite_distance = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
 }
+//To be implemented
+// void	sort_sprites(t_mlx_info *mlx_info)
+// {}
 int main(int argc, char **argv)
 {
 	t_mlx_info mlx_info;

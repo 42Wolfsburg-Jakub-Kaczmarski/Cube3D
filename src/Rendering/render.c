@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:20:58 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	render(t_mlx_info *mlx_info)
 		calculate_wall_tex_x(mlx_info);
 		get_which_tex(mlx_info);
 		render_textures(mlx_info, x);
+		mlx_info->sprites->z_buff[x] = mlx_info->draw_prop.perp_wall_dist;
 		x++;
 	}
 	mlx_put_image_to_window(

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 17:13:24 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:18:07 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ typedef struct s_sprite_data
 	double *z_buff;
 	int			*sprite_order;
 	double	*sprite_distance;
+	t_sprite	*sprite_arr;
+	int			sprite_count;
 }	t_sprite_data;
 
 typedef struct s_info_mlx
@@ -200,8 +202,7 @@ typedef struct s_info_mlx
 	int				celling_color;
 	int				floor_color;
 	char			**texture_paths;
-	
-	t_sprite	*sprite_arr;
+	t_sprite_data	*sprites;
 }					t_mlx_info;
 
 // Movement
