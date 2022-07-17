@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:48:24 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 15:48:27 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
+#include "../../include/Cube.h"
 
-int		convert_to_argb(char *colors_str)
+int	convert_to_argb(char *colors_str)
 {
 	char	**temp;
 	int		red;
@@ -26,7 +26,7 @@ int		convert_to_argb(char *colors_str)
 	green = ft_atoi(temp[1]);
 	blue = ft_atoi(temp[2]);
 	free_2d_array(temp);
-	return (a << 24) + (red << 16) + (green << 8) + (blue);
+	return ((a << 24) + (red << 16) + (green << 8) + (blue));
 }
 
 void	get_colors(t_mlx_info *mlx_info)
@@ -39,22 +39,20 @@ void	get_colors(t_mlx_info *mlx_info)
 	while (mlx_info->textures[i])
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");
+		just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
 		if (ft_strncmp(temp, "C", 1) == 0)
 		{
-			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_colors, " ");
-			free(just_colors);
 			mlx_info->celling_color = convert_to_argb(temp);
 		}
 		else if (ft_strncmp(temp, "F", 1) == 0)
 		{
-			just_colors = ft_substr(temp, 1, ft_strlen(temp) - 1);
 			free(temp);
 			temp = ft_strtrim(just_colors, " ");
-			free(just_colors);
 			mlx_info->floor_color = convert_to_argb(temp);
 		}
+		free(just_colors);
 		free(temp);
 		i++;
 	}
@@ -84,27 +82,19 @@ void	get_textures(t_mlx_info *mlx_info)
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");
 		if (ft_strncmp(temp, "NO", 2) == 0)
-		{
 			switch_right_tex(mlx_info, temp, 0);
-		}
 		else if (ft_strncmp(temp, "WE", 2) == 0)
-		{
 			switch_right_tex(mlx_info, temp, 1);
-		}
 		else if (ft_strncmp(temp, "EA", 2) == 0)
-		{
 			switch_right_tex(mlx_info, temp, 2);
-		}
 		else if (ft_strncmp(temp, "SO", 2) == 0)
-		{
 			switch_right_tex(mlx_info, temp, 3);
-		}
 		free(temp);
 		i++;
 	}
 }
 
-int		check_if_tex_exist(t_mlx_info *mlx_info)
+int	check_if_tex_exist(t_mlx_info *mlx_info)
 {
 	int	i;
 

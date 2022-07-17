@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/16 21:17:47 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:58:57 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# define DR 0.0174533 // one degree in radian
-# define IMG_SIDE 80
-# define PLAYER_SIZE 20
-# define WAND_LEN (PLAYER_SIZE)
-# define ALLOWED_SYMBOLS "10WESN \n"
-# define PLAYER_POS "WESN"
-# define VALID_SYMBOLS "01WESN"
-# define TEXTURES 6
-# define BUFFER_SIZE 1000
 # include <unistd.h>
-# define ROTATION_SPEED PI / 100
-# define PI 3.14159265359
-# define DR 0.0174533
-# define MOVEMENT_SPEED 5
-# define rotationfix (PI / 241)
+# define BUFFER_SIZE 1000
 # if defined(__linux__)
 #  define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
@@ -44,20 +31,7 @@
 #  define AUDIO ""
 # endif
 
-# define mapWidth 24
-# define mapHeight 24
-
-extern int			worldMap[mapWidth][mapHeight];
-
-enum				IMG
-{
-	PLAYER,
-	BACKGROUND,
-	WALL,
-	WAND,
-};
-
-enum				DIREC
+enum e_DIREC
 {
 	NORTH,
 	SOUTH,
@@ -65,13 +39,7 @@ enum				DIREC
 	EAST,
 };
 
-// typedef struct s_sprite{
-// 	double	x;
-// 	double	y;
-// 	int		texNum;
-// }	t_sprite;
-
-typedef struct		s_image_s
+typedef struct s_image_s
 {
 	void			*img;
 	char			*addr;
@@ -80,21 +48,21 @@ typedef struct		s_image_s
 	int				endian;
 }					t_image;
 
-typedef struct		s_floor_vars
+typedef struct s_floor_vars
 {
-	float			rayDirX0;
-	float			rayDirY0;
-	float			rayDirX1;
-	float			rayDirY1;
+	float			ray_dir_x0;
+	float			ray_dir_y0;
+	float			ray_dir_x1;
+	float			ray_dir_y1;
 	int				p;
-	float			posZ;
-	float			rowDistance;
-	float			floorStepX;
-	float			floorStepY;
-	float			floorX;
-	float			floorY;
-	int				cellX;
-	int				cellY;
+	float			pos_z;
+	float			row_distance;
+	float			floor_step_x;
+	float			floor_step_y;
+	float			floor_x;
+	float			floor_y;
+	int				cell_x;
+	int				cell_y;
 	int				tx;
 	int				ty;
 	int				floor_index;
@@ -102,45 +70,45 @@ typedef struct		s_floor_vars
 	int				color;
 }					t_floor_vars;
 
-typedef struct		s_draw_prop
+typedef struct s_draw_prop
 {
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	int				mapX;
-	int				mapY;
-	int				lineHeight;
-	int				drawStart;
-	int				drawEnd;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	int				stepX;
-	int				stepY;
-	double			perpWallDist;
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	int				map_x;
+	int				map_y;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	int				step_x;
+	int				step_y;
+	double			perp_wall_dist;
 	int				hit;
 	int				side;
 	int				texture_num;
-	double			wall_X;
-	int				texX;
+	double			wall_x;
+	int				tex_x;
 }					t_draw_prop;
 
-typedef struct		s_uniq_prop
+typedef struct s_uniq_prop
 {
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-	double			rotSpeed;
-	double			move_speed;
-	double			posX;
-	double			posY;
-	int				texWidth;
-	int				texHeight;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	rot_speed;
+	double	move_speed;
+	double	pos_x;
+	double	pos_y;
+	int		tex_width;
+	int		tex_height;
 }					t_uniq_prop;
 
-typedef struct		s_color
+typedef struct s_color
 {
 	unsigned char	b;
 	unsigned char	g;
@@ -148,34 +116,48 @@ typedef struct		s_color
 	unsigned char	a;
 }					t_color;
 
-typedef struct		s_temp_img
+//needed to norminette render_textures
+typedef struct render_texture_variables
 {
-	char			*img_data;
-	int				img_bp;
-	int				img_sl;
-	int				img_e;
-}					t_temp_img;
+	int		y;
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+	int		pix;
+	double	step;
+	double	tex_pos;
+	t_color	color;
+}			t_render_vars;
 
-typedef struct		s_texture
+typedef struct s_temp_img
 {
-	void			*img_h;
-	t_color			***arr_color;
-	int				height;
-	int				width;
-	void			*img_data;
-}					t_texture;
+	char	*img_data;
+	int		img_bp;
+	int		img_sl;
+	int		img_e;
+}				t_temp_img;
 
-typedef struct		s_elements
+typedef struct s_texture
 {
-	bool			c;
-	bool			f;
-	bool			no;
-	bool			so;
-	bool			ea;
-	bool			we;
+	void	*img_h;
+	t_color	***arr_color;
+	int		height;
+	int		width;
+	void	*img_data;
+}			t_texture;
+
+typedef struct s_elements
+{
+	bool	c;
+	bool	f;
+	bool	no;
+	bool	so;
+	bool	ea;
+	bool	we;
 }					t_elements;
 
-typedef struct		s_info_mlx
+typedef struct s_info_mlx
 {
 	void			*mlx;
 	t_image			main_img;
@@ -188,10 +170,9 @@ typedef struct		s_info_mlx
 	t_uniq_prop		unique_prop;
 	t_draw_prop		draw_prop;
 	int				direction;
-
-	////added from Krisi
+	t_temp_img		*im;
 	char			**map_s;
-	int longest_row; // Map width
+	int				longest_row;
 	int				map_height;
 	int				file_height;
 	int				new_lines;
@@ -219,15 +200,14 @@ int					key_hook(int keycode, void *mlx);
 void				render(t_mlx_info *mlx_info);
 void				render_textures(t_mlx_info *mlx_info, int x);
 void				better_pixel_put(t_image *data, int x, int y, int color);
-int					draw_line(t_mlx_info *mlx_info, int x, int beginY, int endY, int colour);
 void				init_for_drawing(t_mlx_info *mlx_info, int x, int w);
-void				check_sideXY(t_mlx_info *mlx_info);
+void				check_side_xy(t_mlx_info *mlx_info);
 void				hit_loop(t_mlx_info *mlx_info);
 t_color				*set_color_fstr(t_temp_img *img, int x, int y);
 t_color				***create_color_arr(t_temp_img *img, int height, int width);
 void				color_walls(t_mlx_info *mlx_info, int x);
 void				init_img(t_mlx_info *mlx_info);
-void				calculate_wall_texX(t_mlx_info *mlx_info);
+void				calculate_wall_tex_x(t_mlx_info *mlx_info);
 void				load_images(t_mlx_info *mlx_info);
 void				prep_floor(t_mlx_info *mlx_info, int y);
 void				floor_casting(t_mlx_info *mlx_info);
@@ -239,27 +219,6 @@ void				switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
 void				get_textures(t_mlx_info *mlx_info);
 int					check_if_tex_exist(t_mlx_info *mlx_info);
 void				free_2d_array(char **arr);
-typedef struct		s_mlx_img
-{
-	void			*mlx;
-	// Index 0 reserved for the player
-
-	char			**map_s;
-	int				map_width;
-
-	int				longest_row;
-	int				map_height;
-	int				file_height;
-	int				new_lines;
-	int				fd;
-	char			**textures;
-	t_elements		elements;
-	double			dir;
-	int				**map;
-	int				error_code;
-}					t_mlx;
-
-int					check_map(char **argv, t_mlx *mlx_info);
 
 // Get_next_line
 char				*get_next_line(int fd);
@@ -269,7 +228,4 @@ void				*ft_memmove(void *dest, const void *src, size_t n);
 char				*ft_strrchr(const char *s, int c);
 void				*ft_calloc(size_t nmemb, size_t size);
 
-// main.c
-void				load_textures(t_mlx *mlx);
-bool				check_movement(t_mlx *data);
 #endif

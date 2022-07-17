@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:40:04 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:33:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx_info *mlx_info)
 	mlx_info->file_height = 0;
 	mlx_info->map_height = 0;
 	mlx_info->error_code = WRONG_AMOUNT_OF_ARGUMENTS;
+	mlx_info->map_s = NULL;
+	mlx_info->textures = NULL;
 	if (argc != 2 || perform_checks(argv, mlx_info) == 0)
 	{
 		print_error(mlx_info->error_code);

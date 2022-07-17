@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 10:31:02 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,26 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 {
 	if (c == 'N')
 	{
-		mlx_info->unique_prop.dirX = 0;
-		mlx_info->unique_prop.dirY = -1;
+		mlx_info->unique_prop.dir_x = 0;
+		mlx_info->unique_prop.dir_y = -1;
 	}
 	else if (c == 'W')
 	{
-		mlx_info->unique_prop.dirX = -1;
-		mlx_info->unique_prop.dirY = 0;
+		mlx_info->unique_prop.dir_x = -1;
+		mlx_info->unique_prop.dir_y = 0;
 	}
 	else if (c == 'E')
 	{
-		mlx_info->unique_prop.dirX = 1;
-		mlx_info->unique_prop.dirY = 0;
+		mlx_info->unique_prop.dir_x = 1;
+		mlx_info->unique_prop.dir_y = 0;
 	}
 	else if (c == 'S')
 	{
-		mlx_info->unique_prop.dirX = 0;
-		mlx_info->unique_prop.dirY = 1;
+		mlx_info->unique_prop.dir_x = 0;
+		mlx_info->unique_prop.dir_y = 1;
 	}
-	mlx_info->unique_prop.planeX = mlx_info->unique_prop.dirY;
-	mlx_info->unique_prop.planeY = mlx_info->unique_prop.dirX * -1;
+	mlx_info->unique_prop.plane_x = mlx_info->unique_prop.dir_y;
+	mlx_info->unique_prop.plane_y = mlx_info->unique_prop.dir_x * -1;
 }
 
 //Reads from the string array and creates an int array
@@ -139,8 +139,8 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 			{
 				set_direction(mlx_info, mlx_info->map_s[i][j]);
 				mlx_info->map[i][j] = 0;
-				mlx_info->unique_prop.posX = i;
-				mlx_info->unique_prop.posY = j;
+				mlx_info->unique_prop.pos_x = i;
+				mlx_info->unique_prop.pos_y = j;
 			}
 			else
 				mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';

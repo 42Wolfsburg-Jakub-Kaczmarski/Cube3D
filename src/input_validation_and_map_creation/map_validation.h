@@ -6,12 +6,16 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 10:31:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:53:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
+# define ALLOWED_SYMBOLS "10WESN \n"
+# define PLAYER_POS "WESN"
+# define VALID_SYMBOLS "01WESN"
+# define TEXTURES 6
 
 enum e_ERRORS
 {
@@ -32,6 +36,7 @@ enum e_ERRORS
 //helpers.c
 void	print_2d_array(char **arr);
 void	print_int_map(int **map, t_mlx_info	*mlx_info);
+void	free_2d_safe(char ***arr);
 void	free_2d_array(char **arr);
 void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info);
 

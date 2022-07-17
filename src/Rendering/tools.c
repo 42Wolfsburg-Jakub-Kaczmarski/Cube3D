@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:58:11 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/14 19:01:15 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:39:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/Cube.h"
+#include "../../include/Cube.h"
 
 void	better_pixel_put(t_image *data, int x, int y, int color)
 {
@@ -20,25 +20,13 @@ void	better_pixel_put(t_image *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int		draw_line(t_mlx_info *mlx_info, int x, int beginY, int endY, int colour)
-{
-	int	beg_y;
-
-	beg_y = beginY;
-	while (beg_y < endY)
-	{
-		better_pixel_put(&mlx_info->main_img, x, beg_y, colour);
-		beg_y++;
-	}
-	return (0);
-}
-
 t_color	*set_color_fstr(t_temp_img *img, int x, int y)
 {
 	int	*pix_pos;
 
-	pix_pos = (int *)(img->img_data + (y * img->img_sl + x * (img->img_bp / 8)));
-	return (t_color *)pix_pos;
+	pix_pos = (int *)(img->img_data
+			+ (y * img->img_sl + x * (img->img_bp / 8)));
+	return ((t_color *)pix_pos);
 }
 
 t_color	***create_color_arr(t_temp_img *img, int height, int width)
