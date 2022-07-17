@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 23:14:59 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 23:49:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,6 @@ void				*ft_memset(void *ptr, int value, size_t num);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 char				*ft_strrchr(const char *s, int c);
 void				*ft_calloc(size_t nmemb, size_t size);
+void	add_transperency_to_colour(t_render_vars *vars);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:42:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:48:29 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 23:49:46 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	calculate_wall_tex_x(t_mlx_info *mlx_info)
 	}
 }
 
-static void	add_transperency_to_colour(t_render_vars *vars)
+void	add_transperency_to_colour(t_render_vars *vars)
 {
 	vars->r = vars->color.r & 0xFF;
 	vars->g = vars->color.g & 0xFF;
