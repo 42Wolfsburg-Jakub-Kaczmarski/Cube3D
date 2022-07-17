@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 13:39:31 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 13:53:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define PLAYER_POS "WESN"
 # define VALID_SYMBOLS "01WESN"
 # define TEXTURES 6
+
 enum e_ERRORS
 {
 	NOTHING,
