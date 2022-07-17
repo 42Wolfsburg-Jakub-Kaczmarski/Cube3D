@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 17:19:37 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/17 23:07:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_main(t_mlx_info *mlx_info)
 {
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
-	mlx_info->unique_prop.rot_speed = 0.1;
+	mlx_info->unique_prop.rot_speed = 0.05;
 	mlx_info->unique_prop.move_speed = 0.6;
 	mlx_info->unique_prop.tex_width = 200;
 	mlx_info->unique_prop.tex_height = 200;
@@ -50,7 +50,9 @@ void	load_sprites(t_mlx_info *mlx_info)
 }
 void	init_sprites(t_mlx_info *mlx_info)
 {
-	mlx_info->sprites->sprite_arr = ft_calloc(5, sizeof(t_sprite));
+	if(mlx_info){}
+	mlx_info->sprites = calloc(10,sizeof(t_sprite_data));
+	mlx_info->sprites->sprite_arr = calloc(10, sizeof(t_sprite*));
 	mlx_info->sprites->sprite_arr[0].x = 5;
 	mlx_info->sprites->sprite_arr[0].y = 5;
 	mlx_info->sprites->sprite_arr[0].tex_num = 4;
@@ -58,7 +60,8 @@ void	init_sprites(t_mlx_info *mlx_info)
 	mlx_info->sprites->sprite_arr[1].y = 7;
 	mlx_info->sprites->sprite_arr[1].tex_num = 4;
 	mlx_info->sprites->sprite_count = 2;
-	mlx_info->sprites->z_buff = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
+	//To be changed z_buff size
+	mlx_info->sprites->z_buff = ft_calloc(1000, sizeof(double));
 	mlx_info->sprites->sprite_order = ft_calloc(mlx_info->sprites->sprite_count, sizeof(int));
 	mlx_info->sprites->sprite_distance = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
 }
