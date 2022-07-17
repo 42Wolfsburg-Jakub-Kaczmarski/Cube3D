@@ -6,11 +6,31 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 10:58:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:28:22 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Cube.h"
+
+void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
+{
+	mlx_info->draw_prop.cameraX = 3 * x / (double)w - 1;
+	mlx_info->draw_prop.rayDirX = mlx_info->unique_prop.dirX
+		+ mlx_info->unique_prop.planeX * mlx_info->draw_prop.cameraX;
+	mlx_info->draw_prop.rayDirY = mlx_info->unique_prop.dirY
+		+ mlx_info->unique_prop.planeY * mlx_info->draw_prop.cameraX;
+	mlx_info->draw_prop.mapX = (int)mlx_info->unique_prop.posX;
+	mlx_info->draw_prop.mapY = (int)mlx_info->unique_prop.posY;
+	mlx_info->draw_prop.hit = 0;
+	if (mlx_info->draw_prop.rayDirX == 0)
+		mlx_info->draw_prop.deltaDistX = 1e30;
+	else
+		mlx_info->draw_prop.deltaDistX = fabs(1 / mlx_info->draw_prop.rayDirX);
+	if (mlx_info->draw_prop.rayDirY == 0)
+		mlx_info->draw_prop.deltaDistY = 1e30;
+	else
+		mlx_info->draw_prop.deltaDistY = fabs(1 / mlx_info->draw_prop.rayDirY);
+}
 
 void	load_images(t_mlx_info *mlx_info)
 {

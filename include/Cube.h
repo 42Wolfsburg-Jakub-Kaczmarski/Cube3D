@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 11:18:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:22:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ void				render_textures(t_mlx_info *mlx_info, int x);
 void				better_pixel_put(t_image *data, int x, int y, int color);
 int					draw_line(t_mlx_info *mlx_info, int x, int beginY, int endY, int colour);
 void				init_for_drawing(t_mlx_info *mlx_info, int x, int w);
-void				check_sideXY(t_mlx_info *mlx_info);
+void				check_side_xy(t_mlx_info *mlx_info);
 void				hit_loop(t_mlx_info *mlx_info);
 t_color				*set_color_fstr(t_temp_img *img, int x, int y);
 t_color				***create_color_arr(t_temp_img *img, int height, int width);
