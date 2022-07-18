@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 12:39:08 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/18 13:17:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	key_hook(int keycode, void *mlx)
 
 	mlx_info = (t_mlx_info *)mlx;
 	if (keycode == 13)
-		key_W_hook(mlx_info);
+		key_w_hook(mlx_info);
 	if (keycode == 1)
-		key_S(mlx_info);
+		key_s(mlx_info);
 	if (keycode == 0)
-		key_A(mlx_info);
+		key_a(mlx_info);
 	if (keycode == 2)
-		key_D(mlx_info);
+		key_d(mlx_info);
 	if (keycode == 124)
 		key_right_arr(mlx_info);
 	if (keycode == 123)

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:58:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/18 13:12:50 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,10 @@ typedef struct s_info_mlx
 }					t_mlx_info;
 
 // Movement
-void				key_W_hook(t_mlx_info *mlx_info);
-void				key_S(t_mlx_info *mlx_info);
-void				key_A(t_mlx_info *mlx_info);
-void				key_D(t_mlx_info *mlx_info);
+void				key_w_hook(t_mlx_info *mlx_info);
+void				key_s(t_mlx_info *mlx_info);
+void				key_a(t_mlx_info *mlx_info);
+void				key_d(t_mlx_info *mlx_info);
 void				key_right_arr(t_mlx_info *mlx_info);
 void				key_left_arr(t_mlx_info *mlx_info);
 int					key_hook(int keycode, void *mlx);
