@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/18 13:17:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/18 18:36:29 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ int	key_hook(int keycode, void *mlx)
 	if (keycode == 2)
 		key_d(mlx_info);
 	if (keycode == 124)
-		key_right_arr(mlx_info);
+		key_right_arr(mlx_info, 1);
 	if (keycode == 123)
-		key_left_arr(mlx_info);
+		key_left_arr(mlx_info, 1);
 	if (keycode == 53)
 	{
 		mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
 		exit(1);
 	}
+	// else
+		// ft_mouse_tracker(mlx_info->main_win);
 	mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
 	render(mlx_info);
 	return (0);
