@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:54:46 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 17:51:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:40:10 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/Cube.h"
 

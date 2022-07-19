@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 17:37:38 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:40:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef CUBE_H
 # define CUBE_H
@@ -38,6 +40,14 @@ enum e_DIREC
 	WEST,
 	EAST,
 };
+
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	int		tex_num;
+} t_sprite;
+
 
 typedef struct s_image_s
 {
@@ -157,6 +167,31 @@ typedef struct s_elements
 	bool	we;
 }					t_elements;
 
+typedef struct s_sprite_data
+{
+	double *z_buff;
+	int			*sprite_order;
+	double	*sprite_distance;
+	t_sprite	*sprite_arr;
+	int			sprite_count;
+	double	sprite_x;
+	double	sprite_y;
+	double	invDet;
+	double	transformX;
+	double	transformY;
+	int			spriteScreenX;
+	int			spriteHeight;
+	int			DrawStartY;
+	int			DrawEndY;
+	int			spriteWidth;
+	int			drawStartX;
+	int			drawEndX;
+	int			uDiv;
+	int			vDiv;
+	double	vMove;
+	int			move_screen;
+}	t_sprite_data;
+
 typedef struct s_info_mlx
 {
 	void			*mlx;
@@ -185,6 +220,7 @@ typedef struct s_info_mlx
 	int				celling_color;
 	int				floor_color;
 	char			**texture_paths;
+	t_sprite_data	*sprites;
 	bool			mouse;
 }					t_mlx_info;
 
@@ -230,5 +266,6 @@ void				*ft_memset(void *ptr, int value, size_t num);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 char				*ft_strrchr(const char *s, int c);
 void				*ft_calloc(size_t nmemb, size_t size);
+void	add_transperency_to_colour(t_render_vars *vars);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 13:48:21 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:08:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	load_images(t_mlx_info *mlx_info)
 
 	i = 0;
 	mlx_info->mlx_imgs = calloc(10, sizeof(void *));
-	mlx_info->texture_data = calloc(7, sizeof(*mlx_info->texture_data));
-	mlx_info->im = malloc(4 * sizeof(t_temp_img));
+	mlx_info->texture_data = calloc(10, sizeof(*mlx_info->texture_data));
+	mlx_info->im = malloc(10 * sizeof(t_temp_img));
 	while (i < 4)
 	{
 		mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
