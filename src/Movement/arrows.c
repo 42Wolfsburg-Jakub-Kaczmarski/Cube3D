@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:54:46 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/18 18:52:49 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:33:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,47 +54,30 @@ void	key_left_arr(t_mlx_info *mlx_info, int diff_x)
 		+ unique_prop->plane_y * cos(rotation);
 }
 
-int	ft_mouse_tracker(t_mlx_info *mlx_info)
+void	ft_mouse_tracker(t_mlx_info *mlx_info)
 {
 	int	x;
 	int	y;
 
-    // if (!window->player->mouse_hide)
-    // {
-        // mlx_mouse_hide(mlx_info->mlx, mlx_info->main_win);
-        mlx_mouse_get_pos(mlx_info->main_win, &x, &y);
-		// printf("x: %d, y: %d", x, y);
-        if (x > mlx_info->window_width / 2 && x < mlx_info->window_width)
+	if (mlx_info->mouse == true)
+	{
+		mlx_mouse_hide(mlx_info->mlx, mlx_info->main_win);
+		mlx_mouse_get_pos(mlx_info->main_win, &x, &y);
+		if (x > mlx_info->window_width / 2)
 		{
-			printf("RIGHT\n");
 			key_right_arr(mlx_info, x - mlx_info->window_width / 2);
 			mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
 			render(mlx_info);
-			mlx_mouse_move(mlx_info->main_win, mlx_info->window_width / 2, mlx_info->window_height / 2);
 		}
-		else if (x > mlx_info->window_width)
+		else if (x < mlx_info->window_width / 2)
 		{
-			// printf("RIGHT OUT\n\n\n\n");
-		}
-		// else if (x < 0)
-		// {
-		// 	// printf("Left OUT\n\n\n\n");
-		// }
-            // ft_turn_right(mlx_info, x - mlx_info->window_width / 2);
-        else if (x < mlx_info->window_width / 2)
-		{
-			printf("Left\n");
 			key_left_arr(mlx_info, mlx_info->window_width / 2 - x);
 			mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
 			render(mlx_info);
-			mlx_mouse_move(mlx_info->main_win, mlx_info->window_width / 2, mlx_info->window_height / 2);
 		}
-            // ft_turn_left(mlx_info, mlx_info->window_width / 2 - x);
-        
-        // window->player->mouse_x = x;
-        return 0;
-    // }
-    // if (window->player->mouse_hide)
-    //     mlx_mouse_show(window->mlx, window->win);
+		mlx_mouse_move(mlx_info->main_win, mlx_info->window_width / 2,
+			- mlx_info->window_width / 2 - 50);
+	}
+	else
+		mlx_mouse_show();
 }
-

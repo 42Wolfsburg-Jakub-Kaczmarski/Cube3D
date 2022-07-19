@@ -6,14 +6,14 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/18 13:16:32 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:36:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 #include "../../src/input_validation_and_map_creation/map_validation.h"
 
-void	key_w_hook(t_mlx_info *mlx_info)
+void	key_w(t_mlx_info *mlx_info)
 {
 	t_uniq_prop	*m;
 	int			map_x0;
@@ -75,4 +75,15 @@ void	key_d(t_mlx_info *mlx_info)
 		m->pos_x += m->plane_x * m->move_speed;
 		m->pos_y += m->plane_y * m->move_speed;
 	}
+}
+
+void	key_space(t_mlx_info *mlx_info)
+{
+	if (mlx_info->mouse == true)
+	{
+		mlx_mouse_show();
+		mlx_info->mouse = false;
+	}
+	else if (mlx_info->mouse == false)
+		mlx_info->mouse = true;
 }
