@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/19 13:58:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:30:48 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,22 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 	{
 		mlx_info->unique_prop.dir_x = -1;
 		mlx_info->unique_prop.dir_y = 0;
-		// mlx_info->unique_prop.plane_x = 0;
-		// mlx_info->unique_prop.plane_y = 0.50;
+		mlx_info->unique_prop.plane_x = 0;
+		mlx_info->unique_prop.plane_y = 0.50;
 	}
 	else if (c == 'W')
 	{
 		mlx_info->unique_prop.dir_x = 0;
 		mlx_info->unique_prop.dir_y = -1;
-		// mlx_info->unique_prop.plane_x = mlx_info->unique_prop.dir_y;
-		// mlx_info->unique_prop.plane_y = mlx_info->unique_prop.dir_x * -1;
+		mlx_info->unique_prop.plane_x = -0.50;
+		mlx_info->unique_prop.plane_y = 0;
 	}
 	else if (c == 'E')
 	{
 		mlx_info->unique_prop.dir_x = 0;
 		mlx_info->unique_prop.dir_y = 1;
-		// mlx_info->unique_prop.plane_x = mlx_info->unique_prop.dir_y;
-		// mlx_info->unique_prop.plane_y = mlx_info->unique_prop.dir_x * -1;
+		mlx_info->unique_prop.plane_x = 0.50;
+		mlx_info->unique_prop.plane_y = 0;
 	}
 	else if (c == 'S')
 	{
@@ -125,12 +125,6 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 		mlx_info->unique_prop.plane_x = 0;
 		mlx_info->unique_prop.plane_y = -0.50;
 	}
-	printf("Direction x: %f", mlx_info->unique_prop.dir_x);
-	printf("Direction y: %f", mlx_info->unique_prop.dir_x);
-	printf("Plane x: %f", mlx_info->unique_prop.plane_x);
-	printf("Plane y: %f", mlx_info->unique_prop.plane_y);
-	// mlx_info->unique_prop.plane_x = mlx_info->unique_prop.dir_y;
-	// mlx_info->unique_prop.plane_y = mlx_info->unique_prop.dir_x * -1;
 }
 
 //Reads from the string array and creates an int array

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 12:36:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:50:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	key_w(t_mlx_info *mlx_info)
 	int			map_y0;
 
 	m = &mlx_info->unique_prop;
-	map_x0 = m->pos_x + (m->dir_x * (m->move_speed));
-	map_y0 = m->pos_y + (m->dir_y * (m->move_speed));
+	map_x0 = m->pos_x + (m->dir_x * ((m->move_speed + 0)));
+	map_y0 = m->pos_y + (m->dir_y * ((m->move_speed + 0)));
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
 		m->pos_y += m->dir_y * m->move_speed;
@@ -36,8 +36,8 @@ void	key_s(t_mlx_info *mlx_info)
 	int			map_y0;
 
 	m = &mlx_info->unique_prop;
-	map_x0 = m->pos_x - m->dir_x * m->move_speed;
-	map_y0 = m->pos_y - m->dir_y * m->move_speed;
+	map_x0 = m->pos_x - m->dir_x * (m->move_speed + 0);
+	map_y0 = m->pos_y - m->dir_y * (m->move_speed + 0);
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
 		m->pos_x -= m->dir_x * m->move_speed;
@@ -52,8 +52,8 @@ void	key_a(t_mlx_info *mlx_info)
 	int			map_y0;
 
 	m = &mlx_info->unique_prop;
-	map_x0 = m->pos_x - m->plane_x * m->move_speed;
-	map_y0 = m->pos_y - m->plane_y * m->move_speed;
+	map_x0 = m->pos_x - m->plane_x * (m->move_speed + 0);
+	map_y0 = m->pos_y - m->plane_y * (m->move_speed + 0);
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
 		m->pos_x -= m->plane_x * m->move_speed;
@@ -68,8 +68,8 @@ void	key_d(t_mlx_info *mlx_info)
 	int			map_y0;
 
 	m = &mlx_info->unique_prop;
-	map_x0 = m->pos_x + m->plane_x * m->move_speed;
-	map_y0 = m->pos_y + m->plane_y * m->move_speed;
+	map_x0 = m->pos_x + m->plane_x * (m->move_speed + 0);
+	map_y0 = m->pos_y + m->plane_y * (m->move_speed + 0);
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
 		m->pos_x += m->plane_x * m->move_speed;
