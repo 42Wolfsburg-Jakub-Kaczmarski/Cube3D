@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/18 15:59:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:02:32 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,22 +129,28 @@ void	calculate_sprite_widht(t_mlx_info *mlx_info)
 void sprite_loop(t_mlx_info *mlx_info)
 {
 	t_render_vars	v;
+
 	int stripe = mlx_info->sprites->drawStartX;
 	while(stripe < mlx_info->sprites->drawEndX)
 	{
 		//Not suere what texWidth is
-		// int texX = (256 * (stripe - (-mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX)) * mlx_info->texture_data[4].width / mlx_info->sprites->spriteWidth) / 256;
+		int texX = (256 * (stripe - (-mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX)) * mlx_info->texture_data[4].width / mlx_info->sprites->spriteWidth) / 256;
 		if(mlx_info->sprites->transformY > 0 && stripe > 0 && stripe < mlx_info->window_width && mlx_info->sprites->transformY < mlx_info->sprites->z_buff[stripe])
 		{
 			int y = mlx_info->sprites->DrawStartY;
 			while(y < mlx_info->sprites->DrawEndY)
 			{
-			// 	int d = (y) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
-			// 	int texY = ((d * mlx_info->texture_data[4].height) / mlx_info->sprites->spriteHeight) / 256;
-				v.color = *mlx_info->texture_data[4].arr_color[(int)y][(int)stripe];
+				int d = (y) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
+				int texY = ((d * mlx_info->texture_data[4].height) / mlx_info->sprites->spriteHeight) / 256;
+
+				v.color = *mlx_info->texture_data[4].arr_color[texX][texY];
 				add_transperency_to_colour(&v);
 				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
-				better_pixel_put(&mlx_info->main_img, stripe,y , v.pix);	
+				if(v.pix != 0x393c3e)
+				{
+					printf("%x\n", v.pix);
+					better_pixel_put(&mlx_info->main_img, stripe,y , v.pix);
+				}
 				y++;
 			}
 		}
