@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 21:14:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:22:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ void	sort_sprites(t_mlx_info	*mlx_info)
 
 void	calc_sprite_height(t_mlx_info *mlx_info)
 {
-	mlx_info->sprites->spriteHeight = abs((int)(mlx_info->window_height / (mlx_info->sprites->transformY)));
+	mlx_info->sprites->spriteHeight = abs((int)(mlx_info->window_height / (mlx_info->sprites->transformY))) / mlx_info->sprites->vDiv;
 	
-	mlx_info->sprites->DrawStartY = -mlx_info->sprites->spriteHeight / 2 + mlx_info->window_height / 2;
+	mlx_info->sprites->DrawStartY = -mlx_info->sprites->spriteHeight / 2 + mlx_info->window_height / 2 + mlx_info->sprites->move_screen;
 	if(mlx_info->sprites->DrawStartY < 0)
 	{
 		mlx_info->sprites->DrawStartY = 0;
 	}
-	mlx_info->sprites->DrawEndY = mlx_info->sprites->spriteHeight / 2 + mlx_info->window_height / 2;
+	mlx_info->sprites->DrawEndY = mlx_info->sprites->spriteHeight / 2 + mlx_info->window_height / 2 + mlx_info->sprites->move_screen;
 	if(mlx_info->sprites->DrawEndY >= mlx_info->window_width)
 	{
 		mlx_info->sprites->DrawEndY = mlx_info->window_height - 1;		
@@ -114,7 +114,7 @@ void	calc_sprite_height(t_mlx_info *mlx_info)
 
 void	calculate_sprite_widht(t_mlx_info *mlx_info)
 {
-	mlx_info->sprites->spriteWidth = abs((int)(mlx_info->window_height / mlx_info->sprites->transformY));
+	mlx_info->sprites->spriteWidth = abs((int)(mlx_info->window_height / mlx_info->sprites->transformY)) / mlx_info->sprites->uDiv;
 	mlx_info->sprites->drawStartX = -mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX;
 	if(mlx_info->sprites->drawStartX < 0)
 	{
@@ -141,7 +141,7 @@ void sprite_loop(t_mlx_info *mlx_info)
 			int y = mlx_info->sprites->DrawStartY;
 			while(y < mlx_info->sprites->DrawEndY)
 			{
-				int d = (y) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
+				int d = (y - mlx_info->sprites->move_screen) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
 				int texY = ((d * mlx_info->texture_data[4].height) / mlx_info->sprites->spriteHeight) / 256;
 
 				v.color = *mlx_info->texture_data[4].arr_color[texX][texY];
@@ -174,7 +174,11 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	
 	mlx_info->sprites->spriteScreenX = (int)((mlx_info->window_width / 2) 
 	* (1 + mlx_info->sprites->transformX / mlx_info->sprites->transformY));
-		
+	
+	mlx_info->sprites->uDiv = 2;
+	mlx_info->sprites->vDiv = 2;
+	mlx_info->sprites->vMove = 200.0;
+	mlx_info->sprites->move_screen = (int)(mlx_info->sprites->vMove / mlx_info->sprites->transformY);
 	calc_sprite_height(mlx_info);
 	//Sprite width
 	calculate_sprite_widht(mlx_info);
