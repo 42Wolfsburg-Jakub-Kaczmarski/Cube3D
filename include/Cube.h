@@ -6,9 +6,10 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 23:49:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:40:47 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUBE_H
 # define CUBE_H
@@ -215,16 +216,19 @@ typedef struct s_info_mlx
 	int				floor_color;
 	char			**texture_paths;
 	t_sprite_data	*sprites;
+	bool			mouse;
 }					t_mlx_info;
 
 // Movement
-void				key_W_hook(t_mlx_info *mlx_info);
-void				key_S(t_mlx_info *mlx_info);
-void				key_A(t_mlx_info *mlx_info);
-void				key_D(t_mlx_info *mlx_info);
-void				key_right_arr(t_mlx_info *mlx_info);
-void				key_left_arr(t_mlx_info *mlx_info);
+void				key_space(t_mlx_info *mlx_info);
+void				key_w(t_mlx_info *mlx_info);
+void				key_s(t_mlx_info *mlx_info);
+void				key_a(t_mlx_info *mlx_info);
+void				key_d(t_mlx_info *mlx_info);
+void				key_right_arr(t_mlx_info *mlx_info, int diff_x);
+void				key_left_arr(t_mlx_info *mlx_info, int diff_x);
 int					key_hook(int keycode, void *mlx);
+int					ft_mouse_tracker(t_mlx_info *window);
 
 // Rendering
 void				render(t_mlx_info *mlx_info);

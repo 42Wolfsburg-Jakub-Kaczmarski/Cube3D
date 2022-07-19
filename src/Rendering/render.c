@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 16:02:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:42:00 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,11 @@ void	calculate_sprite_widht(t_mlx_info *mlx_info)
 	{
 		mlx_info->sprites->drawStartX = 0;
 	}
+	// printf("Sprite width %d", mlx_info->sprites->spriteWidth);
 	mlx_info->sprites->drawEndX = mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX;
 	if(mlx_info->sprites->drawEndX >= mlx_info->window_width)
 	{
-		mlx_info->sprites->drawEndX  = mlx_info->window_height - 1;
+		mlx_info->sprites->drawEndX  = mlx_info->window_width - 1;
 	}
 }
 void sprite_loop(t_mlx_info *mlx_info)
@@ -148,8 +149,9 @@ void sprite_loop(t_mlx_info *mlx_info)
 				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
 				if(v.pix != 0x393c3e)
 				{
-					printf("%x\n", v.pix);
-					better_pixel_put(&mlx_info->main_img, stripe,y , v.pix);
+					// printf("%x\n", v.pix);
+					// better_pixel_put(&mlx_info->main_img, y,stripe , v.pix);
+					better_pixel_put(&mlx_info->main_img,stripe, y, v.pix);
 				}
 				y++;
 			}
