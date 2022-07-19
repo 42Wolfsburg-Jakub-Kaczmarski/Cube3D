@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:54:46 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 13:39:46 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:51:50 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ void	key_right_arr(t_mlx_info *mlx_info, int diff_x)
 		- unique_prop->plane_y * sin(-rotation);
 	unique_prop->plane_y = old_plane_x * sin(-rotation)
 		+ unique_prop->plane_y * cos(-rotation);
-	printf("Direction x: %f\n", mlx_info->unique_prop.dir_x);
-	printf("Direction y: %f\n", mlx_info->unique_prop.dir_x);
-	printf("Plane x: %f\n", mlx_info->unique_prop.plane_x);
-	printf("Plane y: %f\n", mlx_info->unique_prop.plane_y);
 }
 
 void	key_left_arr(t_mlx_info *mlx_info, int diff_x)
@@ -58,7 +54,7 @@ void	key_left_arr(t_mlx_info *mlx_info, int diff_x)
 		+ unique_prop->plane_y * cos(rotation);
 }
 
-void	ft_mouse_tracker(t_mlx_info *mlx_info)
+int	ft_mouse_tracker(t_mlx_info *mlx_info)
 {
 	int	x;
 	int	y;
@@ -84,4 +80,5 @@ void	ft_mouse_tracker(t_mlx_info *mlx_info)
 	}
 	else
 		mlx_mouse_show();
+	return(0);
 }

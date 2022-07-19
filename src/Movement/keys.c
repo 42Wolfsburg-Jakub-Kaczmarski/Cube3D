@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 13:50:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:52:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	key_space(t_mlx_info *mlx_info)
 {
 	if (mlx_info->mouse == true)
 	{
-		mlx_mouse_show();
+		mlx_mouse_move(mlx_info->main_win, mlx_info->window_width / 2,
+			- mlx_info->window_width / 2);
 		mlx_info->mouse = false;
 	}
 	else if (mlx_info->mouse == false)

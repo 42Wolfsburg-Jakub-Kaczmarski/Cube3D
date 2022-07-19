@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 12:29:19 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:37:38 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void				key_d(t_mlx_info *mlx_info);
 void				key_right_arr(t_mlx_info *mlx_info, int diff_x);
 void				key_left_arr(t_mlx_info *mlx_info, int diff_x);
 int					key_hook(int keycode, void *mlx);
-void					ft_mouse_tracker(t_mlx_info *window);
+int					ft_mouse_tracker(t_mlx_info *window);
 
 // Rendering
 void				render(t_mlx_info *mlx_info);
