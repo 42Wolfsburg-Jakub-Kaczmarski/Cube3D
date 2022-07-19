@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 16:41:36 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:35:16 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	load_sprites(t_mlx_info *mlx_info)
 {
 		int i = 4;
 		//Replace add more paths to texture paths :)
-		char *path = ft_strdup("./assets/dead_catto.xpm");
+		char *path = ft_strdup("./assets/cat_fighter.xpm");
 		// while(i < 5)
 		// {
 				mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
