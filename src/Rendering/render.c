@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 17:38:45 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 18:29:32 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,13 @@ void sprite_loop(t_mlx_info *mlx_info)
 				v.color = *mlx_info->texture_data[4].arr_color[texX][texY];
 				add_transperency_to_colour(&v);
 				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
-				if(y >  mlx_info->window_height || y < 0)
+				if(y >=  mlx_info->window_height || y < 0)
 				{
 					y++;
 				}else if((v.pix != 0x393c3e && v.pix != 0xFCFDFF))
 				{
+					// printf("Y val %d\n", y);
+					// printf("X val %d\n", stripe);
 					better_pixel_put(&mlx_info->main_img,stripe, y, v.pix);
 				}
 				y++;
@@ -170,12 +172,13 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	mlx_info->sprites->transformX = mlx_info->sprites->invDet * (mlx_info->unique_prop.dir_y * mlx_info->sprites->sprite_x 
 			- mlx_info->unique_prop.dir_x * mlx_info->sprites->sprite_y);
 
-
 	mlx_info->sprites->transformY = mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
 	+ mlx_info->unique_prop.plane_x * mlx_info->sprites->sprite_y);
 	
-	mlx_info->sprites->spriteScreenX = (int)((mlx_info->window_width / 2) 
-	* (1.0 + mlx_info->sprites->transformX / mlx_info->sprites->transformY));
+	// printf("Transform X %f\n", mlx_info->sprites->transformX);
+	// printf("Transform Y %f\n", mlx_info->sprites->transformY);
+	mlx_info->sprites->spriteScreenX = (int)((int)(mlx_info->window_width / 2) 
+	* ((int)1.0 + mlx_info->sprites->transformX / mlx_info->sprites->transformY));
 	
 	mlx_info->sprites->uDiv = 2;
 	mlx_info->sprites->vDiv = 2;
