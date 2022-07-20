@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/17 17:08:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 22:39:49 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
 {
-	mlx_info->draw_prop.camera_x = 3 * x / (double)w - 1;
+	mlx_info->draw_prop.camera_x = 2 * x / (double)w - 1;
 	mlx_info->draw_prop.ray_dir_x = mlx_info->unique_prop.dir_x
 		+ mlx_info->unique_prop.plane_x * mlx_info->draw_prop.camera_x;
 	mlx_info->draw_prop.ray_dir_y = mlx_info->unique_prop.dir_y
