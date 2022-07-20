@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 18:29:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 21:20:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,9 @@ void sprite_loop(t_mlx_info *mlx_info)
 void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 {
 	mlx_info->sprites->sprite_x = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].x 
-		- mlx_info->unique_prop.pos_x; 
+		- mlx_info->draw_prop.delta_dist_x; 
 	mlx_info->sprites->sprite_y = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].y 
-		- mlx_info->unique_prop.pos_y; 
+		- mlx_info->draw_prop.delta_dist_y; 
 
 	mlx_info->sprites->invDet = 1.0 / (mlx_info->unique_prop.plane_x * 
 		mlx_info->unique_prop.dir_y - mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
@@ -225,6 +225,7 @@ void	render(t_mlx_info *mlx_info)
 		mlx_info->sprites->z_buff[x] = mlx_info->draw_prop.perp_wall_dist;
 		x++;
 	}
+	//Everything else moves and cat stays at the same postion help god
 	sprite_casting(mlx_info);
 	mlx_put_image_to_window(
 		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);
