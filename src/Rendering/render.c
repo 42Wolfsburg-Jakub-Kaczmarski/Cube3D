@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 16:39:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 17:38:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	calc_sprite_height(t_mlx_info *mlx_info)
 void	calculate_sprite_widht(t_mlx_info *mlx_info)
 {
 	mlx_info->sprites->spriteWidth = abs((int)(mlx_info->window_height / mlx_info->sprites->transformY)) / mlx_info->sprites->uDiv;
+
 	mlx_info->sprites->drawStartX = -mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX;
 	if(mlx_info->sprites->drawStartX < 0)
 		mlx_info->sprites->drawStartX = 0;
@@ -142,7 +143,7 @@ void sprite_loop(t_mlx_info *mlx_info)
 				v.color = *mlx_info->texture_data[4].arr_color[texX][texY];
 				add_transperency_to_colour(&v);
 				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
-				if(y >  mlx_info->window_height)
+				if(y >  mlx_info->window_height || y < 0)
 				{
 					y++;
 				}else if((v.pix != 0x393c3e && v.pix != 0xFCFDFF))
