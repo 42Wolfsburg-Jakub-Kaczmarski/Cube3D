@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:53:25 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 16:28:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:48:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_sprites(t_mlx_info *mlx_info)
 	// mlx_info->sprites->sprite_arr[1].tex_num = 4;
 	mlx_info->sprites->sprite_count = 1;
 	//To be changed z_buff size
-	mlx_info->sprites->z_buff = ft_calloc(1000, sizeof(double));
+	mlx_info->sprites->z_buff = ft_calloc(mlx_info->window_width, sizeof(double));
 	mlx_info->sprites->sprite_order = ft_calloc(mlx_info->sprites->sprite_count, sizeof(int));
 	mlx_info->sprites->sprite_distance = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
 }

@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 18:29:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/20 22:01:14 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,9 @@ void	calc_sprite_height(t_mlx_info *mlx_info)
 	}
 }
 
-void	calculate_sprite_widht(t_mlx_info *mlx_info)
+void	calculate_sprite_width(t_mlx_info *mlx_info)
 {
 	mlx_info->sprites->spriteWidth = abs((int)(mlx_info->window_height / mlx_info->sprites->transformY)) / mlx_info->sprites->uDiv;
-
 	mlx_info->sprites->drawStartX = -mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX;
 	if(mlx_info->sprites->drawStartX < 0)
 		mlx_info->sprites->drawStartX = 0;
@@ -164,30 +163,32 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 		- mlx_info->unique_prop.pos_x; 
 	mlx_info->sprites->sprite_y = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].y 
 		- mlx_info->unique_prop.pos_y; 
-
-	mlx_info->sprites->invDet = 1.0 / (mlx_info->unique_prop.plane_x * 
+	printf("%f %f\n",  mlx_info->sprites->sprite_x, mlx_info->sprites->sprite_y);
+	mlx_info->sprites->invDet = 1 / (mlx_info->unique_prop.plane_x * 
 		mlx_info->unique_prop.dir_y - mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
-
-	
+	//Its fucked up somewhere here :))
+		// printf("%f %f\n", mlx_info->unique_prop.dir_y, mlx_info->unique_prop.dir_x);
 	mlx_info->sprites->transformX = mlx_info->sprites->invDet * (mlx_info->unique_prop.dir_y * mlx_info->sprites->sprite_x 
 			- mlx_info->unique_prop.dir_x * mlx_info->sprites->sprite_y);
 
-	mlx_info->sprites->transformY = mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
+	mlx_info->sprites->transformY =  mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
 	+ mlx_info->unique_prop.plane_x * mlx_info->sprites->sprite_y);
 	
 	// printf("Transform X %f\n", mlx_info->sprites->transformX);
 	// printf("Transform Y %f\n", mlx_info->sprites->transformY);
-	mlx_info->sprites->spriteScreenX = (int)((int)(mlx_info->window_width / 2) 
-	* ((int)1.0 + mlx_info->sprites->transformX / mlx_info->sprites->transformY));
+	double tmp = mlx_info->sprites->transformX /  mlx_info->sprites->transformY;
+	// printf("%f\n", tmp);
+	mlx_info->sprites->spriteScreenX = (mlx_info->window_width / 2) * (1.0 + tmp);
+	// mlx_info->sprites->spriteScreenX = (mlx_info->window_width / 2) * (1.0 + (mlx_info->sprites->transformX / mlx_info->sprites->transformY));
 	
 	mlx_info->sprites->uDiv = 2;
 	mlx_info->sprites->vDiv = 2;
-	mlx_info->sprites->vMove = 0.0;
+	mlx_info->sprites->vMove =00.00;
 	mlx_info->sprites->move_screen = (int)(mlx_info->sprites->vMove / mlx_info->sprites->transformY);
 	calc_sprite_height(mlx_info);
 
 	//Sprite width
-	calculate_sprite_widht(mlx_info);
+	calculate_sprite_width(mlx_info);
 
 	sprite_loop(mlx_info);
 
