@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 21:54:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:42:31 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ typedef struct s_sprite
 	int		tex_num;
 } t_sprite;
 
+typedef	struct s_pair
+{
+	int	first;
+	int	second;
+} t_pair;
 
 typedef struct s_image_s
 {
