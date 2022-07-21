@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 23:11:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:32:33 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	key_s(t_mlx_info *mlx_info)
 	m = &mlx_info->unique_prop;
 	map_x0 = m->pos_x - m->dir_x * (m->move_speed + 0);
 	map_y0 = m->pos_y - m->dir_y * (m->move_speed + 0);
+
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
 		m->pos_x -= m->dir_x * m->move_speed;

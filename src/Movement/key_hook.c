@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 12:35:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:43:45 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	key_hook(int keycode, void *mlx)
 	if (keycode == 53)
 	{
 		mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
+		kill(mlx_info->pid, SIGKILL);
 		exit(1);
 	}
 	mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
