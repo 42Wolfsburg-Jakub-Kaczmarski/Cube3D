@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 16:16:31 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:13:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,33 @@ void	sprite_casting(t_mlx_info *mlx_info)
 		i++;
 	}
 }
-
+// void	sword_casting(t_mlx_info *mlx_info)
+// {
+// 	int start_x = mlx_info->window_width / 2;
+// 	int start_y = 0;
+// 	int x = 0;
+// 		t_render_vars	v;
+// 	int y = 0;
+// 	while(x < mlx_info->texture_data[9].height)
+// 	{
+// 		y = 0;
+// 		start_y = 0;
+// 		while(y < mlx_info->texture_data[9].width)
+// 		{
+// 			v.color = *mlx_info->texture_data[4].arr_color[y][x];
+// 			add_transperency_to_colour(&v);
+// 			v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
+// 			if((v.pix != 0x393c3e && v.pix != 0xFCFDFF))
+// 			{
+// 				// better_pixel_put(&mlx_info->main_img,start_x, start_y, v.pix);
+// 			}
+// 			start_y++;
+// 			x++;
+// 		};
+// 		start_x++;
+// 		y++;
+// 	}
+// }
 void	render(t_mlx_info *mlx_info)
 {
 	int	x;
@@ -274,6 +300,9 @@ void	render(t_mlx_info *mlx_info)
 		x++;
 	}
 	sprite_casting(mlx_info);
+	
+	// sword_casting(mlx_info);
 	mlx_put_image_to_window(
 		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);
+	mlx_put_image_to_window(mlx_info->mlx, mlx_info->main_win, mlx_info->mlx_imgs[9], mlx_info->window_width/ 2 - mlx_info->texture_data[9].width / 2, mlx_info->window_height - mlx_info->texture_data[9].height);
 }

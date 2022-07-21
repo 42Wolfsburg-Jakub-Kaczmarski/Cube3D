@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 22:25:53 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:47:34 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->unique_prop.move_speed = 0.6;
 	mlx_info->unique_prop.tex_width = 200;
 	mlx_info->unique_prop.tex_height = 200;
-	mlx_info->mlx_imgs = calloc(4, sizeof(void *));
+	mlx_info->mlx_imgs = calloc(10, sizeof(void *));
 	mlx_info->mouse = false;
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx,
 			mlx_info->window_width, mlx_info->window_height, "Starting point");
