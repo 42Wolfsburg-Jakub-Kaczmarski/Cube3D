@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 21:54:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:10:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@
 
 void	init_main(t_mlx_info *mlx_info)
 {
+	mlx_info->keys.a = false;
+	mlx_info->keys.s = false;
+	mlx_info->keys.d = false;
+	mlx_info->keys.w = false;
+	mlx_info->keys.left_arrow = false;
+	mlx_info->keys.right_arrow = false;
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
 	mlx_info->unique_prop.rot_speed = 0.05;
-	mlx_info->unique_prop.move_speed = 0.6;
+	mlx_info->unique_prop.move_speed = 0.09;
 	mlx_info->unique_prop.tex_width = 200;
 	mlx_info->unique_prop.tex_height = 200;
 	mlx_info->mlx_imgs = calloc(4, sizeof(void *));
@@ -31,6 +37,7 @@ void	init_main(t_mlx_info *mlx_info)
 //To be implemented
 // void	sort_sprites(t_mlx_info *mlx_info)
 // {}
+
 int	main(int argc, char **argv)
 {
 	t_mlx_info	mlx_info;
@@ -54,8 +61,9 @@ int	main(int argc, char **argv)
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);
 	render(&mlx_info);
-	mlx_loop_hook(mlx_info.mlx, ft_mouse_tracker, &mlx_info);
-	mlx_hook(mlx_info.main_win, 2, 0, key_hook, &mlx_info);
+	mlx_loop_hook(mlx_info.mlx, movement, &mlx_info);
+	mlx_hook(mlx_info.main_win, 2, 0, key_is_pressed, &mlx_info);
+	mlx_hook(mlx_info.main_win, 3, 0, key_is_released, &mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
 

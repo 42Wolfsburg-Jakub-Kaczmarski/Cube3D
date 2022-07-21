@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:54:46 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 21:40:10 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:08:08 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/Cube.h"
 
@@ -55,7 +54,7 @@ void	key_left_arr(t_mlx_info *mlx_info, int diff_x)
 		+ unique_prop->plane_y * cos(rotation);
 }
 
-int	ft_mouse_tracker(t_mlx_info *mlx_info)
+int	mouse_tracker(t_mlx_info *mlx_info)
 {
 	int	x;
 	int	y;
@@ -81,5 +80,5 @@ int	ft_mouse_tracker(t_mlx_info *mlx_info)
 	}
 	else
 		mlx_mouse_show();
-	return(0);
+	return (0);
 }
