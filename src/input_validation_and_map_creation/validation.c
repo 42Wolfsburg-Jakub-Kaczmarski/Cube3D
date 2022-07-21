@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 13:33:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:42:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	perform_checks(char *argv[], t_mlx_info *mlx_info)
 		return (0);
 	if (check_if_right_characs(mlx_info) == 0)
 		return (0);
+	get_number_of_sprites(mlx_info);
 	if (check_if_zeroes_and_player_are_placed_correctly(mlx_info) == 0)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:36:29 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:46:25 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,30 @@ int	check_if_zeroes_and_player_are_placed_correctly(t_mlx_info *mlx_info)
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	get_number_of_sprites(t_mlx_info *mlx_info)
+{
+	int	i;
+	int	j;
+	int	counter;
+
+	counter = 0;
+	i = 0;
+	j = 0;
+	while (mlx_info->map_s[i] != NULL)
+	{
+		j = 0;
+		while (mlx_info->map_s[i][j] && mlx_info->map_s[i][j] != '\n')
+		{
+			if (ft_strchr(SPRITES, mlx_info->map_s[i][j]) != NULL)
+				counter++;
+			j++;
+		}
+		i++;
+	}
+	printf("Sprites: %d\n", counter);
+	mlx_info->sprites_amount = calloc(counter, sizeof(t_sprite));
 	return (1);
 }

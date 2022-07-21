@@ -6,15 +6,16 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 13:53:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:42:22 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_VALIDATION_H
 # define MAP_VALIDATION_H
-# define ALLOWED_SYMBOLS "10WESN \n"
+# define ALLOWED_SYMBOLS "102345WESN \n"
 # define PLAYER_POS "WESN"
-# define VALID_SYMBOLS "01WESN"
+# define VALID_SYMBOLS "012345WESN"
+# define SPRITES "2345"
 # define TEXTURES 6
 
 enum e_ERRORS
@@ -56,6 +57,7 @@ int		all_textures_are_present(t_mlx_info *mlx_info);
 //map_validations.c
 int		check_if_right_characs(t_mlx_info *mlx_info);
 int		check_if_zeroes_and_player_are_placed_correctly(t_mlx_info *mlx_info);
+int		get_number_of_sprites(t_mlx_info *mlx_info);
 
 //create_map.c
 int		str_to_char_arr(t_mlx_info *mlx_info);

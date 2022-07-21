@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/20 23:05:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:56:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 		mlx_info->unique_prop.plane_y = -0.66;
 	}
 }
-
+void get_sprites_positions(t_mlx_info *mlx_info, int x, int y);
 //Reads from the string array and creates an int array
 void	char_to_int_map(t_mlx_info *mlx_info)
 {
@@ -148,6 +148,10 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 				mlx_info->unique_prop.pos_x = i + 0.25;
 				mlx_info->unique_prop.pos_y = j + 0.25;
 			}
+			else if(ft_strchr(SPRITES, mlx_info->map_s[i][j]) != NULL)
+			{
+				get_sprites_positions(mlx_info, i, j);
+			}
 			else
 				mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
 			j++;
@@ -155,4 +159,14 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		j = 0;
 		i++;
 	}
+}
+//2 = 50 3 = 51 4 = 52 5 = 53
+void get_sprites_positions(t_mlx_info *mlx_info, int x, int y)
+{
+	static int i = 0;
+	mlx_info->sprites_amount[i].x = x;
+	mlx_info->sprites_amount[i].y = y;
+	mlx_info->sprites_amount[i].tex_num = mlx_info->map_s[x][y];
+	printf("X = %d, Y = %d, texture_number %d\n", x, y, mlx_info->map_s[x][y]);
+	mlx_info->map[x][y] = 0;
 }
