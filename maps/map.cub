@@ -1,9 +1,9 @@
-NO ./assets/wall_thingy.xpm
-WE ./assets/SPACE.xpm
-F 120,190,33
-      EA ./assets/beach.xpm
-C             155,211,223
-SO ./assets/wall_2.xpm
+NO ./assets/back_wat.xpm
+WE ./assets/skeleton.xpm
+F 242,210,169
+      EA ./assets/wat_3.xpm
+C            15,94,156
+SO ./assets/wat_2.xpm
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/19 14:30:48 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/20 23:05:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,20 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 		mlx_info->unique_prop.dir_x = -1;
 		mlx_info->unique_prop.dir_y = 0;
 		mlx_info->unique_prop.plane_x = 0;
-		mlx_info->unique_prop.plane_y = 0.50;
+		mlx_info->unique_prop.plane_y = 0.66;
 	}
 	else if (c == 'W')
 	{
 		mlx_info->unique_prop.dir_x = 0;
 		mlx_info->unique_prop.dir_y = -1;
-		mlx_info->unique_prop.plane_x = -0.50;
+		mlx_info->unique_prop.plane_x = -0.66;
 		mlx_info->unique_prop.plane_y = 0;
 	}
 	else if (c == 'E')
 	{
 		mlx_info->unique_prop.dir_x = 0;
 		mlx_info->unique_prop.dir_y = 1;
-		mlx_info->unique_prop.plane_x = 0.50;
+		mlx_info->unique_prop.plane_x = 0.66;
 		mlx_info->unique_prop.plane_y = 0;
 	}
 	else if (c == 'S')
@@ -123,7 +123,7 @@ void	set_direction(t_mlx_info *mlx_info, char c)
 		mlx_info->unique_prop.dir_x = 1;
 		mlx_info->unique_prop.dir_y = 0;
 		mlx_info->unique_prop.plane_x = 0;
-		mlx_info->unique_prop.plane_y = -0.50;
+		mlx_info->unique_prop.plane_y = -0.66;
 	}
 }
 

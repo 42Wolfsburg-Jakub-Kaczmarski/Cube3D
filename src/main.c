@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 18:10:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:11:36 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,30 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->keys.right_arrow = false;
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
+	mlx_info->window_width = 840;
+	mlx_info->window_height = 640;
 	mlx_info->unique_prop.rot_speed = 0.05;
 	mlx_info->unique_prop.move_speed = 0.09;
 	mlx_info->unique_prop.tex_width = 200;
 	mlx_info->unique_prop.tex_height = 200;
-	mlx_info->mlx_imgs = calloc(4, sizeof(void *));
+	mlx_info->mlx_imgs = calloc(10, sizeof(void *));
 	mlx_info->mouse = false;
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx,
 			mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
 
+int	play_theme_song(t_mlx_info *mlx_info)
+{
+	mlx_info->pid = fork();
+	const char *args[] = {AUDIO, "./music/music_water.wav", NULL};
+	if(mlx_info->pid == 0)
+	{
+		execvp(args[0],(char **)args);
+		exit(1);
+		// kill(pid, SIGKILL);
+	}
+	return 0;
+}
 //To be implemented
 // void	sort_sprites(t_mlx_info *mlx_info)
 // {}
@@ -57,6 +71,7 @@ int	main(int argc, char **argv)
 		free_2d_array(mlx_info.texture_paths);
 		return (-1);
 	}
+	play_theme_song(&mlx_info);
 	load_images(&mlx_info);
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);
@@ -66,5 +81,6 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx_info.main_win, 3, 0, key_is_released, &mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
+
 
 ///I need to fix the freeing when there is an error

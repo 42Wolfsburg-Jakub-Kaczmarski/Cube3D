@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 17:34:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:11:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+#include <signal.h>
 # define BUFFER_SIZE 1000
 # if defined(__linux__)
 #  define AUDIO "/usr/bin/aplay"
@@ -48,6 +49,11 @@ typedef struct s_sprite
 	int		tex_num;
 } t_sprite;
 
+typedef	struct s_pair
+{
+	int	first;
+	int	second;
+} t_pair;
 
 typedef struct s_image_s
 {
@@ -232,7 +238,11 @@ typedef struct s_info_mlx
 	char			**texture_paths;
 	t_sprite_data	*sprites;
 	bool			mouse;
+<<<<<<< HEAD
 	t_keys			keys;
+=======
+	int				pid;
+>>>>>>> b04a0517530673658297e2ca32ec335fa38428d8
 }					t_mlx_info;
 
 // Movement

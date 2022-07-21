@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 18:08:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:10:58 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	key_is_pressed(int keycode, void *mlx)
 	if (keycode == 53)
 	{
 		mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
+		kill(mlx_info->pid, SIGKILL);
 		exit(1);
 	}
 	return (0);

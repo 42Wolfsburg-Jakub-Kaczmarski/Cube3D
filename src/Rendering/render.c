@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 18:29:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:13:30 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,49 @@ void	check_side_xy(t_mlx_info *mlx_info)
 	check_side_y(mlx_info);
 }
 
+void	sorting_sprite_set(t_mlx_info *mlx_info)
+{
+	t_pair *arr = ft_calloc(mlx_info->sprites->sprite_count,sizeof(t_pair));
+	int i = 0;
+	while(i < mlx_info->sprites->sprite_count)
+	{
+		arr[i].first = mlx_info->sprites->sprite_distance[i];
+		arr[i].second = mlx_info->sprites->sprite_order[i];
+		i++;
+	}
+	//Sort this like std::sort so if([i].frst + [i].second ) < [i].first + [i].second(
+		//Swap
+	i = 0;
+	
+	t_pair temp;
+	while(i < mlx_info->sprites->sprite_count - 1)
+	{
+		int j = 0;
+		while(j < mlx_info->sprites->sprite_count - i -1)
+		{
+			if(arr[j].first + arr[j].second > arr[j + 1].first + arr[j + 1].second)
+			{
+				temp.first = arr[j + 1].first;
+				temp.second = arr[j + 1].second;
+				arr[j + 1].first = arr[j].first;
+				arr[j + 1].second = arr[j].second;
+				arr[j].first = temp.first;
+				arr[j].second = temp.second;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+
+	while(i < mlx_info->sprites->sprite_count)
+	{
+		mlx_info->sprites->sprite_distance[i] = arr[mlx_info->sprites->sprite_count - i - 1].first;
+		mlx_info->sprites->sprite_order[i] = arr[mlx_info->sprites->sprite_count - i - 1].second;
+		i++;
+	}
+}
+
 void	sort_sprites(t_mlx_info	*mlx_info)
 {
 	int i = 0;
@@ -93,7 +136,8 @@ void	sort_sprites(t_mlx_info	*mlx_info)
 		mlx_info->sprites->sprite_order[i] = i;
 		mlx_info->sprites->sprite_distance[i] = ((mlx_info->unique_prop.pos_x - mlx_info->sprites->sprite_arr[i].x) * (mlx_info->unique_prop.pos_x - mlx_info->sprites->sprite_arr[i].x)  + (mlx_info->unique_prop.pos_y - mlx_info->sprites->sprite_arr[i].y) * (mlx_info->unique_prop.pos_y - mlx_info->sprites->sprite_arr[i].y));
 		i++;
-	}	
+	}
+	sorting_sprite_set(mlx_info);
 }
 
 void	calc_sprite_height(t_mlx_info *mlx_info)
@@ -112,10 +156,9 @@ void	calc_sprite_height(t_mlx_info *mlx_info)
 	}
 }
 
-void	calculate_sprite_widht(t_mlx_info *mlx_info)
+void	calculate_sprite_width(t_mlx_info *mlx_info)
 {
 	mlx_info->sprites->spriteWidth = abs((int)(mlx_info->window_height / mlx_info->sprites->transformY)) / mlx_info->sprites->uDiv;
-
 	mlx_info->sprites->drawStartX = -mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX;
 	if(mlx_info->sprites->drawStartX < 0)
 		mlx_info->sprites->drawStartX = 0;
@@ -160,34 +203,39 @@ void sprite_loop(t_mlx_info *mlx_info)
 }
 void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 {
+
 	mlx_info->sprites->sprite_x = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].x 
-		- mlx_info->unique_prop.pos_x; 
+		- mlx_info->unique_prop.pos_x;
+	// printf("Sprite X %f\n", mlx_info->sprites->sprite_x);
 	mlx_info->sprites->sprite_y = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].y 
 		- mlx_info->unique_prop.pos_y; 
-
-	mlx_info->sprites->invDet = 1.0 / (mlx_info->unique_prop.plane_x * 
+	// printf("Sprite Y %f\n", mlx_info->sprites->sprite_y);
+	// printf("%f %f\n",  mlx_info->sprites->sprite_x, mlx_info->sprites->sprite_y);
+	mlx_info->sprites->invDet = 1.0	 / (mlx_info->unique_prop.plane_x * 
 		mlx_info->unique_prop.dir_y - mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
-
-	
+	//Its fucked up somewhere here :))
+		// printf("%f %f\n", mlx_info->unique_prop.dir_y, mlx_info->unique_prop.dir_x);
 	mlx_info->sprites->transformX = mlx_info->sprites->invDet * (mlx_info->unique_prop.dir_y * mlx_info->sprites->sprite_x 
 			- mlx_info->unique_prop.dir_x * mlx_info->sprites->sprite_y);
 
-	mlx_info->sprites->transformY = mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
+	mlx_info->sprites->transformY =  mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
 	+ mlx_info->unique_prop.plane_x * mlx_info->sprites->sprite_y);
 	
 	// printf("Transform X %f\n", mlx_info->sprites->transformX);
 	// printf("Transform Y %f\n", mlx_info->sprites->transformY);
-	mlx_info->sprites->spriteScreenX = (int)((int)(mlx_info->window_width / 2) 
-	* ((int)1.0 + mlx_info->sprites->transformX / mlx_info->sprites->transformY));
+	double tmp = mlx_info->sprites->transformX /  mlx_info->sprites->transformY;
+	// printf("%f\n", tmp);
+	mlx_info->sprites->spriteScreenX = (int)((mlx_info->window_width / 2) * (1 + tmp));
+	// mlx_info->sprites->spriteScreenX = (mlx_info->window_width / 2) * (1.0 + (mlx_info->sprites->transformX / mlx_info->sprites->transformY));
 	
-	mlx_info->sprites->uDiv = 2;
-	mlx_info->sprites->vDiv = 2;
-	mlx_info->sprites->vMove = 0.0;
+	mlx_info->sprites->uDiv = 1;
+	mlx_info->sprites->vDiv = 1;
+	mlx_info->sprites->vMove = 0.00;
 	mlx_info->sprites->move_screen = (int)(mlx_info->sprites->vMove / mlx_info->sprites->transformY);
 	calc_sprite_height(mlx_info);
 
 	//Sprite width
-	calculate_sprite_widht(mlx_info);
+	calculate_sprite_width(mlx_info);
 
 	sprite_loop(mlx_info);
 
@@ -203,7 +251,33 @@ void	sprite_casting(t_mlx_info *mlx_info)
 		i++;
 	}
 }
-
+// void	sword_casting(t_mlx_info *mlx_info)
+// {
+// 	int start_x = mlx_info->window_width / 2;
+// 	int start_y = 0;
+// 	int x = 0;
+// 		t_render_vars	v;
+// 	int y = 0;
+// 	while(x < mlx_info->texture_data[9].height)
+// 	{
+// 		y = 0;
+// 		start_y = 0;
+// 		while(y < mlx_info->texture_data[9].width)
+// 		{
+// 			v.color = *mlx_info->texture_data[4].arr_color[y][x];
+// 			add_transperency_to_colour(&v);
+// 			v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
+// 			if((v.pix != 0x393c3e && v.pix != 0xFCFDFF))
+// 			{
+// 				// better_pixel_put(&mlx_info->main_img,start_x, start_y, v.pix);
+// 			}
+// 			start_y++;
+// 			x++;
+// 		};
+// 		start_x++;
+// 		y++;
+// 	}
+// }
 void	render(t_mlx_info *mlx_info)
 {
 	int	x;
@@ -226,6 +300,9 @@ void	render(t_mlx_info *mlx_info)
 		x++;
 	}
 	sprite_casting(mlx_info);
+	
+	// sword_casting(mlx_info);
 	mlx_put_image_to_window(
 		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);
+	mlx_put_image_to_window(mlx_info->mlx, mlx_info->main_win, mlx_info->mlx_imgs[9], mlx_info->window_width/ 2 - mlx_info->texture_data[9].width / 2, mlx_info->window_height - mlx_info->texture_data[9].height);
 }

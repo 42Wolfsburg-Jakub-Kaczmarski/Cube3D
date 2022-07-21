@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:53:25 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 16:28:44 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:18:50 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,26 @@ void	load_sprites(t_mlx_info *mlx_info)
 
 void	init_sprites(t_mlx_info *mlx_info)
 {
-	if(mlx_info){}
 	mlx_info->sprites = calloc(10,sizeof(t_sprite_data));
-	mlx_info->sprites->sprite_arr = calloc(10, sizeof(t_sprite*));
-	// mlx_info->sprites->sprite_arr[0].x = 5;
-	// mlx_info->sprites->sprite_arr[0].y = 5;
-	// mlx_info->sprites->sprite_arr[0].tex_num = 4;
-	// mlx_info->sprites->sprite_arr[1].x = 10;
-	// mlx_info->sprites->sprite_arr[1].y = 7;
+	mlx_info->sprites->sprite_arr = calloc(10, sizeof(t_sprite));
 	mlx_info->sprites->sprite_arr[0].x = 6;
 	mlx_info->sprites->sprite_arr[0].y = 15;
 	mlx_info->sprites->sprite_arr[0].tex_num = 4;
-	// mlx_info->sprites->sprite_arr[1].tex_num = 4;
-	mlx_info->sprites->sprite_count = 1;
-	//To be changed z_buff size
-	mlx_info->sprites->z_buff = ft_calloc(1000, sizeof(double));
+	mlx_info->sprites->sprite_arr[1].x = 10;
+	mlx_info->sprites->sprite_arr[1].y = 7;
+	mlx_info->sprites->sprite_arr[1].tex_num = 4;
+	mlx_info->sprites->sprite_arr[2].x = 5;
+	mlx_info->sprites->sprite_arr[2].y = 5;
+	mlx_info->sprites->sprite_arr[2].tex_num = 4;
+	mlx_info->sprites->sprite_arr[3].x = 5;
+	mlx_info->sprites->sprite_arr[3].y = 7;
+	mlx_info->sprites->sprite_arr[3].tex_num = 4;
+	mlx_info->sprites->sprite_arr[4].x = 6;
+	mlx_info->sprites->sprite_arr[4].y = 9;
+	mlx_info->sprites->sprite_arr[4].tex_num = 4;
+	mlx_info->sprites->sprite_count = 5;
+	
+	mlx_info->sprites->z_buff = ft_calloc(mlx_info->window_width, sizeof(double));
 	mlx_info->sprites->sprite_order = ft_calloc(mlx_info->sprites->sprite_count, sizeof(int));
 	mlx_info->sprites->sprite_distance = ft_calloc(mlx_info->sprites->sprite_count, sizeof(double));
 }
