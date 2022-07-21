@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 17:00:58 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:20:02 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	load_images(t_mlx_info *mlx_info)
 	mlx_info->mlx_imgs = calloc(12, sizeof(void *));
 	mlx_info->texture_data = calloc(12, sizeof(*mlx_info->texture_data));
 	mlx_info->im = malloc(12 * sizeof(t_temp_img));
+	// printf("Img thingy %d", mlx_info->texture_data.);
 	while (i < 4)
 	{
 		mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,

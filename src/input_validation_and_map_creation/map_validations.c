@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/21 18:46:25 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:30:52 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ int	get_number_of_sprites(t_mlx_info *mlx_info)
 		i++;
 	}
 	printf("Sprites: %d\n", counter);
+	
 	mlx_info->sprites_amount = calloc(counter, sizeof(t_sprite));
+	mlx_info->sprites = calloc(1,sizeof(t_sprite_data));
+	mlx_info->sprites->sprite_count = counter;
+	mlx_info->sprites->sprite_arr = ft_calloc(counter,sizeof(t_sprite));
 	return (1);
 }
