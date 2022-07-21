@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/20 22:49:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 01:57:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	// printf("Transform Y %f\n", mlx_info->sprites->transformY);
 	double tmp = mlx_info->sprites->transformX /  mlx_info->sprites->transformY;
 	// printf("%f\n", tmp);
-	mlx_info->sprites->spriteScreenX = (mlx_info->window_width / 2) * (1 + tmp);
+	mlx_info->sprites->spriteScreenX = (int)((mlx_info->window_width / 2) * (1 + tmp));
 	// mlx_info->sprites->spriteScreenX = (mlx_info->window_width / 2) * (1.0 + (mlx_info->sprites->transformX / mlx_info->sprites->transformY));
 	
 	mlx_info->sprites->uDiv = 2;
