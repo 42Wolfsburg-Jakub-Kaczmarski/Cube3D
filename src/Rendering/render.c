@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 17:13:30 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:59:18 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	sorting_sprite_set(t_mlx_info *mlx_info)
 		arr[i].second = mlx_info->sprites->sprite_order[i];
 		i++;
 	}
-	//Sort this like std::sort so if([i].frst + [i].second ) < [i].first + [i].second(
-		//Swap
 	i = 0;
 	
 	t_pair temp;
@@ -167,23 +165,23 @@ void	calculate_sprite_width(t_mlx_info *mlx_info)
 	if(mlx_info->sprites->drawEndX >= mlx_info->window_width)
 		mlx_info->sprites->drawEndX  = mlx_info->window_width - 1;
 }
-void sprite_loop(t_mlx_info *mlx_info)
+void sprite_loop(t_mlx_info *mlx_info, int i)
 {
 	t_render_vars	v;
 	int stripe = mlx_info->sprites->drawStartX;
 
 	while(stripe < mlx_info->sprites->drawEndX)
 	{
-		int texX = (256 * (stripe - (-mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX)) * mlx_info->texture_data[4].width / mlx_info->sprites->spriteWidth) / 256;
+		int texX = (256 * (stripe - (-mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX)) * mlx_info->texture_data[i].width / mlx_info->sprites->spriteWidth) / 256;
 		if(mlx_info->sprites->transformY > 0 && stripe > 0 && stripe < mlx_info->window_width && mlx_info->sprites->transformY < mlx_info->sprites->z_buff[stripe])
 		{
 			int y = mlx_info->sprites->DrawStartY;
 			while(y < mlx_info->sprites->DrawEndY)
 			{
 				int d = (y - mlx_info->sprites->move_screen) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
-				int texY = ((d * mlx_info->texture_data[4].height) / mlx_info->sprites->spriteHeight) / 256;
+				int texY = ((d * mlx_info->texture_data[i].height) / mlx_info->sprites->spriteHeight) / 256;
 				
-				v.color = *mlx_info->texture_data[4].arr_color[texX][texY];
+				v.color = *mlx_info->texture_data[i].arr_color[texX][texY];
 				add_transperency_to_colour(&v);
 				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
 				if(y >=  mlx_info->window_height || y < 0)
@@ -203,7 +201,14 @@ void sprite_loop(t_mlx_info *mlx_info)
 }
 void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 {
-
+	// int k = 0;
+	// while(k < mlx_info->sprites->sprite_count)
+	// {
+	// 	printf("X %f\n",mlx_info->sprites->sprite_arr[k].x);
+	// 	printf("Y %f\n",mlx_info->sprites->sprite_arr[k].y);
+	// 	printf("Tx %d\n",mlx_info->sprites->sprite_arr[k].tex_num);
+	// 	k++;
+	// }
 	mlx_info->sprites->sprite_x = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].x 
 		- mlx_info->unique_prop.pos_x;
 	// printf("Sprite X %f\n", mlx_info->sprites->sprite_x);
@@ -237,7 +242,7 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	//Sprite width
 	calculate_sprite_width(mlx_info);
 
-	sprite_loop(mlx_info);
+	sprite_loop(mlx_info,  mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].tex_num);
 
 }
 
@@ -247,6 +252,7 @@ void	sprite_casting(t_mlx_info *mlx_info)
 	int i = 0;
 	while(i < mlx_info->sprites->sprite_count)
 	{
+		// printf("%d Tex num in the loop\n", mlx_info->sprites->sprite_arr[i].tex_num);
 		sprite_init_loop(mlx_info, i);
 		i++;
 	}
@@ -300,7 +306,6 @@ void	render(t_mlx_info *mlx_info)
 		x++;
 	}
 	sprite_casting(mlx_info);
-	
 	// sword_casting(mlx_info);
 	mlx_put_image_to_window(
 		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);

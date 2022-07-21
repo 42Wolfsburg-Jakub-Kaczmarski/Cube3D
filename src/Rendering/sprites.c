@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:53:25 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 21:31:04 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:45:35 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	load_sprites(t_mlx_info *mlx_info)
 {
 		int i = 4;
 		//Replace add more paths to texture paths :)
-		char **str = ft_calloc(3, sizeof(char *));
+		char **str = ft_calloc(4, sizeof(char *));
 		str[0] = ft_strdup("./assets/cat_fighter.xpm");
 		str[1] = ft_strdup("./assets/fish.xpm");
 		str[2] = ft_strdup("./assets/fish.xpm");
@@ -38,7 +38,7 @@ void	load_sprites(t_mlx_info *mlx_info)
 			j++;
 			i++;
 		}
-		// i++;
+		free_2d_array(str);
 }
 
 void	init_sprites(t_mlx_info *mlx_info)

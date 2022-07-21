@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 18:11:36 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/21 21:43:51 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 		free_2d_array(mlx_info.texture_paths);
 		return (-1);
 	}
-	play_theme_song(&mlx_info);
+	// play_theme_song(&mlx_info);
 	load_images(&mlx_info);
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);
