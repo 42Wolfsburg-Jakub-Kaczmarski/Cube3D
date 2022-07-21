@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 21:59:18 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 22:16:08 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,12 @@ void sprite_loop(t_mlx_info *mlx_info, int i)
 				if(y >=  mlx_info->window_height || y < 0)
 				{
 					y++;
-				}else if((v.pix != 0x393c3e && v.pix != 0xFCFDFF))
+				}else if((v.pix != 0x393c3e && v.pix != 0xFCFDFF && v.pix != 0x00000))
 				{
 					// printf("Y val %d\n", y);
 					// printf("X val %d\n", stripe);
-					better_pixel_put(&mlx_info->main_img,stripe, y, v.pix);
+						better_pixel_put(&mlx_info->main_img,stripe, y, v.pix);
+						
 				}
 				y++;
 			}

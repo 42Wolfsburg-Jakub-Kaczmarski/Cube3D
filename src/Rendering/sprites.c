@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:53:25 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 21:45:35 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 22:16:42 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	load_sprites(t_mlx_info *mlx_info)
 		//Replace add more paths to texture paths :)
 		char **str = ft_calloc(4, sizeof(char *));
 		str[0] = ft_strdup("./assets/cat_fighter.xpm");
-		str[1] = ft_strdup("./assets/fish.xpm");
+		str[1] = ft_strdup("./assets/cuttlefish.xpm");
 		str[2] = ft_strdup("./assets/fish.xpm");
 		int j = 0;
 		while(i < 7)
