@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/21 21:39:38 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 22:17:56 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void get_sprites_positions(t_mlx_info *mlx_info, int x, int y)
 	{
 		mlx_info->sprites->sprite_arr[i].tex_num = 6;
 	}
-	printf("X = %d, Y = %d, texture_number %d\n", x, y, mlx_info->sprites->sprite_arr[i].tex_num);
+	// printf("X = %d, Y = %d, texture_number %d\n", x, y, mlx_info->sprites->sprite_arr[i].tex_num);
 	i++;
 	mlx_info->map[x][y] = 0;
 }
