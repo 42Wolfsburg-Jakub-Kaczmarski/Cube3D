@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 01:57:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 03:39:32 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,13 @@ void sprite_loop(t_mlx_info *mlx_info)
 }
 void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 {
+
 	mlx_info->sprites->sprite_x = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].x 
-		- mlx_info->unique_prop.pos_x; 
+		- mlx_info->unique_prop.pos_x;
+	printf("Sprite X %f\n", mlx_info->sprites->sprite_x);
 	mlx_info->sprites->sprite_y = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].y 
 		- mlx_info->unique_prop.pos_y; 
+	printf("Sprite Y %f\n", mlx_info->sprites->sprite_y);
 	// printf("%f %f\n",  mlx_info->sprites->sprite_x, mlx_info->sprites->sprite_y);
 	mlx_info->sprites->invDet = 1.0	 / (mlx_info->unique_prop.plane_x * 
 		mlx_info->unique_prop.dir_y - mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
@@ -183,7 +186,7 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	
 	mlx_info->sprites->uDiv = 2;
 	mlx_info->sprites->vDiv = 2;
-	mlx_info->sprites->vMove =00.00;
+	mlx_info->sprites->vMove =200.00;
 	mlx_info->sprites->move_screen = (int)(mlx_info->sprites->vMove / mlx_info->sprites->transformY);
 	calc_sprite_height(mlx_info);
 
