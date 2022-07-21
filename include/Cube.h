@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 17:43:00 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:11:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,16 @@ typedef struct s_sprite_data
 	int			move_screen;
 }	t_sprite_data;
 
+typedef struct s_keys_flags
+{
+	bool w;
+	bool a;
+	bool s;
+	bool d;
+	bool	left_arrow;
+	bool	right_arrow;
+} t_keys;
+
 typedef struct s_info_mlx
 {
 	void			*mlx;
@@ -228,10 +238,18 @@ typedef struct s_info_mlx
 	char			**texture_paths;
 	t_sprite_data	*sprites;
 	bool			mouse;
+<<<<<<< HEAD
+	t_keys			keys;
+=======
 	int				pid;
+>>>>>>> b04a0517530673658297e2ca32ec335fa38428d8
 }					t_mlx_info;
 
 // Movement
+int	key_movement(t_mlx_info *mlx_info);
+int movement(t_mlx_info *data);
+int key_is_pressed(int keycode, void *mlx);
+int key_is_released(int keycode, void *mlx);
 void				key_space(t_mlx_info *mlx_info);
 void				key_w(t_mlx_info *mlx_info);
 void				key_s(t_mlx_info *mlx_info);
@@ -240,7 +258,7 @@ void				key_d(t_mlx_info *mlx_info);
 void				key_right_arr(t_mlx_info *mlx_info, int diff_x);
 void				key_left_arr(t_mlx_info *mlx_info, int diff_x);
 int					key_hook(int keycode, void *mlx);
-int					ft_mouse_tracker(t_mlx_info *window);
+int					mouse_tracker(t_mlx_info *window);
 
 // Rendering
 void				render(t_mlx_info *mlx_info);
