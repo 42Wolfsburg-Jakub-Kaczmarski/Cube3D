@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 18:46:20 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:13:19 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,11 @@ void				switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
 void				get_textures(t_mlx_info *mlx_info);
 int					check_if_tex_exist(t_mlx_info *mlx_info);
 void				free_2d_array(char **arr);
-
+void	sorting_sprite_set(t_mlx_info *mlx_info);
+void	sort_sprites(t_mlx_info	*mlx_info);
+void	calc_sprite_height(t_mlx_info *mlx_info);
+void	calculate_sprite_width(t_mlx_info *mlx_info);
+void    run_bubble_sort(t_mlx_info *mlx_info, t_pair *arr);
 // Get_next_line
 char				*get_next_line(int fd);
 size_t				ft_strlen(const char *ch);

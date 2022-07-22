@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 22:18:14 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:08:20 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->mlx_imgs = calloc(10, sizeof(void *));
 	mlx_info->mouse = false;
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx,
-			mlx_info->window_width, mlx_info->window_height, "Starting point");
+	mlx_info->window_width, mlx_info->window_height, "Starting point");
 }
 
 int	play_theme_song(t_mlx_info *mlx_info)
@@ -44,7 +44,6 @@ int	play_theme_song(t_mlx_info *mlx_info)
 	{
 		execvp(args[0],(char **)args);
 		exit(1);
-		// kill(pid, SIGKILL);
 	}
 	return 0;
 }
@@ -57,9 +56,7 @@ int	main(int argc, char **argv)
 	t_mlx_info	mlx_info;
 
 	if (!file_input_is_okay(argc, argv, &mlx_info))
-	{
 		return (0);
-	}
 	mlx_info.mlx = mlx_init();
 	if (!mlx_info.mlx)
 		return (0);
@@ -81,6 +78,3 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx_info.main_win, 3, 0, key_is_released, &mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
-
-
-///I need to fix the freeing when there is an error

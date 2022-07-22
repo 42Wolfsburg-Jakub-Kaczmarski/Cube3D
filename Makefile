@@ -6,7 +6,7 @@
 #    By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 13:09:57 by kmilchev          #+#    #+#              #
-#    Updated: 2022/07/19 21:55:28 by jkaczmar         ###   ########.fr        #
+#    Updated: 2022/07/22 21:11:20 by jkaczmar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCs =	src/main.c \
 		src/Rendering/raycast.c \
 		src/Rendering/render.c \
 		src/Rendering/sprites.c\
+		src/Rendering/sprite_rendering.c\
 		src/Rendering/drawing.c \
 		src/Rendering/tools.c \
 		src/Movement/keys.c \
