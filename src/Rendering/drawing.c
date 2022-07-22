@@ -6,7 +6,7 @@
 /*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 21:20:02 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:00:48 by jkaczmar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
 		mlx_info->draw_prop.delta_dist_y = fabs(1 / mlx_info->draw_prop.ray_dir_y);
 }
 
+void	load_sword(t_mlx_info	*mlx_info)
+{
+		mlx_info->mlx_imgs[9] = mlx_xpm_file_to_image(mlx_info->mlx,
+				"./assets/sword.xpm",
+				&mlx_info->texture_data[9].width,
+				&mlx_info->texture_data[9].height);
+		mlx_info->im[9].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[9],
+				&mlx_info->im[9].img_bp,
+				&mlx_info->im[9].img_sl,
+				&mlx_info->im[9].img_e);
+		mlx_info->texture_data[9].arr_color = create_color_arr(&mlx_info->im[9],
+				mlx_info->texture_data[9].height,
+				mlx_info->texture_data[9].width);
+		mlx_info->texture_data[9].img_h = mlx_info->mlx_imgs[9];
+
+}
 void	load_images(t_mlx_info *mlx_info)
 {
 	int	i;
@@ -40,7 +56,6 @@ void	load_images(t_mlx_info *mlx_info)
 	mlx_info->mlx_imgs = calloc(12, sizeof(void *));
 	mlx_info->texture_data = calloc(12, sizeof(*mlx_info->texture_data));
 	mlx_info->im = malloc(12 * sizeof(t_temp_img));
-	// printf("Img thingy %d", mlx_info->texture_data.);
 	while (i < 4)
 	{
 		mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
@@ -57,21 +72,7 @@ void	load_images(t_mlx_info *mlx_info)
 		mlx_info->texture_data[i].img_h = mlx_info->mlx_imgs[i];
 		i++;
 	}
-	// 9  is sword
-	i = 9;
-		mlx_info->mlx_imgs[i] = mlx_xpm_file_to_image(mlx_info->mlx,
-				"./assets/sword.xpm",
-				&mlx_info->texture_data[i].width,
-				&mlx_info->texture_data[i].height);
-		mlx_info->im[i].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[i],
-				&mlx_info->im[i].img_bp,
-				&mlx_info->im[i].img_sl,
-				&mlx_info->im[i].img_e);
-		mlx_info->texture_data[i].arr_color = create_color_arr(&mlx_info->im[i],
-				mlx_info->texture_data[i].height,
-				mlx_info->texture_data[i].width);
-		mlx_info->texture_data[i].img_h = mlx_info->mlx_imgs[i];
-
+	load_sword(mlx_info);
 }
 
 
