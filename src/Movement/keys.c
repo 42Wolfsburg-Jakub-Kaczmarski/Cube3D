@@ -6,12 +6,46 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/26 20:59:34 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:22:10 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 #include "../../src/input_validation_and_map_creation/map_validation.h"
+
+enum
+{
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+};
+
+bool is_diagonal(t_mlx_info *mlx_info, int x1, int y1)
+{
+	int x;
+	int y;
+	int diagonal = -1; //put this in struct
+
+	x = mlx_info->unique_prop->pos_x;
+	y = mlx_info->unique_prop->pos_y;
+	if (x - 1 == x1 && y - 1 == y1)
+		diagonal = UP_LEFT;
+	else if (x + 1 == x1 && y - 1 == y1)
+		diagonal = UP_RIGHT;
+	else if (x + 1 == x1 && y + 1 == y1)
+		diagonal = DOWN_RIGHT;
+	else if (x - 1 == x1 && y + 1 == y1)
+		diagonal = DOWN_LEFT;
+	if (diagonal == -1)
+		return (false);
+	return (true);
+}
+
+bool movement_is_allowed(t_mlx_info *mlx_info, int x1, int y1)
+{
+
+}
 
 void	key_w(t_mlx_info *mlx_info)
 {
@@ -24,6 +58,10 @@ void	key_w(t_mlx_info *mlx_info)
 	map_y0 = m->pos_y + (m->dir_y * ((m->move_speed + 0)));
 	if (mlx_info->map[map_x0][map_y0] != 1)
 	{
+		if (!(is_diagonal(mlx_info, map_x0, map_y0) && movement_is_allowed(mlx_info, map_x0, map_y0)))
+		{
+			return ;
+		}
 		m->pos_y += m->dir_y * m->move_speed;
 		m->pos_x += m->dir_x * m->move_speed;
 	}
@@ -121,20 +159,20 @@ void	key_space(t_mlx_info *mlx_info)
 // 	int pos_y;
 // 	int diagonal = -1;
 	
-// 	x = 3;
-// 	y = 3;
-// 	pos_x = 2;
-// 	pos_y = 2;
-// 	if (map[x][y] != 1)
-// 	{
-// 		if (pos_x - 1 == x && pos_y -1 == y)
-// 			diagonal = UP_LEFT;
-// 		else if (pos_x + 1 == x && pos_y - 1 == y)
-// 			diagonal = UP_RIGHT;
-// 		else if (pos_x + 1 == x && pos_y + 1 == y)
-// 			diagonal = DOWN_RIGHT;
-// 		else if (pos_x - 1 == x && pos_y + 1 == y)
-// 			diagonal = DOWN_LEFT;
+	x = 3;
+	y = 3;
+	pos_x = 2;
+	pos_y = 2;
+	if (map[x][y] != 1)
+	{
+		if (pos_x - 1 == x && pos_y -1 == y)
+			diagonal = UP_LEFT;
+		else if (pos_x + 1 == x && pos_y - 1 == y)
+			diagonal = UP_RIGHT;
+		else if (pos_x + 1 == x && pos_y + 1 == y)
+			diagonal = DOWN_RIGHT;
+		else if (pos_x - 1 == x && pos_y + 1 == y)
+			diagonal = DOWN_LEFT;
 		
 // 		printf("Value: %d\n", map[y][x]);
 // 		if (diagonal == 0)
