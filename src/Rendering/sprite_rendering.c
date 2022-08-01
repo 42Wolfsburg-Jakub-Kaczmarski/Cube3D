@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_rendering.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:09:50 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:13:32 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:19:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	sorting_sprite_set(t_mlx_info *mlx_info)
 		mlx_info->sprites->sprite_order[i] = arr[mlx_info->sprites->sprite_count - i - 1].second;
 		i++;
 	}
+	free(arr);
 }
 
 void	sort_sprites(t_mlx_info	*mlx_info)
