@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:13:19 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/01 11:54:17 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ typedef struct s_info_mlx
 	t_keys			keys;
 	int				pid;
 	t_sprite		*sprites_amount;
+	int				diagonal;
 }					t_mlx_info;
 
 // Movement
