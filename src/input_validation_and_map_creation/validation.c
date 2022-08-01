@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/01 14:35:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/01 20:05:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	print_error(int error_code)
 
 ///if it returns 0, everything will have been freed
 //if it returns 1, the map is valid
-//textures and int array need to be freed in the end
+//textures, int array, and sprites info from get_n_of_sprites need to be freed in the end
 int	file_input_is_okay(int argc, char *argv[], t_mlx_info *mlx_info)
 {
 	init_element_booleans(mlx_info);
@@ -97,6 +97,9 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx_info *mlx_info)
 		print_error(mlx_info->error_code);
 		free_2d_safe(&mlx_info->map_s);
 		free_2d_safe(&mlx_info->textures);
+		free(mlx_info->sprites_amount);
+		free(mlx_info->sprites);
+		free(mlx_info->sprites->sprite_arr);
 		return (0);
 	}
 	else
