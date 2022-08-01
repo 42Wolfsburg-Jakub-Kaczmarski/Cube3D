@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/21 18:42:22 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:49:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		arr_len(char **arr);
 void	get_number_of_lines(t_mlx_info *mlx_info);
 int		longest_row(char **map, int rows);
 void	set_error_code(t_mlx_info *mlx_info, int num);
+void	free_sprites(t_mlx_info *mlx_info);
 
 //textures.c
 int		textures_to_arr(t_mlx_info *mlx_info);

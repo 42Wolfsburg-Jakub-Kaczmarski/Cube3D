@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:21 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/17 13:35:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/01 23:36:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_int_map(t_mlx_info	*mlx_info)
 void	free_2d_safe(char ***arr)
 {
 	int	i;
-
+	
 	i = 0;
 	if (*arr)
 	{

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 22:11:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/14 19:36:06 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:48:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,11 @@ int	longest_row(char **map, int rows)
 void	set_error_code(t_mlx_info *mlx_info, int num)
 {
 	mlx_info->error_code = num;
+}
+
+void free_sprites(t_mlx_info *mlx_info)
+{
+	free(mlx_info->sprites_amount);
+	free(mlx_info->sprites);
+	free(mlx_info->sprites->sprite_arr);
 }
