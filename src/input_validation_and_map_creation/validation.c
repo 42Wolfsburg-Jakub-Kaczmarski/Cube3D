@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/21 18:42:26 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:35:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	file_input_is_okay(int argc, char *argv[], t_mlx_info *mlx_info)
 	if (argc != 2 || perform_checks(argv, mlx_info) == 0)
 	{
 		print_error(mlx_info->error_code);
-		free_2d_array(mlx_info->map_s);
-		free_2d_array(mlx_info->textures);
+		free_2d_safe(&mlx_info->map_s);
+		free_2d_safe(&mlx_info->textures);
 		return (0);
 	}
 	else

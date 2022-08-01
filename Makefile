@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+         #
+#    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 13:09:57 by kmilchev          #+#    #+#              #
-#    Updated: 2022/07/22 21:11:20 by jkaczmar         ###   ########.fr        #
+#    Updated: 2022/08/01 14:29:58 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

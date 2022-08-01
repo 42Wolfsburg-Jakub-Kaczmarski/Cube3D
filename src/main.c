@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:08:20 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:37:04 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,16 @@ int	play_theme_song(t_mlx_info *mlx_info)
 int	main(int argc, char **argv)
 {
 	t_mlx_info	mlx_info;
-
+	
 	if (!file_input_is_okay(argc, argv, &mlx_info))
 		return (0);
+	// {
+	// 	free_2d_array(mlx_info.textures);
+	// 	free_2d_int_array(mlx_info.map, &mlx_info);
+	// 	free(mlx_info.sprites_amount);
+	// 	free(mlx_info.sprites);
+	// 	free(mlx_info.sprites->sprite_arr);
+	// }
 	mlx_info.mlx = mlx_init();
 	if (!mlx_info.mlx)
 		return (0);

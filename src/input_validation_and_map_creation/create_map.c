@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/07/21 22:17:56 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:15:51 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	str_to_char_arr(t_mlx_info *mlx_info)
 {
 	char	*line;
 
-	mlx_info->map_s = malloc((mlx_info->file_height + 10) * sizeof(char *));
+	mlx_info->map_s = ft_calloc((mlx_info->file_height + 10), sizeof(char *));
 	while (1)
 	{
 		line = get_next_line(mlx_info->fd);
@@ -71,7 +71,7 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 	char	*new_row;
 
 	data->longest_row = longest_row(data->map_s, data->map_height);
-	new_row = malloc(sizeof(char *) * (data->longest_row + 1));
+	new_row = ft_calloc((data->longest_row + 1), sizeof(char *));
 	while (++i < data->map_height)
 	{
 		while (++j < (int)data->longest_row)
@@ -90,7 +90,7 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 		data->map_s[i] = ft_strdup(new_row);
 		free(new_row);
 		j = -1;
-		new_row = malloc(sizeof(char *) * (data->longest_row + 1));
+		new_row = ft_calloc((data->longest_row + 1), sizeof(char *));
 	}
 	free(new_row);
 }
