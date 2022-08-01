@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/02 00:49:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 01:23:54 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ enum e_ERRORS
 
 //helpers.c
 void	print_2d_array(char **arr);
-void	print_int_map(int **map, t_mlx_info	*mlx_info);
+void	print_int_map(t_mlx_info	*mlx_info);
 void	free_2d_safe(char ***arr);
 void	free_2d_array(char **arr);
 void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info);
