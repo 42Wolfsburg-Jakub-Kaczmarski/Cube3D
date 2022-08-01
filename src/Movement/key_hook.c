@@ -6,11 +6,12 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/01 14:37:59 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:53:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
+#include "../input_validation_and_map_creation/map_validation.h"
 
 int	movement(t_mlx_info *mlx_info)
 {
