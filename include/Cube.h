@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/01 11:54:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:10:14 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ typedef struct s_info_mlx
 	t_keys			keys;
 	int				pid;
 	t_sprite		*sprites_amount;
-	int				diagonal;
+	bool			free_sprites;
 }					t_mlx_info;
 
 // Movement

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/02 00:35:38 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:10:43 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ int	get_number_of_sprites(t_mlx_info *mlx_info)
 	mlx_info->sprites = ft_calloc(1, sizeof(t_sprite_data));
 	mlx_info->sprites->sprite_count = counter;
 	mlx_info->sprites->sprite_arr = ft_calloc(counter, sizeof(t_sprite));
+	mlx_info->free_sprites = true;
 	return (1);
 }

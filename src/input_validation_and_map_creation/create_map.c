@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/01 14:15:51 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:14:45 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	str_to_char_arr2(t_mlx_info *mlx_info, char *line)
 			free(line);
 		}
 		else if (triggered)
+		{
+			free(line);
 			return (set_error_code(mlx_info, NEW_LINE_WITHIN_MAP), 0);
+		}
 		else
 		{
 			mlx_info->map_height++;
