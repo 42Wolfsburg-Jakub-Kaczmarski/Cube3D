@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:48:24 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/21 21:12:42 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/02 02:01:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	get_textures(t_mlx_info *mlx_info)
 	char	*temp;
 
 	i = 0;
-	mlx_info->texture_paths = calloc(sizeof(char *), 4);
+	mlx_info->texture_paths = calloc(sizeof(char *), 5);
 	while (mlx_info->textures[i])
 	{
 		temp = ft_strtrim(mlx_info->textures[i], " ");

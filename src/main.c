@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 01:26:55 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/02 02:01:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ int	main(int argc, char **argv)
 	get_textures(&mlx_info);
 	if (check_if_tex_exist(&mlx_info) == 1)
 	{
+		free_2d_array(mlx_info.textures);
+		free_2d_int_array(mlx_info.map, &mlx_info);
+		free_sprites(&mlx_info);
 		free_2d_array(mlx_info.texture_paths);
 		return (-1);
 	}
