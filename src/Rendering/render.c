@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:17:17 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:31:06 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_img(t_mlx_info *mlx_info)
 {
-	// IF there is a leak it's hereeee :)
 	mlx_info->main_img.img = mlx_new_image(
 			mlx_info->mlx, mlx_info->window_width, mlx_info->window_height);
 	mlx_info->main_img.addr = mlx_get_data_addr(mlx_info->main_img.img,
@@ -85,98 +84,149 @@ void	check_side_xy(t_mlx_info *mlx_info)
 	check_side_y(mlx_info);
 }
 
-void sprite_loop(t_mlx_info *mlx_info, int i)
+int	tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i)
+{
+	int	result;
+
+	result = (256 * (stripe1 - (-mlx_info->sprites->sprite_width / 2
+					+ mlx_info->sprites->sprite_screen_x))
+			* mlx_info->texture_data[i].width
+			/ mlx_info->sprites->sprite_width) / 256;
+	return (result);
+}
+
+int	tex_y_calculation(t_sprite_loop	l, t_mlx_info *mlx_info, int i)
+{
+	int	result;
+
+	result = ((l.d * mlx_info->texture_data[i].height)
+			/ mlx_info->sprites->sprite_height) / 256;
+	return (result);
+}
+
+int	d_calculation(t_sprite_loop	l, t_mlx_info *mlx_info)
+{
+	int	result;
+
+	result = (l.y - mlx_info->sprites->move_screen) * 256
+		- mlx_info->window_height * 128
+		+ mlx_info->sprites->sprite_height * 128;
+	return (result);
+}
+
+bool	check_values(t_mlx_info *mlx_info, t_sprite_loop	l)
+{
+	t_sprite_data	*sprites;
+
+	sprites = mlx_info->sprites;
+	return (sprites->transform_y > 0
+		&& l.stripe > 0
+		&& l.stripe < mlx_info->window_width
+		&& sprites->transform_y < sprites->z_buff[l.stripe]);
+}
+
+void	sprite_loop_ctd(t_mlx_info	*m, t_sprite_loop	*l,
+	int i, t_render_vars	*v)
+{
+	while (l->y < m->sprites->draw_end_y)
+	{
+		l->d = d_calculation(*l, m);
+		l->tex_y = tex_y_calculation(*l, m, i);
+		v->color = *m->texture_data[i].arr_color[l->tex_x][l->tex_y];
+		add_transperency_to_colour(v);
+		v->pix = (v->a << 24) + (v->r << 16) + (v->g << 8) + (v->b);
+		if (l->y >= m->window_height || l->y < 0)
+			l->y++;
+		else if ((v->pix != PIX1 && v->pix != PIX2 && v->pix != PIX3))
+			better_pixel_put(&m->main_img, l->stripe, l->y, v->pix);
+		l->y++;
+	}
+}
+
+void	sprite_loop(t_mlx_info *m, int i)
 {
 	t_render_vars	v;
-	int stripe = mlx_info->sprites->drawStartX;
+	t_sprite_loop	l;
 
-	while(stripe < mlx_info->sprites->drawEndX)
+	l.stripe = m->sprites->draw_start_x;
+	while (l.stripe < m->sprites->draw_end_x)
 	{
-		int texX = (256 * (stripe - (-mlx_info->sprites->spriteWidth / 2 + mlx_info->sprites->spriteScreenX)) * mlx_info->texture_data[i].width / mlx_info->sprites->spriteWidth) / 256;
-		if(mlx_info->sprites->transformY > 0 && stripe > 0 && stripe < mlx_info->window_width && mlx_info->sprites->transformY < mlx_info->sprites->z_buff[stripe])
+		l.tex_x = tex_x_calculation(l.stripe, m, i);
+		if (check_values(m, l))
 		{
-			int y = mlx_info->sprites->DrawStartY;
-			while(y < mlx_info->sprites->DrawEndY)
-			{
-				int d = (y - mlx_info->sprites->move_screen) * 256 - mlx_info->window_height * 128 + mlx_info->sprites->spriteHeight * 128;
-				int texY = ((d * mlx_info->texture_data[i].height) / mlx_info->sprites->spriteHeight) / 256;
-				
-				v.color = *mlx_info->texture_data[i].arr_color[texX][texY];
-				add_transperency_to_colour(&v);
-				v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
-				if(y >=  mlx_info->window_height || y < 0)
-				{
-					y++;
-				}else if((v.pix != 0x393c3e && v.pix != 0xFCFDFF && v.pix != 0x00000))
-						better_pixel_put(&mlx_info->main_img,stripe, y, v.pix);
-				y++;
-			}
+			l.y = m->sprites->draw_start_y;
+			sprite_loop_ctd(m, &l, i, &v);
 		}
-		stripe++;
+		l.stripe++;
 	}
 }
 
 void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 {
-	mlx_info->sprites->sprite_x = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].x 
+	t_sprite_data	*s;
+	double			tmp;
+
+	s = mlx_info->sprites;
+	s->sprite_x = s->sprite_arr[s->sprite_order[i]].x
 		- mlx_info->unique_prop.pos_x;
-	mlx_info->sprites->sprite_y = mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].y 
-		- mlx_info->unique_prop.pos_y; 
-	mlx_info->sprites->invDet = 1.0	 / (mlx_info->unique_prop.plane_x * 
-		mlx_info->unique_prop.dir_y - mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
-	mlx_info->sprites->transformX = mlx_info->sprites->invDet * (mlx_info->unique_prop.dir_y * mlx_info->sprites->sprite_x 
-			- mlx_info->unique_prop.dir_x * mlx_info->sprites->sprite_y);
-
-	mlx_info->sprites->transformY =  mlx_info->sprites->invDet * (-mlx_info->unique_prop.plane_y * mlx_info->sprites->sprite_x 
-	+ mlx_info->unique_prop.plane_x * mlx_info->sprites->sprite_y);
-	
-	double tmp = mlx_info->sprites->transformX /  mlx_info->sprites->transformY;
-
-	mlx_info->sprites->spriteScreenX = (int)((mlx_info->window_width / 2) * (1 + tmp));
-	mlx_info->sprites->uDiv = 1;
-	mlx_info->sprites->vDiv = 1;
-	mlx_info->sprites->vMove = 0.00;
-	mlx_info->sprites->move_screen = (int)(mlx_info->sprites->vMove / mlx_info->sprites->transformY);
+	s->sprite_y = s->sprite_arr[s->sprite_order[i]].y
+		- mlx_info->unique_prop.pos_y;
+	s->inv_det = 1.0 / (mlx_info->unique_prop.plane_x
+			* mlx_info->unique_prop.dir_y
+			- mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
+	s->transform_x = s->inv_det * (mlx_info->unique_prop.dir_y * s->sprite_x
+			- mlx_info->unique_prop.dir_x * s->sprite_y);
+	s->transform_y = s->inv_det * (-mlx_info->unique_prop.plane_y * s->sprite_x
+			+ mlx_info->unique_prop.plane_x * s->sprite_y);
+	tmp = s->transform_x / s->transform_y;
+	s->sprite_screen_x = (int)((mlx_info->window_width / 2) * (1 + tmp));
+	s->u_div = 1;
+	s->v_div = 1;
+	s->v_move = 0.00;
+	s->move_screen = (int)(s->v_move / s->transform_y);
 	calc_sprite_height(mlx_info);
 	calculate_sprite_width(mlx_info);
-	sprite_loop(mlx_info,  mlx_info->sprites->sprite_arr[mlx_info->sprites->sprite_order[i]].tex_num);
-
+	sprite_loop(mlx_info, s->sprite_arr[s->sprite_order[i]].tex_num);
 }
 
 void	sprite_casting(t_mlx_info *mlx_info)
 {
+	int	i;
+
+	i = 0;
 	sort_sprites(mlx_info);
-	int i = 0;
-	while(i < mlx_info->sprites->sprite_count)
+	while (i < mlx_info->sprites->sprite_count)
 	{
 		sprite_init_loop(mlx_info, i);
 		i++;
 	}
 }
 
-void	render(t_mlx_info *mlx_info)
+void	render(t_mlx_info *m)
 {
 	int	x;
 	int	w;
 
 	x = 0;
-	w = mlx_info->window_width;
-	init_img(mlx_info);
-	floor_casting(mlx_info);
+	w = m->window_width;
+	init_img(m);
+	floor_casting(m);
 	while (x < w)
 	{
-		init_for_drawing(mlx_info, x, w);
-		check_side_xy(mlx_info);
-		hit_loop(mlx_info);
-		calculate_wall_dist(mlx_info);
-		calculate_wall_tex_x(mlx_info);
-		get_which_tex(mlx_info);
-		render_textures(mlx_info, x);
-		mlx_info->sprites->z_buff[x] = mlx_info->draw_prop.perp_wall_dist;
+		init_for_drawing(m, x, w);
+		check_side_xy(m);
+		hit_loop(m);
+		calculate_wall_dist(m);
+		calculate_wall_tex_x(m);
+		get_which_tex(m);
+		render_textures(m, x);
+		m->sprites->z_buff[x] = m->draw_prop.perp_wall_dist;
 		x++;
 	}
-	sprite_casting(mlx_info);
+	sprite_casting(m);
 	mlx_put_image_to_window(
-		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);
-	mlx_put_image_to_window(mlx_info->mlx, mlx_info->main_win, mlx_info->mlx_imgs[9], mlx_info->window_width/ 2 - mlx_info->texture_data[9].width / 2, mlx_info->window_height - mlx_info->texture_data[9].height);
+		m->mlx, m->main_win, m->main_img.img, 0, 0);
+	mlx_put_image_to_window(m->mlx, m->main_win, m->mlx_imgs[9],
+		m->window_width / 2 - m->texture_data[9].width / 2,
+		m->window_height - m->texture_data[9].height);
 }

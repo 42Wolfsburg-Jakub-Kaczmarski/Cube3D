@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/03 12:51:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:26:28 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <unistd.h>
 #include <signal.h>
 # define BUFFER_SIZE 1000
+# define PIX1 0x393c3e
+# define PIX2 0xFCFDFF
+# define PIX3 0x00000
 # if defined(__linux__)
 #  define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
@@ -173,6 +176,17 @@ typedef struct s_elements
 	bool	we;
 }					t_elements;
 
+//needed to norminette the function sprite loop
+typedef struct s_sprite_loop
+{
+	t_render_vars	v;
+	int				stripe;
+	int				tex_x;
+	int				tex_y;
+	int				y;
+	int				d;
+}			t_sprite_loop;
+
 typedef struct s_sprite_data
 {
 	double *z_buff;
@@ -182,19 +196,19 @@ typedef struct s_sprite_data
 	int			sprite_count;
 	double	sprite_x;
 	double	sprite_y;
-	double	invDet;
-	double	transformX;
-	double	transformY;
-	int			spriteScreenX;
-	int			spriteHeight;
-	int			DrawStartY;
-	int			DrawEndY;
-	int			spriteWidth;
-	int			drawStartX;
-	int			drawEndX;
-	int			uDiv;
-	int			vDiv;
-	double	vMove;
+	double	inv_det;
+	double	transform_x;
+	double	transform_y;
+	int			sprite_screen_x;
+	int			sprite_height;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			sprite_width;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			u_div;
+	int			v_div;
+	double		v_move;
 	int			move_screen;
 }	t_sprite_data;
 

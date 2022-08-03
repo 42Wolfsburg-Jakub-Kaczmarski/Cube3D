@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 15:25:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:25:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,4 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx_info.main_win, 17, 0, x_close, 0);
 	mlx_loop(mlx_info.mlx);
 }
+
