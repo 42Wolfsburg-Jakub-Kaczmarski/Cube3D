@@ -6,14 +6,13 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:43:28 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:45:18 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:49:19 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 
-
-void free_sprites(t_mlx_info *mlx_info)
+void	free_sprites(t_mlx_info *mlx_info)
 {
 	if (mlx_info->free_sprites)
 	{
@@ -59,7 +58,7 @@ void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info)
 void	free_2d_safe(char ***arr)
 {
 	int	i;
-	
+
 	i = 0;
 	if (*arr)
 	{

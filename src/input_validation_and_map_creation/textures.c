@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/01 23:39:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:48:24 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	textures_to_arr(t_mlx_info *mlx_info)
 {
 	int		i;
 	char	*line;
-	
+
 	mlx_info->textures = ft_calloc((TEXTURES + 1), sizeof(char *));
 	i = 0;
 	while (i < TEXTURES)
