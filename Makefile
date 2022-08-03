@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 13:09:57 by kmilchev          #+#    #+#              #
-#    Updated: 2022/08/02 00:52:13 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/08/03 12:30:11 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCs =	src/main.c \
 		src/input_validation_and_map_creation/textures.c \
 		src/input_validation_and_map_creation/helpers.c \
 		src/input_validation_and_map_creation/helpers_2.c \
+		src/input_validation_and_map_creation/set_direction.c \
 
 OBJs := $(SRCs:.c=.o)
 
