@@ -6,7 +6,7 @@
 #    By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/17 13:09:57 by kmilchev          #+#    #+#              #
-#    Updated: 2022/08/03 12:44:08 by kmilchev         ###   ########.fr        #
+#    Updated: 2022/08/03 14:41:58 by kmilchev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRCs =	src/main.c \
 		src/Rendering/raycast.c \
 		src/Rendering/render.c \
 		src/Rendering/sprites.c\
+		src/Rendering/sprite_casting.c\
+		src/Rendering/sprite_casting_utils.c\
 		src/Rendering/sprite_rendering.c\
 		src/Rendering/drawing.c \
 		src/Rendering/tools.c \
