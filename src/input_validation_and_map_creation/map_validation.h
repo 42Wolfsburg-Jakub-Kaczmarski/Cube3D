@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:30:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:40:03 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		get_number_of_sprites(t_mlx_info *mlx_info);
 int		str_to_char_arr(t_mlx_info *mlx_info);
 int		str_to_char_arr2(t_mlx_info *mlx_info, char *line, int i);
 void	fill_map_with_0(t_mlx_info *mlx_info, int i, int j);
-void	char_to_int_map(t_mlx_info *mlx_info);
+void	char_to_int_map(t_mlx_info *mlx_info, int i, int j);
 
 //validation.c
 void	init_element_booleans(t_mlx_info *mlx_info);

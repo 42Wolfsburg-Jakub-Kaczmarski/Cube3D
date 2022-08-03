@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:30:35 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:39:46 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,32 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 	free(new_row);
 }
 
-void get_sprites_positions(t_mlx_info *mlx_info, int x, int y);
-//Reads from the string array and creates an int array
-void	char_to_int_map(t_mlx_info *mlx_info)
+void	get_sprites_positions(t_mlx_info *mlx_info, int x, int y)
 {
-	int		i;
-	int		j;
+	static int	i = 0;
 
-	i = 0;
-	j = 0;
+	mlx_info->sprites->sprite_arr[i].x = x;
+	mlx_info->sprites->sprite_arr[i].y = y;
+	mlx_info->sprites->sprite_arr[i].tex_num = mlx_info->map_s[x][y];
+	if (mlx_info->sprites->sprite_arr[i].tex_num == 50)
+	{
+		mlx_info->sprites->sprite_arr[i].tex_num = 4;
+	}
+	else if (mlx_info->sprites->sprite_arr[i].tex_num == 51)
+	{
+		mlx_info->sprites->sprite_arr[i].tex_num = 5;
+	}
+	else if (mlx_info->sprites->sprite_arr[i].tex_num == 52)
+	{
+		mlx_info->sprites->sprite_arr[i].tex_num = 6;
+	}
+	i++;
+	mlx_info->map[x][y] = 0;
+}
+
+//Reads from the string array and creates an int array
+void	char_to_int_map(t_mlx_info *mlx_info, int i, int j)
+{
 	mlx_info->map = ft_calloc(mlx_info->map_height, sizeof(int *));
 	while (i < mlx_info->map_height)
 	{
@@ -118,10 +135,8 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 				mlx_info->unique_prop.pos_x = i + 0.25;
 				mlx_info->unique_prop.pos_y = j + 0.25;
 			}
-			else if(ft_strchr(SPRITES, mlx_info->map_s[i][j]) != NULL)
-			{
+			else if (ft_strchr(SPRITES, mlx_info->map_s[i][j]) != NULL)
 				get_sprites_positions(mlx_info, i, j);
-			}
 			else
 				mlx_info->map[i][j] = (mlx_info->map_s[i][j]) - '0';
 			j++;
@@ -129,26 +144,4 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		j = 0;
 		i++;
 	}
-}
-
-//2 = 50 3 = 51 4 = 52 5 = 53
-void get_sprites_positions(t_mlx_info *mlx_info, int x, int y)
-{
-	static int i = 0;
-	mlx_info->sprites->sprite_arr[i].x = x;
-	mlx_info->sprites->sprite_arr[i].y = y;
-	mlx_info->sprites->sprite_arr[i].tex_num = mlx_info->map_s[x][y];
-	if(mlx_info->sprites->sprite_arr[i].tex_num == 50)
-	{
-		mlx_info->sprites->sprite_arr[i].tex_num = 4;
-	}else if(mlx_info->sprites->sprite_arr[i].tex_num == 51)
-	{
-		mlx_info->sprites->sprite_arr[i].tex_num = 5;
-	}else if(mlx_info->sprites->sprite_arr[i].tex_num == 52)
-	{
-		mlx_info->sprites->sprite_arr[i].tex_num = 6;
-	}
-	// printf("X = %d, Y = %d, texture_number %d\n", x, y, mlx_info->sprites->sprite_arr[i].tex_num);
-	i++;
-	mlx_info->map[x][y] = 0;
 }
