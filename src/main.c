@@ -6,10 +6,9 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/03 14:25:44 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:41:00 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/Cube.h"
 #include "../src/input_validation_and_map_creation/map_validation.h"
@@ -32,22 +31,23 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->unique_prop.tex_height = 200;
 	mlx_info->mouse = false;
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx,
-	mlx_info->window_width, mlx_info->window_height, "Бавноразвиващи");
+			mlx_info->window_width, mlx_info->window_height, "Бавноразвиващи");
 }
 
 int	play_theme_song(t_mlx_info *mlx_info)
 {
+	const char	*args[] = {AUDIO, "./music/music_water.wav", NULL};
+
 	mlx_info->pid = fork();
-	const char *args[] = {AUDIO, "./music/music_water.wav", NULL};
-	if(mlx_info->pid == 0)
+	if (mlx_info->pid == 0)
 	{
-		execvp(args[0],(char **)args);
+		execvp(args[0], (char **)args);
 		exit(1);
 	}
-	return 0;
+	return (0);
 }
 
-int x_close(void)
+int	x_close(void)
 {
 	exit(0);
 }
@@ -55,22 +55,18 @@ int x_close(void)
 int	main(int argc, char **argv)
 {
 	t_mlx_info	mlx_info;
-	
+
 	if (!file_input_is_okay(argc, argv, &mlx_info))
-		return (0);
+		return (-1);
 	mlx_info.mlx = mlx_init();
 	if (!mlx_info.mlx)
-		return (0);
+		return (-1);
 	init_main(&mlx_info);
 	get_colors(&mlx_info);
 	get_textures(&mlx_info);
 	if (check_if_tex_exist(&mlx_info) == 1)
 	{
-		printf("The path to xpm file is wrong\n");
-		free_2d_array(mlx_info.textures);
-		free_2d_int_array(mlx_info.map, &mlx_info);
-		free_sprites(&mlx_info);
-		free_2d_array(mlx_info.texture_paths);
+		print_and_free("The path to xpm file is wrong", &mlx_info);
 		return (-1);
 	}
 	play_theme_song(&mlx_info);
@@ -84,4 +80,3 @@ int	main(int argc, char **argv)
 	mlx_hook(mlx_info.main_win, 17, 0, x_close, 0);
 	mlx_loop(mlx_info.mlx);
 }
-

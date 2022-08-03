@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/03 14:26:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:39:09 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,12 @@ void	sort_sprites(t_mlx_info	*mlx_info);
 void	calc_sprite_height(t_mlx_info *mlx_info);
 void	calculate_sprite_width(t_mlx_info *mlx_info);
 void    run_bubble_sort(t_mlx_info *mlx_info, t_pair *arr);
+void	sprite_casting(t_mlx_info *mlx_info);
+int	tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i);
+int	tex_y_calculation(t_sprite_loop	l, t_mlx_info *mlx_info, int i);
+int	d_calculation(t_sprite_loop	l, t_mlx_info *mlx_info);
+bool	check_values(t_mlx_info *mlx_info, t_sprite_loop	l);
+
 // Get_next_line
 char				*get_next_line(int fd);
 size_t				ft_strlen(const char *ch);
@@ -311,6 +317,8 @@ char				*ft_strrchr(const char *s, int c);
 void				*ft_calloc(size_t nmemb, size_t size);
 void	add_transperency_to_colour(t_render_vars *vars);
 
+//helper
+void	print_and_free(char *message, t_mlx_info *mlx_info);
 
 //Sprites 
 void	load_sprites(t_mlx_info *mlx_info);
