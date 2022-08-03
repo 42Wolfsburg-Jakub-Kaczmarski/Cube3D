@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 15:10:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:11:22 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <unistd.h>
 #include <signal.h>
 # define BUFFER_SIZE 1000
+# define MINIMAP_WIDTH 150
+# define MINIMAP_HEIGHT 100
 # if defined(__linux__)
 #  define AUDIO "/usr/bin/aplay"
 # elif defined(__APPLE__)
@@ -212,6 +214,7 @@ typedef struct s_info_mlx
 {
 	void			*mlx;
 	t_image			main_img;
+	t_image			minimap;
 	int				window_width;
 	int				window_height;
 	void			**mlx_imgs;

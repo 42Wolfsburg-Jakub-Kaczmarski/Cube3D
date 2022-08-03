@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:39:16 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:17:17 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:13:05 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,5 @@ void	render(t_mlx_info *mlx_info)
 	mlx_put_image_to_window(
 		mlx_info->mlx, mlx_info->main_win, mlx_info->main_img.img, 0, 0);
 	mlx_put_image_to_window(mlx_info->mlx, mlx_info->main_win, mlx_info->mlx_imgs[9], mlx_info->window_width/ 2 - mlx_info->texture_data[9].width / 2, mlx_info->window_height - mlx_info->texture_data[9].height);
+	mlx_put_image_to_window(mlx_info->mlx, mlx_info->main_win, mlx_info->minimap.img, 0, 0);
 }

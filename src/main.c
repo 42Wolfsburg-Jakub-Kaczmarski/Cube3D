@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 15:25:43 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:10:44 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,82 @@ int x_close(void)
 	exit(0);
 }
 
+void put_background(t_image *minimap)
+{
+	int x = 0, y;
+	while(x < MINIMAP_WIDTH)
+	{
+		y = 0;
+		while(y < MINIMAP_HEIGHT)
+		{
+			better_pixel_put(minimap, x, y, 0x00000000);
+			y++;
+		}
+		x += 1;
+	}
+}
+
+void put_square(t_image *minimap, int x, int y, int color)
+{
+	int i = 0;
+	int j = 0;
+	int temp_y = y;
+	while(i < 10)
+	{
+		j = 0;
+		while(j < 10)
+		{
+			better_pixel_put(minimap, x, y, color);
+			printf("x: %d ", x);
+			printf("y: %d\n", y);
+			y++;
+			j++;
+		}
+		y = temp_y;
+		x++;
+		i++;
+	}	
+}
+
+void frame(t_image *minimap)
+{
+	int x = 0;
+	int y = 0;
+	while(x < MINIMAP_WIDTH)
+	{
+		y = 0;
+		while (y < 10)
+		{
+			better_pixel_put(minimap, x, y, 0x00FFFF00);
+			y++;
+		}
+		y = 90;
+		while(y > 89 && y < MINIMAP_HEIGHT)
+		{
+			printf("y = %d\n", y);
+			better_pixel_put(minimap, x, y, 0x00FFFF00);
+			y++;
+		}
+		// y++;
+		// }
+		x += 1;
+	}
+}
+
+void load_mini_map(t_mlx_info *mlx_info)
+{
+	t_image *minimap;
+	minimap = &(mlx_info->minimap);
+	
+	minimap->img = mlx_new_image(mlx_info->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	// mlx_pixel_put()
+	minimap->addr = mlx_get_data_addr(minimap->img, &(minimap->bits_per_pixel), &(minimap->line_length), &(minimap->endian));
+	put_background(minimap);
+	put_square(minimap, 70, 45, 0x00FF0000);
+	frame(minimap);
+	// better_pixel_put(minimap, 75, 50, 0x00FF0000);
+	// better_pixel_put(minimap, 76, 50, 0x00FF0000);
+}
 int	main(int argc, char **argv)
 {
 	t_mlx_info	mlx_info;
@@ -62,6 +138,12 @@ int	main(int argc, char **argv)
 	if (!mlx_info.mlx)
 		return (0);
 	init_main(&mlx_info);
+
+	load_mini_map(&mlx_info);
+	printf("Player position: y = %d, x = %d\n", (int)mlx_info.unique_prop.pos_x, (int)mlx_info.unique_prop.pos_y);
+	// print_int_map(&mlx_info);
+	
+	
 	get_colors(&mlx_info);
 	get_textures(&mlx_info);
 	if (check_if_tex_exist(&mlx_info) == 1)
@@ -73,7 +155,7 @@ int	main(int argc, char **argv)
 		free_2d_array(mlx_info.texture_paths);
 		return (-1);
 	}
-	play_theme_song(&mlx_info);
+	// play_theme_song(&mlx_info);
 	load_images(&mlx_info);
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);
