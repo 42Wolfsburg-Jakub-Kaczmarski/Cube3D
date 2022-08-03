@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:45:59 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/22 21:00:48 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:56:01 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,43 @@
 
 void	init_for_drawing(t_mlx_info *mlx_info, int x, int w)
 {
-	mlx_info->draw_prop.camera_x = 2 * x / (double)w - 1;
-	mlx_info->draw_prop.ray_dir_x = mlx_info->unique_prop.dir_x
+	t_draw_prop	*draw;
+
+	draw = &(mlx_info->draw_prop);
+	draw->camera_x = 2 * x / (double)w - 1;
+	draw->ray_dir_x = mlx_info->unique_prop.dir_x
 		+ mlx_info->unique_prop.plane_x * mlx_info->draw_prop.camera_x;
-	mlx_info->draw_prop.ray_dir_y = mlx_info->unique_prop.dir_y
-		+ mlx_info->unique_prop.plane_y * mlx_info->draw_prop.camera_x;
-	mlx_info->draw_prop.map_x = (int)mlx_info->unique_prop.pos_x;
-	mlx_info->draw_prop.map_y = (int)mlx_info->unique_prop.pos_y;
-	mlx_info->draw_prop.hit = 0;
-	if (mlx_info->draw_prop.ray_dir_x == 0)
-		mlx_info->draw_prop.delta_dist_x = 1e30;
+	draw->ray_dir_y = mlx_info->unique_prop.dir_y
+		+ mlx_info->unique_prop.plane_y * draw->camera_x;
+	draw->map_x = (int)mlx_info->unique_prop.pos_x;
+	draw->map_y = (int)mlx_info->unique_prop.pos_y;
+	draw->hit = 0;
+	if (draw->ray_dir_x == 0)
+		draw->delta_dist_x = 1e30;
 	else
-		mlx_info->draw_prop.delta_dist_x = fabs(1 / mlx_info->draw_prop.ray_dir_x);
-	if (mlx_info->draw_prop.ray_dir_y == 0)
-		mlx_info->draw_prop.delta_dist_y = 1e30;
+		draw->delta_dist_x = fabs(1 / draw->ray_dir_x);
+	if (draw->ray_dir_y == 0)
+		draw->delta_dist_y = 1e30;
 	else
-		mlx_info->draw_prop.delta_dist_y = fabs(1 / mlx_info->draw_prop.ray_dir_y);
+		draw->delta_dist_y = fabs(1 / draw->ray_dir_y);
 }
 
 void	load_sword(t_mlx_info	*mlx_info)
 {
-		mlx_info->mlx_imgs[9] = mlx_xpm_file_to_image(mlx_info->mlx,
-				"./assets/sword.xpm",
-				&mlx_info->texture_data[9].width,
-				&mlx_info->texture_data[9].height);
-		mlx_info->im[9].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[9],
-				&mlx_info->im[9].img_bp,
-				&mlx_info->im[9].img_sl,
-				&mlx_info->im[9].img_e);
-		mlx_info->texture_data[9].arr_color = create_color_arr(&mlx_info->im[9],
-				mlx_info->texture_data[9].height,
-				mlx_info->texture_data[9].width);
-		mlx_info->texture_data[9].img_h = mlx_info->mlx_imgs[9];
-
+	mlx_info->mlx_imgs[9] = mlx_xpm_file_to_image(mlx_info->mlx,
+			"./assets/sword.xpm",
+			&mlx_info->texture_data[9].width,
+			&mlx_info->texture_data[9].height);
+	mlx_info->im[9].img_data = mlx_get_data_addr(mlx_info->mlx_imgs[9],
+			&mlx_info->im[9].img_bp,
+			&mlx_info->im[9].img_sl,
+			&mlx_info->im[9].img_e);
+	mlx_info->texture_data[9].arr_color = create_color_arr(&mlx_info->im[9],
+			mlx_info->texture_data[9].height,
+			mlx_info->texture_data[9].width);
+	mlx_info->texture_data[9].img_h = mlx_info->mlx_imgs[9];
 }
+
 void	load_images(t_mlx_info *mlx_info)
 {
 	int	i;
@@ -74,7 +77,6 @@ void	load_images(t_mlx_info *mlx_info)
 	}
 	load_sword(mlx_info);
 }
-
 
 void	prep_floor(t_mlx_info *mlx_info, int y)
 {
