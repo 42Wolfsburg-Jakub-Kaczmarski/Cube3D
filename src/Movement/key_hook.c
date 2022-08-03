@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:53:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 02:38:17 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:50:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ int	movement(t_mlx_info *mlx_info)
 	mlx_clear_window(mlx_info->mlx, mlx_info->main_win);
 	render(mlx_info);
 	return (0);
+}
+
+//first check if for diagonal movement
+//second check is for wall collision
+bool	movement_is_allowed(t_mlx_info *mlx_info, int x1, int y1)
+{
+	if (mlx_info->map[x1][(int)mlx_info->unique_prop.pos_y] == 1
+		&& mlx_info->map[(int)mlx_info->unique_prop.pos_x][y1] == 1)
+		return (false);
+	else if (mlx_info->map[x1][y1] == 1)
+		return (false);
+	return (true);
 }
 
 int	key_is_pressed(int keycode, void *mlx)

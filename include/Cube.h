@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 15:10:14 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:51:18 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int	key_movement(t_mlx_info *mlx_info);
 int movement(t_mlx_info *data);
 int key_is_pressed(int keycode, void *mlx);
 int key_is_released(int keycode, void *mlx);
+bool	movement_is_allowed(t_mlx_info *mlx_info, int x1, int y1);
 void				key_space(t_mlx_info *mlx_info);
 void				key_w(t_mlx_info *mlx_info);
 void				key_s(t_mlx_info *mlx_info);

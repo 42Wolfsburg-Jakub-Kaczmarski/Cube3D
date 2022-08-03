@@ -6,24 +6,12 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 14:43:05 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/01 12:56:56 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:50:26 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/Cube.h"
 #include "../../src/input_validation_and_map_creation/map_validation.h"
-
-//first check if for diagonal movement
-//second check is for wall collision
-bool	movement_is_allowed(t_mlx_info *mlx_info, int x1, int y1)
-{
-	if (mlx_info->map[x1][(int)mlx_info->unique_prop.pos_y] == 1
-		&& mlx_info->map[(int)mlx_info->unique_prop.pos_x][y1] == 1)
-		return (false);
-	else if (mlx_info->map[x1][y1] == 1)
-		return (false);
-	return (true);
-}
 
 void	key_w(t_mlx_info *mlx_info)
 {
