@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/02 01:23:54 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:30:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ enum e_ERRORS
 	ELEMENT_POSITIONED_WRONG,
 	WRONG_AMOUNT_OF_ARGUMENTS,
 };
+
+//set_direction.c
+void	set_direction(t_mlx_info *mlx_info, char c);
 
 //helpers.c
 void	print_2d_array(char **arr);
@@ -62,7 +65,7 @@ int		get_number_of_sprites(t_mlx_info *mlx_info);
 
 //create_map.c
 int		str_to_char_arr(t_mlx_info *mlx_info);
-int		str_to_char_arr2(t_mlx_info *mlx_info, char *line);
+int		str_to_char_arr2(t_mlx_info *mlx_info, char *line, int i);
 void	fill_map_with_0(t_mlx_info *mlx_info, int i, int j);
 void	char_to_int_map(t_mlx_info *mlx_info);
 

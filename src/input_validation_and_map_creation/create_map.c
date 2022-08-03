@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:30:38 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/02 15:14:45 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:30:35 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,17 @@ int	str_to_char_arr(t_mlx_info *mlx_info)
 		else
 			break ;
 	}
-	if (str_to_char_arr2(mlx_info, line) == 0)
+	if (str_to_char_arr2(mlx_info, line, 0) == 0)
 		return (0);
 	return (1);
 }
 
 //Reads from file and creates a string array
-int	str_to_char_arr2(t_mlx_info *mlx_info, char *line)
+int	str_to_char_arr2(t_mlx_info *mlx_info, char *line, int i)
 {
-	int		i;
 	bool	triggered;
 
 	triggered = false;
-	i = 0;
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, "\n", 1) == 0)
@@ -98,37 +96,6 @@ void	fill_map_with_0(t_mlx_info *data, int i, int j)
 	free(new_row);
 }
 
-void	set_direction(t_mlx_info *mlx_info, char c)
-{
-	if (c == 'N')
-	{
-		mlx_info->unique_prop.dir_x = -1;
-		mlx_info->unique_prop.dir_y = 0;
-		mlx_info->unique_prop.plane_x = 0;
-		mlx_info->unique_prop.plane_y = 0.66;
-	}
-	else if (c == 'W')
-	{
-		mlx_info->unique_prop.dir_x = 0;
-		mlx_info->unique_prop.dir_y = -1;
-		mlx_info->unique_prop.plane_x = -0.66;
-		mlx_info->unique_prop.plane_y = 0;
-	}
-	else if (c == 'E')
-	{
-		mlx_info->unique_prop.dir_x = 0;
-		mlx_info->unique_prop.dir_y = 1;
-		mlx_info->unique_prop.plane_x = 0.66;
-		mlx_info->unique_prop.plane_y = 0;
-	}
-	else if (c == 'S')
-	{
-		mlx_info->unique_prop.dir_x = 1;
-		mlx_info->unique_prop.dir_y = 0;
-		mlx_info->unique_prop.plane_x = 0;
-		mlx_info->unique_prop.plane_y = -0.66;
-	}
-}
 void get_sprites_positions(t_mlx_info *mlx_info, int x, int y);
 //Reads from the string array and creates an int array
 void	char_to_int_map(t_mlx_info *mlx_info)
@@ -163,6 +130,7 @@ void	char_to_int_map(t_mlx_info *mlx_info)
 		i++;
 	}
 }
+
 //2 = 50 3 = 51 4 = 52 5 = 53
 void get_sprites_positions(t_mlx_info *mlx_info, int x, int y)
 {
