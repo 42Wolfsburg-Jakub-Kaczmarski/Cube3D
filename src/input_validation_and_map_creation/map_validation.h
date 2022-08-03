@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:24:49 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:40:03 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:45:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ void	set_direction(t_mlx_info *mlx_info, char c);
 //helpers.c
 void	print_2d_array(char **arr);
 void	print_int_map(t_mlx_info	*mlx_info);
-void	free_2d_safe(char ***arr);
-void	free_2d_array(char **arr);
-void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info);
 
 //helpers_2.c
 int		count_chars(char *str, char c);
@@ -50,7 +47,6 @@ int		arr_len(char **arr);
 void	get_number_of_lines(t_mlx_info *mlx_info);
 int		longest_row(char **map, int rows);
 void	set_error_code(t_mlx_info *mlx_info, int num);
-void	free_sprites(t_mlx_info *mlx_info);
 
 //textures.c
 int		textures_to_arr(t_mlx_info *mlx_info);
@@ -80,5 +76,11 @@ bool	square_below_exists(t_mlx_info *mlx_info, int i, int j);
 bool	square_above_exists(t_mlx_info *mlx_info, int i, int j);
 bool	square_left_exists(t_mlx_info *mlx_info, int i, int j);
 bool	square_right_exists(t_mlx_info *mlx_info, int i, int j);
+
+//free_utils.c
+void	free_sprites(t_mlx_info *mlx_info);
+void	free_2d_safe(char ***arr);
+void	free_2d_array(char **arr);
+void	free_2d_int_array(int **arr, t_mlx_info	*mlx_info);
 
 #endif
