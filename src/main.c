@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/03 15:41:00 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:09:34 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ int	play_theme_song(t_mlx_info *mlx_info)
 	return (0);
 }
 
-int	x_close(void)
+int	x_close(void *sth)
 {
+	t_mlx_info	*mlx_info;
+
+	mlx_info = sth;
+	kill(mlx_info->pid, SIGKILL);
 	exit(0);
 }
 
@@ -77,6 +81,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(mlx_info.mlx, movement, &mlx_info);
 	mlx_hook(mlx_info.main_win, 2, 0, key_is_pressed, &mlx_info);
 	mlx_hook(mlx_info.main_win, 3, 0, key_is_released, &mlx_info);
-	mlx_hook(mlx_info.main_win, 17, 0, x_close, 0);
+	mlx_hook(mlx_info.main_win, 17, 0, x_close, &mlx_info);
 	mlx_loop(mlx_info.mlx);
 }
