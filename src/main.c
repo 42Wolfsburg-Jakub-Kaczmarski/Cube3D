@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/04 17:09:34 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/09 10:52:47 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->keys.right_arrow = false;
 	mlx_info->window_width = 800;
 	mlx_info->window_height = 500;
-	mlx_info->window_width = 840;
-	mlx_info->window_height = 640;
 	mlx_info->unique_prop.rot_speed = 0.05;
 	mlx_info->unique_prop.move_speed = 0.09;
 	mlx_info->unique_prop.tex_width = 200;
