@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:40:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/10 17:17:16 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:19:39 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,6 @@ void	sprite_loop(t_mlx_info *m, int i)
 	l.stripe = m->sprites->draw_start_x;
 	while (l.stripe < m->sprites->draw_end_x)
 	{
-		// if(l.stripe == 1)
-		// {
-		// 	l.stripe++;
-		// 	continue;
-		// }
-		// if (l.stripe == 2)
-		// {
-		// 	l.stripe++;
-		// 	continue;
-		// }
-		// if (l.stripe == 3)
-		// {
-		// 	l.stripe++;
-		// 	continue;
-		// }
-		// printf("KURWA %d\n", l.stripe);
 		l.tex_x = tex_x_calculation(l.stripe, m, i);
 		if (check_values(m, l))
 		{
@@ -85,9 +69,6 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 		- mlx_info->unique_prop.pos_x;
 	s->sprite_y = s->sprite_arr[s->sprite_order[i]].y
 		- mlx_info->unique_prop.pos_y;
-	// printf("KURWA 1\n");
-	// printf("X %f\n",s->sprite_x );
-	// printf("X %f\n",s->sprite_x );
 	s->inv_det = 1.0 / (mlx_info->unique_prop.plane_x
 			* mlx_info->unique_prop.dir_y
 			- mlx_info->unique_prop.dir_x * mlx_info->unique_prop.plane_y);
@@ -101,13 +82,9 @@ void	sprite_init_loop(t_mlx_info	*mlx_info, int i)
 	s->v_div = 1;
 	s->v_move = 0.00;
 	s->move_screen = (int)(s->v_move / s->transform_y);
-	// printf("KURWA 2\n");
 	calc_sprite_height(mlx_info);
-	// printf("KURWA 3\n");
 	calculate_sprite_width(mlx_info);
-	// printf("KURWA 4\n");
 	sprite_loop(mlx_info, s->sprite_arr[s->sprite_order[i]].tex_num);
-	// printf("KURWA 5\n");
 }
 
 void	sprite_casting(t_mlx_info *mlx_info)
