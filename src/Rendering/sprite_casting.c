@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:40:09 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/10 17:19:39 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:22:13 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,13 @@ void	sprite_loop_ctd(t_mlx_info	*m, t_sprite_loop	*l,
 {
 	while (l->y < m->sprites->draw_end_y)
 	{
-		
 		l->d = d_calculation(*l, m);
 		l->tex_y = tex_y_calculation(*l, m, i);
-		if(l->tex_x < 0)
-		{
+		if (l->tex_x < 0)
 			l->tex_x = 0;
-		}
-		if(l->tex_y < 0)
-		{
+		if (l->tex_y < 0)
 			l->tex_y = 0;
-		}
-		v->color = *m->texture_data[i].arr_color[l->tex_x][l->tex_y];	
+		v->color = *m->texture_data[i].arr_color[l->tex_x][l->tex_y];
 		add_transparency_to_colour(v);
 		v->pix = (v->a << 24) + (v->r << 16) + (v->g << 8) + (v->b);
 		if (l->y >= m->window_height || l->y < 0)
