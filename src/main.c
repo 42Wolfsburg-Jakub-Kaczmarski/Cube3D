@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/09 10:52:47 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:51:59 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 		print_and_free("The path to xpm file is wrong", &mlx_info);
 		return (-1);
 	}
-	play_theme_song(&mlx_info);
+	// play_theme_song(&mlx_info);
 	load_images(&mlx_info);
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);

@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:45:54 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 14:45:59 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:12:16 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 int	tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i)
 {
 	int	result;
-
-	result = (256 * (stripe1 - (-mlx_info->sprites->sprite_width / 2
+	if(mlx_info->sprites->sprite_width == 0)
+	{
+		result = 1;
+	}else
+		result = (256 * (stripe1 - (-mlx_info->sprites->sprite_width / 2
 					+ mlx_info->sprites->sprite_screen_x))
 			* mlx_info->texture_data[i].width
 			/ mlx_info->sprites->sprite_width) / 256;
@@ -26,8 +29,12 @@ int	tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i)
 int	tex_y_calculation(t_sprite_loop	l, t_mlx_info *mlx_info, int i)
 {
 	int	result;
-
-	result = ((l.d * mlx_info->texture_data[i].height)
+	if(mlx_info->sprites->sprite_height == 0)
+	{
+		result = 1;
+	}
+	else
+		result = ((l.d * mlx_info->texture_data[i].height)
 			/ mlx_info->sprites->sprite_height) / 256;
 	return (result);
 }

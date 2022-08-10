@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/03 15:39:09 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:34:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,7 @@ void				*ft_memset(void *ptr, int value, size_t num);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 char				*ft_strrchr(const char *s, int c);
 void				*ft_calloc(size_t nmemb, size_t size);
-void	add_transperency_to_colour(t_render_vars *vars);
+void	add_transparency_to_colour(t_render_vars *vars);
 
 //helper
 void	print_and_free(char *message, t_mlx_info *mlx_info);

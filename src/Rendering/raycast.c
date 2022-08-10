@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkaczmar <jkaczmar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:42:45 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/07/19 16:24:41 by jkaczmar         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:34:30 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	calculate_wall_tex_x(t_mlx_info *mlx_info)
 	}
 }
 
-void	add_transperency_to_colour(t_render_vars *vars)
+void	add_transparency_to_colour(t_render_vars *vars)
 {
 	vars->r = vars->color.r & 0xFF;
 	vars->g = vars->color.g & 0xFF;
@@ -112,7 +112,7 @@ void	render_textures(t_mlx_info *data, int x)
 			v.tex_pos = data->texture_data[prop->texture_num].height - 1;
 		v.color = *data->texture_data[prop->texture_num]
 			.arr_color[prop->tex_x][(int)(v.tex_pos) - 1];
-		add_transperency_to_colour(&v);
+		add_transparency_to_colour(&v);
 		v.pix = (v.a << 24) + (v.r << 16) + (v.g << 8) + (v.b);
 		better_pixel_put(&data->main_img, x, v.y, v.pix);
 		v.y++;
