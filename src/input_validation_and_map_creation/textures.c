@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:28:11 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:48:24 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:19:32 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,30 @@ int	textures_to_arr(t_mlx_info *mlx_info)
 //checks if three colour dimensions are given and if they fall between 0 and 255
 int	check_texture_colours(char *colours)
 {
-	char	**three_colours;
+	char	**three_colors;
 	int		len_arr;
 	int		i;
 
-	three_colours = ft_split(colours, ',');
-	len_arr = arr_len(three_colours);
+	three_colors = ft_split(colours, ',');
+	len_arr = arr_len(three_colors);
 	if (len_arr != 3 || count_chars(colours, ',') != 2)
-		return (free_2d_array(three_colours), 0);
-	if ((ft_strlen(three_colours[0]) > 3 || ft_strlen(three_colours[1]) > 3
-			|| ft_strlen(three_colours[2]) > 3) && three_colours[2][3] != '\n')
-		return (free_2d_array(three_colours), 0);
+		return (free_2d_array(three_colors), 0);
 	i = 0;
 	while (i < len_arr)
 	{
-		if (ft_strncmp(three_colours[i], "0", 1) == 0)
+		if (ft_strncmp(three_colors[i], "0", 1) == 0
+			&& ft_strchr(three_colors[i], '.') == NULL)
 		{
 			i++;
 			continue ;
 		}
-		if (ft_atoi(three_colours[i]) > 255 || ft_atoi(three_colours[i]) <= 0)
-			return (free_2d_array(three_colours), 0);
+		if ((ft_strlen(three_colors[i]) > 3 && three_colors[2][3] != '\n')
+			|| ft_strchr(three_colors[i], '.') != NULL
+			|| ft_atoi(three_colors[i]) > 255 || ft_atoi(three_colors[i]) <= 0)
+			return (free_2d_array(three_colors), 0);
 		i++;
 	}
-	free_2d_array(three_colours);
+	free_2d_array(three_colors);
 	return (1);
 }
 
