@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:48:24 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/02 02:01:28 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:10:20 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i)
 	just_path = ft_strtrim(temp, "\n");
 	mlx_info->texture_paths[i] = ft_strdup(just_path);
 	free(just_path);
+	free(temp);
 }
 
 void	get_textures(t_mlx_info *mlx_info)
@@ -89,7 +90,9 @@ void	get_textures(t_mlx_info *mlx_info)
 			switch_right_tex(mlx_info, temp, 2);
 		else if (ft_strncmp(temp, "SO", 2) == 0)
 			switch_right_tex(mlx_info, temp, 3);
-		free(temp);
+		else if (ft_strncmp(temp, "C", 1) == 0
+			|| ft_strncmp(temp, "F", 1) == 0)
+			free(temp);
 		i++;
 	}
 }
