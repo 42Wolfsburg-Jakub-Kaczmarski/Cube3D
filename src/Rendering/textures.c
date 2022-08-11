@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:48:24 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/11 17:10:20 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:32:02 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i)
 	free(temp);
 	temp = ft_strtrim(just_path, " ");
 	free(just_path);
-	just_path = ft_strtrim(temp, "\n");
+	just_path = ft_strtrim(temp, " \n");
 	mlx_info->texture_paths[i] = ft_strdup(just_path);
 	free(just_path);
 	free(temp);
