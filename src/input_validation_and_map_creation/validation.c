@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:45:50 by kmilchev          #+#    #+#             */
-/*   Updated: 2022/08/03 12:48:57 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:31:40 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 
 int	check_if_file_can_be_opened(char *argv[], t_mlx_info *mlx_info)
 {
+	int	len;
+
+	len = ft_strlen(argv[1]);
+	if (argv[1][len - 1] != 'b'
+		|| argv[1][len - 2] != 'u'
+		|| argv[1][len - 3] != 'c'
+		|| argv[1][len - 4] != '.'
+		|| argv[1][len] != '\0')
+		return (0);
 	mlx_info->fd = open(argv[1], O_RDONLY);
 	if (mlx_info->fd < 0)
 		return (0);

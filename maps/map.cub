@@ -1,7 +1,14 @@
 NO ./assets/back_wat.xpm
 WE ./assets/skeleton.xpm
+
+
+
+
+
+
 F 242,210,169
-      EA ./assets/wat_3.xpm
+      EA                              ./assets/wat_3.xpm             
+
 C            15,94,156
 SO ./assets/wat_2.xpm
 
