@@ -6,7 +6,7 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:37:02 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/10 17:19:50 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:44:56 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_main(t_mlx_info *mlx_info)
 	mlx_info->unique_prop.move_speed = 0.09;
 	mlx_info->unique_prop.tex_width = 200;
 	mlx_info->unique_prop.tex_height = 200;
+	mlx_info->sword_out = -1;
 	mlx_info->mouse = false;
 	mlx_info->main_win = mlx_new_window(mlx_info->mlx,
 			mlx_info->window_width, mlx_info->window_height, "Бавноразвиващи");
@@ -50,6 +51,7 @@ int	x_close(void *sth)
 	t_mlx_info	*mlx_info;
 
 	mlx_info = sth;
+	mlx_destroy_window(mlx_info->mlx, mlx_info->main_win);
 	kill(mlx_info->pid, SIGKILL);
 	exit(0);
 }
@@ -71,10 +73,10 @@ int	main(int argc, char **argv)
 		print_and_free("The path to xpm file is wrong", &mlx_info);
 		return (-1);
 	}
-	play_theme_song(&mlx_info);
 	load_images(&mlx_info);
 	init_sprites(&mlx_info);
 	load_sprites(&mlx_info);
+	play_theme_song(&mlx_info);
 	render(&mlx_info);
 	mlx_loop_hook(mlx_info.mlx, movement, &mlx_info);
 	mlx_hook(mlx_info.main_win, 2, 0, key_is_pressed, &mlx_info);
