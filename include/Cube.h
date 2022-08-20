@@ -6,15 +6,12 @@
 /*   By: kmilchev <kmilchev@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 15:19:52 by jkaczmar          #+#    #+#             */
-/*   Updated: 2022/08/10 16:34:30 by kmilchev         ###   ########.fr       */
+/*   Updated: 2022/08/20 19:45:12 by kmilchev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef CUBE_H
 # define CUBE_H
-
 # include "libft.h"
 # include "mlx.h"
 # include <fcntl.h>
@@ -24,7 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-#include <signal.h>
+# include <signal.h>
 # define BUFFER_SIZE 1000
 # define PIX1 0x393c3e
 # define PIX2 0xFCFDFF
@@ -50,13 +47,13 @@ typedef struct s_sprite
 	double	x;
 	double	y;
 	int		tex_num;
-} t_sprite;
+}	t_sprite;
 
-typedef	struct s_pair
+typedef struct s_pair
 {
 	int	first;
 	int	second;
-} t_pair;
+}	t_pair;
 
 typedef struct s_image_s
 {
@@ -189,16 +186,16 @@ typedef struct s_sprite_loop
 
 typedef struct s_sprite_data
 {
-	double *z_buff;
+	double		*z_buff;
 	int			*sprite_order;
-	double	*sprite_distance;
+	double		*sprite_distance;
 	t_sprite	*sprite_arr;
 	int			sprite_count;
-	double	sprite_x;
-	double	sprite_y;
-	double	inv_det;
-	double	transform_x;
-	double	transform_y;
+	double		sprite_x;
+	double		sprite_y;
+	double		inv_det;
+	double		transform_x;
+	double		transform_y;
 	int			sprite_screen_x;
 	int			sprite_height;
 	int			draw_start_y;
@@ -214,13 +211,13 @@ typedef struct s_sprite_data
 
 typedef struct s_keys_flags
 {
-	bool w;
-	bool a;
-	bool s;
-	bool d;
+	bool	w;
+	bool	a;
+	bool	s;
+	bool	d;
 	bool	left_arrow;
 	bool	right_arrow;
-} t_keys;
+}	t_keys;
 
 typedef struct s_info_mlx
 {
@@ -243,10 +240,12 @@ typedef struct s_info_mlx
 	int				new_lines;
 	int				fd;
 	char			**textures;
+	int				sword_out;
 	t_elements		elements;
 	double			dir;
 	int				**map;
 	int				error_code;
+	int				sword_pid;
 	int				celling_color;
 	int				floor_color;
 	char			**texture_paths;
@@ -259,62 +258,66 @@ typedef struct s_info_mlx
 }					t_mlx_info;
 
 // Movement
-int	key_movement(t_mlx_info *mlx_info);
-int movement(t_mlx_info *data);
-int key_is_pressed(int keycode, void *mlx);
-int key_is_released(int keycode, void *mlx);
+int		key_movement(t_mlx_info *mlx_info);
+int		movement(t_mlx_info *data);
+int		key_is_pressed(int keycode, void *mlx);
+int		key_is_released(int keycode, void *mlx);
 bool	movement_is_allowed(t_mlx_info *mlx_info, int x1, int y1);
-void				key_space(t_mlx_info *mlx_info);
-void				key_w(t_mlx_info *mlx_info);
-void				key_s(t_mlx_info *mlx_info);
-void				key_a(t_mlx_info *mlx_info);
-void				key_d(t_mlx_info *mlx_info);
-void				key_right_arr(t_mlx_info *mlx_info, int diff_x);
-void				key_left_arr(t_mlx_info *mlx_info, int diff_x);
-int					key_hook(int keycode, void *mlx);
-int					mouse_tracker(t_mlx_info *window);
+void	key_space(t_mlx_info *mlx_info);
+void	key_w(t_mlx_info *mlx_info);
+void	key_s(t_mlx_info *mlx_info);
+void	key_a(t_mlx_info *mlx_info);
+void	key_d(t_mlx_info *mlx_info);
+void	key_right_arr(t_mlx_info *mlx_info, int diff_x);
+void	key_left_arr(t_mlx_info *mlx_info, int diff_x);
+int		key_hook(int keycode, void *mlx);
+int		mouse_tracker(t_mlx_info *window);
+int		play_sword_sound(t_mlx_info *mlx_info);
+void	sword_action(t_mlx_info *m);
+void	kill_all(t_mlx_info *mlx_info);
+void	put_sword(t_mlx_info *m);
 
 // Rendering
-void				render(t_mlx_info *mlx_info);
-void				render_textures(t_mlx_info *mlx_info, int x);
-void				better_pixel_put(t_image *data, int x, int y, int color);
-void				init_for_drawing(t_mlx_info *mlx_info, int x, int w);
-void				check_side_xy(t_mlx_info *mlx_info);
-void				hit_loop(t_mlx_info *mlx_info);
-t_color				*set_color_fstr(t_temp_img *img, int x, int y);
-t_color				***create_color_arr(t_temp_img *img, int height, int width);
-void				color_walls(t_mlx_info *mlx_info, int x);
-void				init_img(t_mlx_info *mlx_info);
-void				calculate_wall_tex_x(t_mlx_info *mlx_info);
-void				load_images(t_mlx_info *mlx_info);
-void				prep_floor(t_mlx_info *mlx_info, int y);
-void				floor_casting(t_mlx_info *mlx_info);
-void				get_which_tex(t_mlx_info *mlx_info);
-void				calculate_wall_dist(t_mlx_info *mlx_info);
-int					convert_to_argb(char *colors_str);
-void				get_colors(t_mlx_info *mlx_info);
-void				switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
-void				get_textures(t_mlx_info *mlx_info);
-int					check_if_tex_exist(t_mlx_info *mlx_info);
-void				free_2d_array(char **arr);
+void	render(t_mlx_info *mlx_info);
+void	render_textures(t_mlx_info *mlx_info, int x);
+void	better_pixel_put(t_image *data, int x, int y, int color);
+void	init_for_drawing(t_mlx_info *mlx_info, int x, int w);
+void	check_side_xy(t_mlx_info *mlx_info);
+void	hit_loop(t_mlx_info *mlx_info);
+t_color	*set_color_fstr(t_temp_img *img, int x, int y);
+t_color	***create_color_arr(t_temp_img *img, int height, int width);
+void	color_walls(t_mlx_info *mlx_info, int x);
+void	init_img(t_mlx_info *mlx_info);
+void	calculate_wall_tex_x(t_mlx_info *mlx_info);
+void	load_images(t_mlx_info *mlx_info);
+void	prep_floor(t_mlx_info *mlx_info, int y);
+void	floor_casting(t_mlx_info *mlx_info);
+void	get_which_tex(t_mlx_info *mlx_info);
+void	calculate_wall_dist(t_mlx_info *mlx_info);
+int		convert_to_argb(char *colors_str);
+void	get_colors(t_mlx_info *mlx_info);
+void	switch_right_tex(t_mlx_info *mlx_info, char *temp, int i);
+void	get_textures(t_mlx_info *mlx_info);
+int		check_if_tex_exist(t_mlx_info *mlx_info);
+void	free_2d_array(char **arr);
 void	sorting_sprite_set(t_mlx_info *mlx_info);
 void	sort_sprites(t_mlx_info	*mlx_info);
 void	calc_sprite_height(t_mlx_info *mlx_info);
 void	calculate_sprite_width(t_mlx_info *mlx_info);
-void    run_bubble_sort(t_mlx_info *mlx_info, t_pair *arr);
+void	run_bubble_sort(t_mlx_info *mlx_info, t_pair *arr);
 void	sprite_casting(t_mlx_info *mlx_info);
-int	tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i);
-int	tex_y_calculation(t_sprite_loop	l, t_mlx_info *mlx_info, int i);
-int	d_calculation(t_sprite_loop	l, t_mlx_info *mlx_info);
+int		tex_x_calculation(int stripe1, t_mlx_info *mlx_info, int i);
+int		tex_y_calculation(t_sprite_loop	l, t_mlx_info *mlx_info, int i);
+int		d_calculation(t_sprite_loop	l, t_mlx_info *mlx_info);
 bool	check_values(t_mlx_info *mlx_info, t_sprite_loop	l);
 
 // Get_next_line
-char				*get_next_line(int fd);
-size_t				ft_strlen(const char *ch);
-void				*ft_memset(void *ptr, int value, size_t num);
-void				*ft_memmove(void *dest, const void *src, size_t n);
-char				*ft_strrchr(const char *s, int c);
-void				*ft_calloc(size_t nmemb, size_t size);
+char	*get_next_line(int fd);
+size_t	ft_strlen(const char *ch);
+void	*ft_memset(void *ptr, int value, size_t num);
+void	*ft_memmove(void *dest, const void *src, size_t n);
+char	*ft_strrchr(const char *s, int c);
+void	*ft_calloc(size_t nmemb, size_t size);
 void	add_transparency_to_colour(t_render_vars *vars);
 
 //helper
