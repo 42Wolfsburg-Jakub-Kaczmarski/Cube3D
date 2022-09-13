@@ -1,4 +1,6 @@
 # Cube3D
-Amazing 3d Game
+Amazing 3D Game
+Built using minilbx library and C
+
 
 Part of core curriculum at 42 school :)
